@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>山东省苹果种植适宜性分析报告</title>
+
+    <style>
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            margin: auto;
+            max-width: 1200px;
+            padding: 40px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #1a365d;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 16px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #2b6cb0;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        img {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        th {
+            background: #edf2f7;
+        }
+
+        .risk {
+            background: #fff5f5;
+            padding: 20px;
+            border-left: 6px solid #e53e3e;
+            border-radius: 8px;
+        }
+
+        .advice {
+            background: #f0fff4;
+            padding: 20px;
+            border-left: 6px solid #38a169;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>山东省苹果种植适宜性分析报告</h1>
+
+<h2>报告摘要</h2>
+<p>本报告基于山东省的苹果种植适宜性分析数据生成，旨在为农业产业规划提供指导。</p>
+
+<h2>总体分析</h2>
+<p>山东省整体苹果种植适宜性较为广泛，平均适宜性评分为0.2758，最高适宜性评分为0.6999，最低为0。在市区分布上，德州市、滨州市、潍坊市等地区被认为较为适合种植苹果。</p>
+
+<h2>空间分布分析</h2>
+<p>从空间分析结果可以看出，各市区的适宜性存在差异，高适宜性区域呈局部集聚分布。不同市区的发展潜力、风险水平和适宜性情况也各不相同。</p>
+
+<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/region_map.png">
+
+<h2>市级适宜性排名</h2>
+
+<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png">
+
+<table>
+
+<tr>
+    <th>地区</th>
+    <th>平均得分</th>
+    <th>最大得分</th>
+    <th>最小得分</th>
+</tr>
+
+
+
+<tr>
+    <td>德州市</td>
+    <td>0.4619</td>
+    <td>0.6999</td>
+    <td>0.2613</td>
+</tr>
+
+
+
+<tr>
+    <td>滨州市</td>
+    <td>0.3988</td>
+    <td>0.5659</td>
+    <td>0.19</td>
+</tr>
+
+
+
+<tr>
+    <td>潍坊市</td>
+    <td>0.3371</td>
+    <td>0.664</td>
+    <td>0.1387</td>
+</tr>
+
+
+
+<tr>
+    <td>济南市</td>
+    <td>0.3104</td>
+    <td>0.6011</td>
+    <td>0.1944</td>
+</tr>
+
+
+
+<tr>
+    <td>聊城市</td>
+    <td>0.3027</td>
+    <td>0.6027</td>
+    <td>0.1773</td>
+</tr>
+
+
+
+<tr>
+    <td>淄博市</td>
+    <td>0.2884</td>
+    <td>0.5072</td>
+    <td>0.197</td>
+</tr>
+
+
+
+<tr>
+    <td>东营市</td>
+    <td>0.2757</td>
+    <td>0.5748</td>
+    <td>0.1877</td>
+</tr>
+
+
+
+</table>
+
+<h2>适宜性等级分区图</h2>
+
+<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png">
+
+<h2>市级适宜性波动范围分析</h2>
+
+<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png">
+<h2>重点区域分析</h2>
+<p>在苹果种植适宜性排名中，德州市、滨州市和潍坊市等地位于前列，被认为具有较高的适宜性和发展潜力。</p>
+
+<h2>产业发展建议</h2>
+
+<div class="advice">
+<p>针对不同市区的适宜性特点和风险，建议采取不同的发展策略，例如适度扩大种植规模、加强农业基础设施建设等。</p>
+</div>
+
+<h2>风险提示</h2>
+
+<div class="risk">
+<p>苹果种植存在一定风险，不同区域的风险水平也不同，需要综合考虑生态条件、发展潜力等因素。</p>
+</div>
+
+<h2>模型阈值说明</h2>
+
+<p>
+模型适生阈值为：
+
+<strong>0.148</strong>
+
+当适宜性得分高于该阈值时，模型认为区域具备苹果种植适生性
+</p>
+
+<h2>结论</h2>
+
+<p>综合分析来看，山东省在苹果种植方面具有良好的基础，但仍需根据具体情况制定不同的发展策略以提高种植效益。</p>
+
+</div>
+
+</body>
+</html>

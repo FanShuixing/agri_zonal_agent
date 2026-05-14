@@ -1,0 +1,28 @@
+{
+  "feature_importance": [
+    0.27250617530400967,
+    0.10929582384633117,
+    0.1155029793862335,
+    0.18430856424478284,
+    0.21313186236653558,
+    0.10525459485210728
+  ],
+  "n_features_after_impute": 6,
+  "presence_shape": [
+    1528,
+    6
+  ],
+  "background_shape": [
+    8476,
+    6
+  ],
+  "threshold": 0.14812935189714085,
+  "feature_names": [
+    "bio1_temp",
+    "bio12_rain",
+    "bio5_max_temp_warmest_month",
+    "bio6_min_temp_coldest_month",
+    "bio4_temp_seasonality",
+    "bio15_precip_seasonality"
+  ]
+}

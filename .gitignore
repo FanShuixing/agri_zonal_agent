@@ -1,0 +1,10 @@
+__pvenv/
+__pycache__/
+*.pyc
+.env
+.idea/
+.vscode/
+.DS_Store
+.venv
+__MACOSX
+data/

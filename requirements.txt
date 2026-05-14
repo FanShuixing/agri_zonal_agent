@@ -1,0 +1,12 @@
+deepagents
+tavily-python
+langchain-openai
+langchain
+langchain_core
+numpy
+pandas
+rasterio
+pygbif
+scikit-learn
+geopandas
+shapely

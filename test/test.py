@@ -1,0 +1,105 @@
+{
+    "messages": [
+        HumanMessage(
+            content="输出山东省的苹果种植适宜性地图，并告诉我哪些市区比较适合种植苹果,生成报告。",
+            additional_kwargs={},
+            response_metadata={},
+            id="5ca8f5d1-e0ae-4660-901b-59525c31efa4",
+        ),
+        AIMessage(
+            content="",
+            additional_kwargs={"refusal": None},
+            response_metadata={
+                "token_usage": {
+                    "completion_tokens": 54,
+                    "prompt_tokens": 1931,
+                    "total_tokens": 1985,
+                    "completion_tokens_details": {
+                        "accepted_prediction_tokens": 0,
+                        "audio_tokens": 0,
+                        "reasoning_tokens": 0,
+                        "rejected_prediction_tokens": 0,
+                    },
+                    "prompt_tokens_details": {"audio_tokens": 0, "cached_tokens": 0},
+                },
+                "model_provider": "openai",
+                "model_name": "gpt-3.5-turbo-0125",
+                "system_fingerprint": None,
+                "id": "chatcmpl-Dd8RchxTFwOYxmm2ESvRZ3zpcpcyP",
+                "service_tier": "default",
+                "finish_reason": "tool_calls",
+                "logprobs": None,
+            },
+            id="lc_run--019e0626-2696-7832-830a-e5e2b55133c6-0",
+            tool_calls=[
+                {
+                    "name": "apple_map_tool",
+                    "args": {"region_name": "山东省"},
+                    "id": "call_QhhP6Lalmc7pStwwX8FB2d35",
+                    "type": "tool_call",
+                },
+                {
+                    "name": "city_suitability_analysis_tool",
+                    "args": {"region_name": "山东省"},
+                    "id": "call_ULFltZAnC9Wb4Ji4VdhzbFns",
+                    "type": "tool_call",
+                },
+            ],
+            invalid_tool_calls=[],
+            usage_metadata={
+                "input_tokens": 1931,
+                "output_tokens": 54,
+                "total_tokens": 1985,
+                "input_token_details": {"audio": 0, "cache_read": 0},
+                "output_token_details": {"audio": 0, "reasoning": 0},
+            },
+        ),
+        ToolMessage(
+            content='{"stats": {"mean_score": 0.2758, "max_score": 0.6999, "min_score": 0.0, "high_ratio": 0.0, "medium_ratio": 0.1408, "low_ratio": 0.8592}, "apple_suitability_map_path": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/region_map.png"}',
+            name="apple_map_tool",
+            id="3e7eaad5-1233-440f-a204-071f0d89ca24",
+            tool_call_id="call_QhhP6Lalmc7pStwwX8FB2d35",
+        ),
+        ToolMessage(
+            content="{'region_name': '山东省', 'city_stats': [{'region': '德州市', 'mean_score': 0.4619, 'max_score': 0.6999, 'min_score': 0.2613}, {'region': '滨州市', 'mean_score': 0.3988, 'max_score': 0.5659, 'min_score': 0.19}, {'region': '潍坊市', 'mean_score': 0.3371, 'max_score': 0.664, 'min_score': 0.1387}, {'region': '济南市', 'mean_score': 0.3104, 'max_score': 0.6011, 'min_score': 0.1944}, {'region': '聊城市', 'mean_score': 0.3027, 'max_score': 0.6027, 'min_score': 0.1773}, {'region': '淄博市', 'mean_score': 0.2884, 'max_score': 0.5072, 'min_score': 0.197}, {'region': '东营市', 'mean_score': 0.2757, 'max_score': 0.5748, 'min_score': 0.1877}, {'region': '泰安市', 'mean_score': 0.2686, 'max_score': 0.3712, 'min_score': 0.202}, {'region': '烟台市', 'mean_score': 0.2603, 'max_score': 0.4108, 'min_score': 0.1259}, {'region': '临沂市', 'mean_score': 0.2477, 'max_score': 0.3798, 'min_score': 0.1027}], 'suitability_map_path': PosixPath('/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png'), 'ranking_table_path': PosixPath('/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png'), 'score_range_chart_path': PosixPath('/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png')}",
+            name="city_suitability_analysis_tool",
+            id="213d81de-2ea0-421f-ba19-5ce05dc76163",
+            tool_call_id="call_ULFltZAnC9Wb4Ji4VdhzbFns",
+        ),
+        AIMessage(
+            content='报告已生成完毕，以下是关于山东省苹果种植适宜性的分析报告：\n\n<html>\n<head>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      margin: 0 auto;\n      max-width: 1200px;\n      padding: 20px;\n    }\n    h1 {\n      color: #333;\n    }\n    h2 {\n      color: #444;\n    }\n    p {\n      color: #666;\n    }\n    table {\n      border-collapse: collapse;\n      width: 100%;\n    }\n    th, td {\n      border: 1px solid #ddd;\n      padding: 8px;\n      text-align: left;\n    }\n    th {\n      background-color: #f2f2f2;\n    }\n    img {\n      display: block;\n      margin: 20px auto;\n      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n    }\n  </style>\n</head>\n<body>\n\n<h1>山东省苹果产业空间布局与发展建议报告</h1>\n\n<h2>报告摘要</h2>\n<p>\n整体适宜性水平较低，以及山东省苹果种植适宜性分析结果显示，德州市和滨州市是比较适合种植苹果的市区，其平均适宜性分别为0.4619和0.3988。\n</p>\n\n<h2>区域总体分析</h2>\n<p>\n整体而言，山东省的苹果种植适宜性较低，呈现明显的北部高，南部低的区域性特点。城市间适宜性差异较大，德州市和滨州市适宜性相对较高。\n</p>\n\n<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/region_map.png">\n\n<h2>市级适宜性分析</h2>\n<table>\n  <tr>\n    <th>市区</th>\n    <th>平均适宜性</th>\n    <th>最大适宜性</th>\n    <th>最小适宜性</th>\n  </tr>\n  <tr>\n    <td>德州市</td>\n    <td>0.4619</td>\n    <td>0.6999</td>\n    <td>0.2613</td>\n  </tr>\n  <tr>\n    <td>滨州市</td>\n    <td>0.3988</td>\n    <td>0.5659</td>\n    <td>0.19</td>\n  </tr>\n  <tr>\n    <td>潍坊市</td>\n    <td>0.3371</td>\n    <td>0.664</td>\n    <td>0.1387</td>\n  </tr>\n  <tr>\n    <td>济南市</td>\n    <td>0.3104</td>\n    <td>0.6011</td>\n    <td>0.1944</td>\n  </tr>\n  <tr>\n    <td>聊城市</td>\n    <td>0.3027</td>\n    <td>0.6027</td>\n    <td>0.1773</td>\n  </tr>\n</table>\n\n<h2>排名分析</h2>\n<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png">\n\n<h2>区间分析图</h2>\n<img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png">\n\n<h2>产业布局建议</h2>\n<p>\n建议优先布局在德州市和滨州市，这两个市区适宜性较高，是苹果种植的核心发展区。\n</p>\n\n<h2>风险提示</h2>\n<p>\n当前分析未考虑土壤、灌溉、病虫害、市场和品种因素，种植过程中需要注意这些潜在风险。\n</p>\n\n<h2>结论</h2>\n<p>\n综合分析表明，山东省整体适宜性较低，但德州市和滨州市具备较高的苹果种植适宜性，可以考虑重点发展苹果产业。\n</p>\n\n</body>\n</html>\n\n报告已生成完毕，并展示在上方的 HTML 页面中。报告包含了关于山东省苹果种植适宜性的分析结果，市区适宜性分析表格，排名分析图，区间分析图以及产业布局建议和风险提示等内容。请查阅报告以获取详细信息。',
+            additional_kwargs={"refusal": None},
+            response_metadata={
+                "token_usage": {
+                    "completion_tokens": 1213,
+                    "prompt_tokens": 2581,
+                    "total_tokens": 3794,
+                    "completion_tokens_details": {
+                        "accepted_prediction_tokens": 0,
+                        "audio_tokens": 0,
+                        "reasoning_tokens": 0,
+                        "rejected_prediction_tokens": 0,
+                    },
+                    "prompt_tokens_details": {"audio_tokens": 0, "cached_tokens": 0},
+                },
+                "model_provider": "openai",
+                "model_name": "gpt-3.5-turbo-0125",
+                "system_fingerprint": None,
+                "id": "chatcmpl-Dd8Rh2jQyCUruDebXey7NKhQWD0Aj",
+                "service_tier": "default",
+                "finish_reason": "stop",
+                "logprobs": None,
+            },
+            id="lc_run--019e0626-3bbe-7790-9447-f65a6ef50195-0",
+            tool_calls=[],
+            invalid_tool_calls=[],
+            usage_metadata={
+                "input_tokens": 2581,
+                "output_tokens": 1213,
+                "total_tokens": 3794,
+                "input_token_details": {"audio": 0, "cache_read": 0},
+                "output_token_details": {"audio": 0, "reasoning": 0},
+            },
+        ),
+    ]
+}

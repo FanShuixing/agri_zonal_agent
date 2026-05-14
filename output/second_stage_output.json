@@ -1,0 +1,76 @@
+{
+  "title": "山东省苹果种植适宜性分析报告",
+  "summary": "本报告基于山东省的苹果种植适宜性分析数据生成，旨在为农业产业规划提供指导。",
+  "overall_analysis": "山东省整体苹果种植适宜性较为广泛，平均适宜性评分为0.2758，最高适宜性评分为0.6999。在市区分布上，德州市、滨州市、潍坊市等地区被认为较为适合种植苹果。",
+  "spatial_analysis": "空间分析显示各市区的适宜性存在差异，高适宜性区域呈局部集聚分布。不同市区的发展潜力、风险水平和适宜性情况也各不相同。",
+  "top_regions_analysis": "德州市、滨州市和潍坊市等位于苹果种植适宜性排名前列，具有较高的适宜性和发展潜力。",
+  "industry_advice": "针对不同市区的适宜性特点和风险，建议采取不同的发展策略，如适度扩大种植规模、加强农业基础设施建设。",
+  "risk": "苹果种植存在风险，不同区域的风险水平和稳定性存在差异，需综合考虑生态条件和发展潜力。",
+  "conclusion": "山东省在苹果种植方面具有良好基础，但需因地制宜制定发展策略，以提高种植效益。",
+  "model_threshold": {
+    "value": 0.148,
+    "meaning": "当适宜性得分高于该阈值时，区域具备苹果种植适生性。"
+  },
+  "images": {
+    "apple_suitability_map_path": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/region_map.png",
+    "ranking_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png",
+    "suitability_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png",
+    "range_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png"
+  },
+  "tables": {},
+  "spatial_analysis": {
+      "highly_suitable_regions": {
+          "summary": "高适宜性区域分布集中。",
+          "insights": "这些地区具有显著的种植优势，适宜规模化发展。"
+      },
+      "regional_agglomeration": {
+          "existence": "存在区域集聚特征。",
+          "implication": "可通过产业集群效应推动苹果种植业发展。"
+      },
+      "north_south_differences": {
+          "observation": "南北地区适宜性有所差异。",
+          "explanation": "北部地区可能需要更多关注灌溉等技术。"
+      },
+      "coastal_inland_differences": {
+          "notable_differences": "沿海地区适宜性较内陆偏高。",
+          "significance": "沿海气候、土壤等条件对苹果种植有积极影响。"
+      },
+      "local_high_value_areas": {
+          "identification": "存在局部高值区域。",
+          "reasoning": "这些区域具备特殊优势，可作为产业核心区。"
+      }
+  },
+  "top_regions_analysis": {
+      "region_insights": {
+          "德州市": {
+              "advice": "建议适度扩大种植规模，提升品种优化水平。",
+              "potential": "发展潜力较高。",
+              "risk_level": "风险相对较低，适宜规模化发展。"
+          },
+          "滨州市": {
+              "advice": "推荐提升产业组织化水平，控制扩张速度。",
+              "potential": "具备较高的发展潜力。",
+              "risk_level": "整体种植风险可控，但需注意区域内部适宜性差异。"
+          },
+          "潍坊市": {
+              "advice": "加强水肥管理与病虫害防治工作。",
+              "potential": "适宜规模化发展。",
+              "risk_level": "风险相对较低，适宜作为产业核心区。"
+          }
+      }
+  },
+  "risk": {
+      "internal_stability": {
+          "assessment": "不同区域内部适宜性波动较大。",
+          "implication": "需谨慎评估种植稳定性，避免单一产区风险过大。"
+      },
+      "local_inappropriateness": {
+          "identification": "存在局部不适宜风险。",
+          "impact": "不适宜区域可能影响整体产业发展。"
+      },
+      "ecological_constraints": {
+          "consideration": "需考虑生态约束因素。",
+          "advice": "在生态脆弱区域谨慎开展苹果种植。"
+      }
+  }
+}

@@ -1,0 +1,125 @@
+
+{
+  "title": "山东省苹果种植适宜性分析报告",
+  "summary": "本报告基于山东省的苹果种植适宜性分析数据生成，旨在为农业产业规划提供指导。",
+  "overall_analysis": "山东省整体苹果种植适宜性较为广泛，平均适宜性评分为0.2758，最高适宜性评分为0.6999，最低为0。在市区分布上，德州市、滨州市、潍坊市等地区被认为较为适合种植苹果。",
+  "spatial_analysis": "从空间分析结果可以看出，各市区的适宜性存在差异，高适宜性区域呈局部集聚分布。不同市区的发展潜力、风险水平和适宜性情况也各不相同。",
+  "top_regions_analysis": "在苹果种植适宜性排名中，德州市、滨州市和潍坊市等地位于前列，被认为具有较高的适宜性和发展潜力。",
+  "industry_advice": "针对不同市区的适宜性特点和风险，建议采取不同的发展策略，例如适度扩大种植规模、加强农业基础设施建设等。",
+  "risk": "苹果种植存在一定风险，不同区域的风险水平也不同，需要综合考虑生态条件、发展潜力等因素。",
+  "conclusion": "综合分析来看，山东省在苹果种植方面具有良好的基础，但仍需根据具体情况制定不同的发展策略以提高种植效益。",
+  "model_threshold": {
+    "value": 0.148,
+    "meaning": "当适宜性得分高于该阈值时，模型认为区域具备苹果种植适生性"
+  },
+  "images": {
+    "apple_suitability_map_path": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/region_map.png",
+    "ranking_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png",
+    "suitability_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png",
+    "range_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png"
+  },
+  "tables": {
+    "city_stats": [
+      {
+        "region": "德州市",
+        "mean_score": 0.4619,
+        "max_score": 0.6999,
+        "min_score": 0.2613
+      },
+      {
+        "region": "滨州市",
+        "mean_score": 0.3988,
+        "max_score": 0.5659,
+        "min_score": 0.19
+      },
+      {
+        "region": "潍坊市",
+        "mean_score": 0.3371,
+        "max_score": 0.664,
+        "min_score": 0.1387
+      },
+      {
+        "region": "济南市",
+        "mean_score": 0.3104,
+        "max_score": 0.6011,
+        "min_score": 0.1944
+      },
+      {
+        "region": "聊城市",
+        "mean_score": 0.3027,
+        "max_score": 0.6027,
+        "min_score": 0.1773
+      },
+      {
+        "region": "淄博市",
+        "mean_score": 0.2884,
+        "max_score": 0.5072,
+        "min_score": 0.197
+      },
+      {
+        "region": "东营市",
+        "mean_score": 0.2757,
+        "max_score": 0.5748,
+        "min_score": 0.1877
+      }
+    ],
+    "semantic_insights": [
+      {
+        "region": "济南市",
+        "industry_level": "重点发展区",
+        "threshold_ratio": 2.1,
+        "development_potential": "较高",
+        "risk_level": "较低",
+        "spatial_position": "区域适宜性高于全省平均水平",
+        "climate_comment": "区域具备一定苹果种植基础，但局部生态条件存在一定限制",
+        "development_advice": [
+          "适度扩大苹果种植规模",
+          "加强水肥管理与品种优化",
+          "提升产业组织化水平"
+        ],
+        "risks": [
+          "区域内部适宜性差异较大，需分区布局"
+        ],
+        "spatial_pattern": "适宜性高值区域呈局部集聚分布"
+      },
+      {
+        "region": "临沂市",
+        "industry_level": "一般适宜区",
+        "threshold_ratio": 1.67,
+        "development_potential": "中等",
+        "risk_level": "中等",
+        "spatial_position": "区域适宜性低于全省平均水平",
+        "climate_comment": "区域生态适宜性偏低，苹果种植稳定性可能不足",
+        "development_advice": [
+          "建议开展小规模试种",
+          "加强农业基础设施建设",
+          "重点关注灌溉与防灾能力"
+        ],
+        "risks": [
+          "部分区域低于适生阈值，存在种植不稳定风险",
+          "整体生态适宜性偏低，不建议大规模扩张"
+        ],
+        "spatial_pattern": "适宜性高值区域呈局部集聚分布"
+      },
+      {
+        "region": "滨州市",
+        "industry_level": "重点发展区",
+        "threshold_ratio": 2.69,
+        "development_potential": "较高",
+        "risk_level": "较低",
+        "spatial_position": "区域适宜性高于全省平均水平",
+        "climate_comment": "区域具备一定苹果种植基础，但局部生态条件存在一定限制",
+        "development_advice": [
+          "适度扩大苹果种植规模",
+          "加强水肥管理与品种优化",
+          "提升产业组织化水平"
+        ],
+        "risks": [
+          "整体种植风险相对可控"
+        ],
+        "spatial_pattern": "适宜性高值区域呈局部集聚分布"
+      }
+    ]
+  }
+}
+
