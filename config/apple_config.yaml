@@ -1,16 +1,26 @@
 paths:
-  province_shp: data/shapefile/china_province.shp
-  city_shp: data/shapefile/china_city.shp
-  county_shp: data/shapefile/china_county.shp
-
-  suitability_tif: data/raster/apple_suitability.tif
-
   output_dir: output
 
-suitability_map_path: "output/static/suitability_map.png"
-ranking_table_path: "output/static/ranking_table.png"
-score_range_chart_path: "output/static/range_chart.png"
-prompt_path: "prompts/report.txt"
-first_stage_json: "output/first_stage_output.json"
-second_stage_json: "output/second_stage_output.json"
-final_stage_html: "output/final_stage_report.html"
+  raster:
+    suitability_tif: data/raster/apple_suitability.tif
+    china_suitability_tf: output/china_suitability.tif
+
+  shapefile:
+    province: data/shapfile/china_province.shp
+    city: data/shapfile/china_city.shp
+    county: data/shapfile/china_county.shp
+
+  output:
+    region_map: output/region_map.png
+
+    suitability_map_path: output/static/suitability_map.png
+    ranking_table_path: output/static/ranking_table.png
+    score_range_chart_path: output/static/range_chart.png
+
+    first_stage_json: output/first_stage_output.json
+    second_stage_json: output/second_stage_output.json
+    final_stage_html: output/final_stage_report.html
+
+prompts:
+  data_layer: prompts/data_layer.txt
+  analysis_layer: prompts/analyze.txt

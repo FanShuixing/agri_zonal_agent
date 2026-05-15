@@ -7,11 +7,11 @@
 
 你需要调用：
 
-- apple_suitability_tool
-- apple_map_tool
-- city_suitability_analysis_tool
+- apple_map_report_tool
+- apple_region_ranking_tool
 
-只输出 JSON。
+只输出 JSON,不需要其他额外文字说明，确保生成的json文件可以直接被代码加载。
+确保数据完整
 
 JSON结构：
 
@@ -36,6 +36,15 @@ JSON结构：
   "city_stats": [],
 
   "semantic_insights": [],
+  "semantic_suitability_stats":{
+      "threshold_ratio": ,
+      "suitability_level": ,
+      "industrialization_level": ,
+      "stability_level": ,
+      "risk_level": ,
+      "risk_hint": ",
+      "development_advice": ,
+  }
 
   "images": {
     "apple_suitability_map_path": "",

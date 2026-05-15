@@ -1,0 +1,20 @@
+{
+  "apple_suitability_heatmap_path": "output/region_map.png",
+  "overall_stats": {
+    "mean_score": 0.2758,
+    "max_score": 0.6999,
+    "min_score": 0.0,
+    "high_ratio": 0.0,
+    "medium_ratio": 0.1408,
+    "low_ratio": 0.8592
+  },
+  "semantic_suitability_stats": {
+    "threshold_ratio": 1.86,
+    "suitability_level": "较适宜区",
+    "industrialization_level": "具备一定产业发展潜力",
+    "stability_level": "空间差异较大",
+    "risk_level": "高风险",
+    "risk_hint": "局部区域低于适生阈值；区域内部适宜性差异明显；低适宜区域占比较高；高适宜区域分布有限",
+    "development_advice": "建议稳步推进苹果产业发展，重点优化品种结构与农业基础设施。"
+  }
+}

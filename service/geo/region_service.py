@@ -1,11 +1,6 @@
 from pathlib import Path
 import geopandas as gpd
-
-BASE_DIR = Path(__file__).resolve().parents[1]
-CLIP_SHP = {
-    "province": BASE_DIR / "data" / "shapfile" / "china_province.shp",
-    "city": BASE_DIR / "data" / "shapfile" / "china_city.shp",
-}
+from utils.config_loader import CONFIG
 
 
 def extract_region(query):
@@ -57,14 +52,14 @@ def get_region_context(region_name):
         display_level = "province"
 
     elif region_name.endswith("省"):
-        clip_gdf = gpd.read_file(CLIP_SHP["province"])
+        clip_gdf = gpd.read_file(CONFIG["paths"]["shapefile"]["province"])
         clip_region = _match_region(clip_gdf, region_name, "province")
         clip_geom = clip_region.geometry
         display_level = "city"
 
     else:
         # 默认市级
-        clip_gdf = gpd.read_file(CLIP_SHP["city"], encoding="utf-8")
+        clip_gdf = gpd.read_file(CONFIG["paths"]["shapefile"]["city"], encoding="utf-8")
         clip_region = _match_region(clip_gdf, region_name, "city")
         clip_geom = clip_region.geometry
         display_level = "county"

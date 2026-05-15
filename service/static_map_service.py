@@ -27,7 +27,7 @@ def plot_suitability_map(
     gdf,
     city_stats,
     score_col="mean_score",
-    save_path=CONFIG["suitability_map_path"],
+    save_path=CONFIG["paths"]["output"]["suitability_map_path"],
 ):
     """
     手工 Polygon 绘制苹果种植适宜性地图
@@ -244,7 +244,7 @@ plt.rcParams["axes.unicode_minus"] = False
 
 def plot_ranking_table(
     city_stats,
-    save_path=CONFIG["ranking_table_path"],
+    save_path=CONFIG["paths"]["output"]["ranking_table_path"],
 ):
     """
     绘制适宜性排名表（优化版）
@@ -346,7 +346,7 @@ def plot_ranking_table(
 
 def plot_score_range_chart(
     city_stats,
-    save_path=CONFIG["score_range_chart_path"],
+    save_path=CONFIG["paths"]["output"]["score_range_chart_path"],
 ):
     """
     绘制 min-mean-max 区间图
