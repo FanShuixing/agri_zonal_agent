@@ -53,13 +53,12 @@ def apple_region_ranking_tool(region_name: str):
     province_city_gdf = get_cities_within_province(region_name)
     city_stats = compute_region_zonal_stats(province_city_gdf)
     # 保存json
-    res = {"region_name": region_name, "city_stats": city_stats}
-
     overall_stats = analyze_region_suitability(region_name, city_stats)
     res = {
         "apple_suitability_heatmap_path": apple_suitability_heatmap_path,
         "stats": overall_stats,
         "city_stats": city_stats,
+        "region_name": region_name,
         "apple_suitability_heatmap_path": apple_suitability_heatmap_path,
     }
     save_json(res, save_path=save_path2)

@@ -216,5 +216,5 @@ def build_spatial_semantic_layer(
         "high_value_count": len(high_regions),
         "low_value_count": len(low_regions),
         "adjacency_pairs": adjacency_pairs,
-        "spatial_grading": spatial_grading,
+        # "spatial_grading": spatial_grading,
     }

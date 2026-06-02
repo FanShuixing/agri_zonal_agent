@@ -1,13 +1,15 @@
 {
   "province": "山东省",
   "province_summary": {
-    "suitability_level": "较适宜区",
-    "industrialization_level": "具备一定产业发展潜力",
+    "suitability_level": "一般适宜区",
+    "industrialization_level": "适合小规模试种",
     "risk_level": "高风险",
-    "stability_level": "空间差异较大"
+    "stability_level": "稳定性中等",
+    "development_advice": "建议开展小规模试种，重点关注灌溉、防灾及生态适应性。"
   },
   "spatial_structure": {
-    "global_pattern": "北高南低、西高东低、高值区局部集聚明显",
+    "global_pattern": "北高南低、高值区局部集聚明显",
+    "gradient_direction": "北高南低",
     "core_area": "德州市",
     "high_value_regions": [
       "济南市",
@@ -17,9 +19,9 @@
     ],
     "low_value_regions": [
       "威海市",
-      "枣庄市",
       "菏泽市",
-      "青岛市"
+      "青岛市",
+      "济宁市"
     ]
   },
   "ranking_structure": {
@@ -28,98 +30,99 @@
       "滨州市",
       "潍坊市",
       "济南市",
-      "聊城市"
+      "淄博市"
     ],
     "bottom_regions": [
+      "泰安市",
+      "威海市",
       "济宁市",
-      "枣庄市",
       "青岛市",
-      "菏泽市",
-      "威海市"
+      "菏泽市"
     ],
-    "ranking_type": "头部集中型",
-    "regional_gap": "头尾差异较大"
+    "leading_group": {
+      "exists": true,
+      "regions": [
+        "德州市",
+        "滨州市",
+        "潍坊市",
+        "济南市"
+      ],
+      "description": "德州市、滨州市、潍坊市、济南市适宜性明显高于区域平均水平"
+    },
+    "ranking_type": "相对均衡型",
+    "regional_gap": {
+      "type": "头尾差异较小",
+      "score_range": 0.085
+    }
   },
-  "advantage_regions": [
-    {
-      "region": "济南市",
-      "industry_level": "重点发展区",
-      "development_potential": "较高",
-      "main_risk": "区域内部适宜性差异较大，需进行分区布局"
-    },
-    {
-      "region": "滨州市",
-      "industry_level": "重点发展区",
-      "development_potential": "较高",
-      "main_risk": "整体种植风险相对可控"
-    },
-    {
-      "region": "德州市",
-      "industry_level": "核心优势区",
-      "development_potential": "高",
-      "main_risk": "区域内部适宜性差异较大，需进行分区布局"
-    },
-    {
-      "region": "聊城市",
-      "industry_level": "重点发展区",
-      "development_potential": "较高",
-      "main_risk": "区域内部适宜性差异较大，需进行分区布局"
-    },
-    {
-      "region": "潍坊市",
-      "industry_level": "重点发展区",
-      "development_potential": "较高",
-      "main_risk": "部分区域低于生态适生阈值，存在种植不稳定风险"
+  "city_structure": {
+    "core_dominant_regions": [
+      "滨州市",
+      "德州市",
+      "淄博市",
+      "潍坊市"
+    ],
+    "high_core_regions": [
+      {
+        "region": "德州市",
+        "core_ratio": 0.5286
+      },
+      {
+        "region": "潍坊市",
+        "core_ratio": 0.4621
+      },
+      {
+        "region": "滨州市",
+        "core_ratio": 0.4574
+      },
+      {
+        "region": "淄博市",
+        "core_ratio": 0.4167
+      },
+      {
+        "region": "济南市",
+        "core_ratio": 0.3714
+      }
+    ],
+    "risk_regions": [
+      "菏泽市"
+    ],
+    "structure_summary": {
+      "core_dominant_count": 4,
+      "risk_region_count": 1,
+      "general_dominant_count": 12
     }
-  ],
-  "risk_regions": [
-    {
-      "region": "临沂市",
-      "risk_level": "中等",
-      "main_risk": "部分区域低于生态适生阈值，存在种植不稳定风险"
-    },
-    {
-      "region": "威海市",
-      "risk_level": "中等",
-      "main_risk": "部分区域低于生态适生阈值，存在种植不稳定风险"
-    },
-    {
-      "region": "日照市",
-      "risk_level": "中等",
-      "main_risk": "部分区域低于生态适生阈值，存在种植不稳定风险"
-    },
-    {
-      "region": "枣庄市",
-      "risk_level": "中等",
-      "main_risk": "部分区域低于生态适生阈值，存在种植不稳定风险"
-    },
-    {
-      "region": "东营市",
-      "risk_level": "中等",
-      "main_risk": "整体种植风险相对可控"
-    }
-  ],
+  },
+  "grade_structure": {
+    "dominant_grade": "一般适宜区",
+    "grade_structure": "核心优势区占比较高",
+    "core_ratio": 0.3056,
+    "suitable_ratio": 0.4272,
+    "unsuitable_ratio": 0.0288
+  },
+  "spatial_quality": {
+    "hotspot_pattern": "热点呈多点分布",
+    "hotspot_scale": "热点面积占比较高",
+    "fragmentation_level": "存在一定破碎化",
+    "connectivity_level": "核心区存在局部连续"
+  },
   "industrial_tags": {
     "spatial_tags": [
       "north_high_south_low",
-      "west_high_east_low",
       "localized_cluster",
       "core_production_area"
     ],
     "industrial_structure_tags": [
-      "head_concentration",
-      "regional_gap_large",
-      "multi_tier_structure",
-      "core_area_dominance"
+      "balanced_structure",
+      "leading_group_present",
+      "multiple_core_regions"
     ],
     "risk_tags": [
-      "regional_instability",
-      "overall_risk_exposure"
+      "regional_risk_exists"
     ],
     "development_tags": [
       "cluster_development_potential",
       "core_area_expansion",
-      "regional_collaboration_needed",
       "advantage_region_synergy",
       "risk_control_required"
     ]
@@ -129,50 +132,5 @@
     "suitability_map": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png",
     "ranking_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png",
     "range_chart": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png"
-  },
-  "stability_structure": {
-    "overall_stability": {
-      "avg_fluctuation_ratio": 1.0961,
-      "province_stability": "存在一定空间差异"
-    },
-    "high_stability_regions": [
-      {
-        "region": "威海市",
-        "fluctuation_ratio": 0.493,
-        "stability_level": "稳定"
-      },
-      {
-        "region": "泰安市",
-        "fluctuation_ratio": 0.6299,
-        "stability_level": "相对稳定"
-      }
-    ],
-    "unstable_regions": [
-      {
-        "region": "潍坊市",
-        "fluctuation_ratio": 1.5583,
-        "stability_level": "波动极高"
-      },
-      {
-        "region": "聊城市",
-        "fluctuation_ratio": 1.4054,
-        "stability_level": "波动较高"
-      },
-      {
-        "region": "东营市",
-        "fluctuation_ratio": 1.4041,
-        "stability_level": "波动较高"
-      },
-      {
-        "region": "青岛市",
-        "fluctuation_ratio": 1.3818,
-        "stability_level": "波动较高"
-      },
-      {
-        "region": "济南市",
-        "fluctuation_ratio": 1.3102,
-        "stability_level": "波动较高"
-      }
-    ]
   }
 }

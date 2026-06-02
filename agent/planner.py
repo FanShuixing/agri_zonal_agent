@@ -27,14 +27,12 @@ def run_raw_data_stage(
 
 
 def run_semantic_stage(
-    overall_json_path: str | Path = RAW_LAYER_1_PATH,
-    region_json_path: str | Path = RAW_LAYER_2_PATH,
+    raw_result_json: str | Path = RAW_LAYER_2_PATH,
     region_gdf_path: str | Path = REGION_GDF_PATH,
 ):
     """根据 raw layer 数据构建 semantic layer。"""
     semantic_data = build_semantic_layer(
-        overall_json_path=overall_json_path,
-        region_json_path=region_json_path,
+        raw_result_json=raw_result_json,
         region_gdf_path=region_gdf_path,
     )
     print(f"语义层结果已生成: {SEMANTIC_SAVE_PATH}")
@@ -87,16 +85,15 @@ def run_full_report_pipeline(
     report_json_path: str | Path = REPORT_JSON_PATH,
 ):
     """串联执行完整的报告生成流程。"""
-    run_raw_data_stage(agent, user_query)
+    # run_raw_data_stage(agent, user_query)
     # semantic_data = run_semantic_stage(
-    #     overall_json_path=overall_json_path,
-    #     region_json_path=region_json_path,
+    #     raw_result_json=region_json_path,
     #     region_gdf_path=region_gdf_path,
     # )
-    # context_json, _ = run_context_stage(
-    #     semantic_json_path=semantic_json_path,
-    #     save_path=context_json_path,
-    # )
+    context_json, _ = run_context_stage(
+        semantic_json_path=semantic_json_path,
+        save_path=context_json_path,
+    )
     # report_json, _ = run_report_stage(
     #     context_json_path=context_json_path,
     #     save_path=report_json_path,
