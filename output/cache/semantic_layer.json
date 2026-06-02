@@ -1,0 +1,528 @@
+{
+  "region_name": "山东省",
+  "province_semantic": {
+    "threshold_ratio": 1.86,
+    "suitability_level": "较适宜区",
+    "industrialization_level": "具备一定产业发展潜力",
+    "stability_level": "空间差异较大",
+    "risk_level": "高风险",
+    "risk_hint": "局部区域低于适生阈值；区域内部适宜性差异明显；高适宜区域分布有限",
+    "development_advice": "建议稳步推进苹果产业发展，重点优化品种结构与农业基础设施。"
+  },
+  "spatial_semantic": {
+    "spatial_pattern": {
+      "global_pattern": "北高南低、西高东低、高值区局部集聚明显",
+      "gradient_direction": "北高南低",
+      "east_west_pattern": "西高东低",
+      "aggregation_type": "高值区局部集聚明显"
+    },
+    "high_value_regions": [
+      "济南市",
+      "滨州市",
+      "德州市",
+      "潍坊市"
+    ],
+    "low_value_regions": [
+      "威海市",
+      "枣庄市",
+      "菏泽市",
+      "青岛市"
+    ],
+    "core_area": "德州市",
+    "high_value_count": 4,
+    "low_value_count": 4,
+    "adjacency_pairs": [
+      [
+        "济南市",
+        "滨州市"
+      ],
+      [
+        "济南市",
+        "德州市"
+      ],
+      [
+        "滨州市",
+        "德州市"
+      ]
+    ],
+    "spatial_grading": {
+      "thresholds": {
+        "hotspot_threshold": 0.3046,
+        "secondary_hotspot_threshold": 0.2757,
+        "coldspot_threshold": 0.2252
+      },
+      "levels": [
+        {
+          "name": "空间热点区",
+          "min_score": 0.30462500000000003,
+          "max_score": 0.46190099999999995
+        },
+        {
+          "name": "次热点区",
+          "min_score": 0.2757,
+          "max_score": 0.30462500000000003
+        },
+        {
+          "name": "中间过渡区",
+          "min_score": 0.225225,
+          "max_score": 0.2757
+        },
+        {
+          "name": "空间冷点区",
+          "min_score": 0.149899,
+          "max_score": 0.225225
+        }
+      ]
+    }
+  },
+  "ranking_semantic": {
+    "top_regions": [
+      "德州市",
+      "滨州市",
+      "潍坊市",
+      "济南市",
+      "聊城市"
+    ],
+    "bottom_regions": [
+      "济宁市",
+      "枣庄市",
+      "青岛市",
+      "菏泽市",
+      "威海市"
+    ],
+    "leading_group": {
+      "exists": true,
+      "regions": [
+        "德州市",
+        "滨州市",
+        "潍坊市"
+      ],
+      "description": "德州市、滨州市、潍坊市适宜性明显高于区域平均水平"
+    },
+    "ranking_structure": {
+      "type": "头部集中型",
+      "description": "少数区域适宜性明显领先，多数区域处于中低水平"
+    },
+    "regional_gap": {
+      "type": "头尾差异较大",
+      "score_range": 0.312
+    }
+  },
+  "stability_semantic": {
+    "overall_stability": {
+      "avg_fluctuation_ratio": 1.0961,
+      "province_stability": "存在一定空间差异"
+    },
+    "unstable_regions": [
+      {
+        "region": "潍坊市",
+        "fluctuation_ratio": 1.5583,
+        "stability_level": "波动极高"
+      },
+      {
+        "region": "聊城市",
+        "fluctuation_ratio": 1.4054,
+        "stability_level": "波动较高"
+      },
+      {
+        "region": "东营市",
+        "fluctuation_ratio": 1.4041,
+        "stability_level": "波动较高"
+      },
+      {
+        "region": "青岛市",
+        "fluctuation_ratio": 1.3818,
+        "stability_level": "波动较高"
+      },
+      {
+        "region": "济南市",
+        "fluctuation_ratio": 1.3102,
+        "stability_level": "波动较高"
+      }
+    ],
+    "high_stability_regions": [
+      {
+        "region": "威海市",
+        "fluctuation_ratio": 0.493,
+        "stability_level": "稳定"
+      },
+      {
+        "region": "泰安市",
+        "fluctuation_ratio": 0.6299,
+        "stability_level": "相对稳定"
+      }
+    ],
+    "stability_structure": [
+      {
+        "region": "济南市",
+        "score_range": 0.4067,
+        "fluctuation_ratio": 1.3102,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "临沂市",
+        "score_range": 0.2771,
+        "fluctuation_ratio": 1.1187,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "威海市",
+        "score_range": 0.0739,
+        "fluctuation_ratio": 0.493,
+        "stability_level": "稳定",
+        "stability_risk": "区域内部适宜性稳定"
+      },
+      {
+        "region": "日照市",
+        "score_range": 0.2546,
+        "fluctuation_ratio": 1.0885,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "枣庄市",
+        "score_range": 0.2288,
+        "fluctuation_ratio": 1.0348,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "滨州市",
+        "score_range": 0.3759,
+        "fluctuation_ratio": 0.9426,
+        "stability_level": "相对稳定",
+        "stability_risk": "整体适宜性较均衡"
+      },
+      {
+        "region": "东营市",
+        "score_range": 0.3871,
+        "fluctuation_ratio": 1.4041,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "菏泽市",
+        "score_range": 0.1595,
+        "fluctuation_ratio": 1.0038,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "青岛市",
+        "score_range": 0.2877,
+        "fluctuation_ratio": 1.3818,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "德州市",
+        "score_range": 0.4386,
+        "fluctuation_ratio": 0.9496,
+        "stability_level": "相对稳定",
+        "stability_risk": "整体适宜性较均衡"
+      },
+      {
+        "region": "淄博市",
+        "score_range": 0.3102,
+        "fluctuation_ratio": 1.0756,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "聊城市",
+        "score_range": 0.4254,
+        "fluctuation_ratio": 1.4054,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "济宁市",
+        "score_range": 0.2372,
+        "fluctuation_ratio": 1.0468,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "泰安市",
+        "score_range": 0.1692,
+        "fluctuation_ratio": 0.6299,
+        "stability_level": "相对稳定",
+        "stability_risk": "整体适宜性较均衡"
+      },
+      {
+        "region": "烟台市",
+        "score_range": 0.2849,
+        "fluctuation_ratio": 1.0945,
+        "stability_level": "波动较高",
+        "stability_risk": "存在一定空间不稳定性"
+      },
+      {
+        "region": "潍坊市",
+        "score_range": 0.5253,
+        "fluctuation_ratio": 1.5583,
+        "stability_level": "波动极高",
+        "stability_risk": "区域内部适宜性差异显著"
+      }
+    ]
+  },
+  "city_semantic": [
+    {
+      "region": "济南市",
+      "industry_level": "重点发展区",
+      "development_potential": "较高",
+      "risk_level": "较低",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "区域内部适宜性差异较大，需进行分区布局"
+      ],
+      "development_advice": [
+        "适度扩大苹果种植规模",
+        "加强水肥管理与品种优化",
+        "提升产业组织化水平"
+      ]
+    },
+    {
+      "region": "临沂市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "威海市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "日照市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "枣庄市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "滨州市",
+      "industry_level": "重点发展区",
+      "development_potential": "较高",
+      "risk_level": "较低",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "整体种植风险相对可控"
+      ],
+      "development_advice": [
+        "适度扩大苹果种植规模",
+        "加强水肥管理与品种优化",
+        "提升产业组织化水平"
+      ]
+    },
+    {
+      "region": "东营市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "整体种植风险相对可控"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "菏泽市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "青岛市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "德州市",
+      "industry_level": "核心优势区",
+      "development_potential": "高",
+      "risk_level": "低",
+      "climate_comment": "区域整体水热条件协调，生态适宜性较高，具备较好的苹果产业发展基础",
+      "risks": [
+        "区域内部适宜性差异较大，需进行分区布局"
+      ],
+      "development_advice": [
+        "优先建设标准化苹果种植基地",
+        "推进规模化与现代化果园建设",
+        "加强冷链物流与区域品牌建设",
+        "重点发展优质苹果产业"
+      ]
+    },
+    {
+      "region": "淄博市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "整体种植风险相对可控"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "聊城市",
+      "industry_level": "重点发展区",
+      "development_potential": "较高",
+      "risk_level": "较低",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "区域内部适宜性差异较大，需进行分区布局"
+      ],
+      "development_advice": [
+        "适度扩大苹果种植规模",
+        "加强水肥管理与品种优化",
+        "提升产业组织化水平"
+      ]
+    },
+    {
+      "region": "济宁市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域整体生态适宜性偏弱，苹果种植稳定性可能不足",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "整体生态适宜性偏低，不建议大规模扩张"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "泰安市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "整体种植风险相对可控"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "烟台市",
+      "industry_level": "一般适宜区",
+      "development_potential": "中等",
+      "risk_level": "中等",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险"
+      ],
+      "development_advice": [
+        "建议开展适度规模试种",
+        "加强农业基础设施建设",
+        "重点提升灌溉与防灾能力"
+      ]
+    },
+    {
+      "region": "潍坊市",
+      "industry_level": "重点发展区",
+      "development_potential": "较高",
+      "risk_level": "较低",
+      "climate_comment": "区域具备一定苹果种植条件，但局部生态条件仍存在一定限制",
+      "risks": [
+        "部分区域低于生态适生阈值，存在种植不稳定风险",
+        "区域内部适宜性差异较大，需进行分区布局"
+      ],
+      "development_advice": [
+        "适度扩大苹果种植规模",
+        "加强水肥管理与品种优化",
+        "提升产业组织化水平"
+      ]
+    }
+  ],
+  "artifacts": {
+    "region_name": "山东省",
+    "suitability_map_path": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png",
+    "ranking_table_path": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png",
+    "score_range_chart_path": "/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png",
+    "apple_suitability_heatmap_path": "output/train_output/region_map.png"
+  }
+}

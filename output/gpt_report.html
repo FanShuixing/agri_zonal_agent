@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>山东省苹果种植适宜性空间分布与产业布局评估报告</title>
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a;   /* 商务深蓝 */
+            --secondary-color: #2563eb; /* 科技蓝 */
+            --text-main: #1f2937;      /* 深灰文本 */
+            --bg-body: #f8fafc;        /* 浅灰底色 */
+            --border-color: #e2e8f0;
+            --risk-color: #dc2626;     /* 警示红 */
+            --advice-color: #16a34a;   /* 发展绿 */
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+            background: var(--bg-body);
+            margin: auto;
+            max-width: 1100px;
+            padding: 50px 20px;
+            color: var(--text-main);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            background: white;
+            padding: 50px 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 报告大标题 */
+        h1 {
+            color: var(--primary-color);
+            font-size: 28px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            border-bottom: 3px double var(--secondary-color);
+        }
+
+        /* 章节标题 */
+        h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 20px;
+            font-weight: 600;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+            padding-bottom: 2px;
+        }
+
+        p {
+            font-size: 15px;
+            text-align: justify;
+            text-indent: 2em; /* 规范段落首行缩进 */
+            margin-bottom: 16px;
+            color: #374151;
+        }
+
+        /* 核心数据看板 */
+        .kpi-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .kpi-card {
+            flex: 1;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .kpi-card .kpi-title {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        .kpi-card .kpi-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* 列表规范 */
+        ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        ol li {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #4b5563;
+            list-style-type: decimal;
+        }
+
+        /* 图表容器 */
+        .img-container {
+            text-align: center;
+            margin: 30px 0;
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .img-caption {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* 结构化文本框 */
+        .risk-box {
+            background: #fff5f5;
+            padding: 20px 25px;
+            border-left: 5px solid var(--risk-color);
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        .risk-box p { text-indent: 0; margin-bottom: 0; color: #9b1c1c; }
+
+        .advice-box {
+            background: #f0fff4;
+            padding: 20px 25px;
+            border-left: 5px solid var(--advice-color);
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        .advice-box p { text-indent: 0; margin-bottom: 0; color: #14532d; }
+
+        .conclusion-box {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 24px 0;
+            border: 1px dashed var(--secondary-color);
+        }
+        .conclusion-box p { text-indent: 0; margin-bottom: 0; }
+
+        /* 打印优化 */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; }
+            h2 { page-break-after: avoid; }
+            .img-container { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 标题 -->
+    <h1>山东省苹果种植适宜性空间分布与产业布局评估报告</h1>
+
+    <!-- 核心指标速览 -->
+    <div class="kpi-container">
+        <div class="kpi-card">
+            <div class="kpi-title">全省平均适宜性得分</div>
+            <div class="kpi-value">0.2719</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">适宜性极值区间</div>
+            <div class="kpi-value">0.1499 - 0.4619</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">平均波动比率</div>
+            <div class="kpi-value">1.0961</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">评估地市数量</div>
+            <div class="kpi-value">16 市</div>
+        </div>
+    </div>
+
+    <!-- 摘要 -->
+    <h2>一、 报告摘要</h2>
+    <ol>
+        <li><strong>总体适宜度评估</strong>：山东省苹果种植宏观空间适宜性整体表现为“较适宜”，具备稳健的产业承载基础，但局部区域生态承载力逼近阈值，面临空间异质性显著与高风险波动双重挑战。</li>
+        <li><strong>空间梯度特征</strong>：宏观格局呈现明显的“北高南低、西高东低”梯度分化。以德州市为核心的北部区域展现出强劲的资源适宜度；而威海市、枣庄市等南部及沿海局部区域在多因子权重模型下得分相对偏低。</li>
+        <li><strong>梯队极化效应</strong>：市级产业梯度呈现典型的“头部集中型”结构，头尾地市资源禀赋差异较大，局部区域地学集聚效应显著。</li>
+        <li><strong>潜在风险分布</strong>：全省整体稳定性有待提升，潍坊市、聊城市等适宜性波动风险较高；威海市、日照市等生态边缘区存在种植不稳定性，需引入精准风险管控。</li>
+        <li><strong>战略布局导向</strong>：建议未来承接“差异化分区布局”战略，强化北部高值区的产业集聚效益，推进中轻度风险区的协同修复与跨区域产业协同。</li>
+    </ol>
+
+    <!-- 总体分析 -->
+    <h2>二、 总体适宜性分析</h2>
+    <p>从宏观生态学视角审视，山东省苹果种植的资源综合适宜性整体定性为“较适宜区”，具备优良的产业规模化发展潜力。然而，受控于地形地貌、水热系数及土壤物理特性的空间异质性，全省综合得分呈现出极其显著的“北高南低、西高东低”的地理梯度分化。以德州市为代表的北部平原与暖温带交汇区，多因子耦合条件最佳，构成了全省的综合资源高值核心；与之相对，南部及部分东部沿海区域（如威海市、枣庄市等）在当前多因子评估模型中受制于特定生态因子的边际约束，适宜性得分处于低位区间。鉴于综合适宜度得分与风险指数同步走高，全省产业布局必须重视区域内部的异质性管理，科学管控生态边际风险。</p>
+
+    <!-- 空间格局 -->
+    <h2>三、 空间分布格局分析</h2>
+    <div class="img-container">
+        <img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/suitability_map.png" alt="苹果种植适宜性空间分布图">
+        <div class="img-caption">图 1：山东省各市苹果种植适宜性空间分布特征图</div>
+    </div>
+    <p>空间自相关与趋势面分析表明，山东省苹果种植适宜性具备强烈的空间梯度演变特征。高值集聚区横向连绵于济南市、滨州市、德州市及潍坊市北部，呈现明显的局部空间正相关与冷热点集聚现象。其中，德州市凭借极佳的地学综合指数，在空间网络结构中占据显著的“轴心”地位，是未来引领产业带升级的战略支点。值得注意的是，虽然全省空间连续性在局部受到地形切碎，但由于平原与中丘陵交错区带状特征明显，仍具备构建高产产业带的地理基础。通过跨区域要素协同，有望打破现有的空间断层，实现全省空间布局的最优解。</p>
+
+    <!-- 区域梯队 -->
+    <h2>四、 区域梯队与重点区域分析</h2>
+    <div class="img-container">
+        <img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/ranking_table.png" alt="市级适宜性排名图">
+        <div class="img-caption">图 2：山东省各市苹果种植适宜性得分第一梯队及排名变动</div>
+    </div>
+    <p>对全省16地市进行聚类分析表明，山东省苹果种植产业展现出鲜明的“头部极化”梯队结构。德州市、滨州市、潍坊市稳居第一战略梯队，核心优势突出，资源红利释放充分。然而，第一梯队与尾部地市间的绝对得分差距较大，凸显了区域资源错配与发展不平衡现状。济南市、聊城市等作为次高值的“重点发展区域”，当前处于产业爬坡的关键节点，具有极高的边际跃升潜力，应作为未来优化产业结构的重点增量空间。反观威海市、枣庄市等“边缘风险区”，因多项环境因子接近或低于作物生态耐受阈值，种植不稳定性凸显，未来规划切忌盲目扩张，必须坚持“控量提质”的防御性风险战略。</p>
+
+    <!-- 风险分析 -->
+    <h2>五、 区域适宜性波动分析</h2>
+    <div class="img-container">
+        <img src="/Users/user/Documents/pan_code/AI/agri_zonal_agent/output/static/range_chart.png" alt="适宜性波动范围图">
+        <div class="img-caption">图 3：山东省各市苹果种植适宜性多年度/多因子波动范围评估</div>
+    </div>
+    <div class="risk-box">
+        <p><strong>风险提示（生态稳定性分化）</strong>：全省苹果种植的资源稳定性空间波动剧烈。尽管威海市、泰安市等传统农区在环境均质性上表现优异，时间序列稳定性较高，但以潍坊市、聊城市为代表的波动高值区则暴露出严峻的外部环境胁迫风险。数据显示，全省平均波动比率高达 1.0961，表明宏观环境对抗气候年际波动的弹性依然偏弱。各级农业规划部门应针对高波动风险区部署实时气象灾害与土壤退化监测预警系统，全面压降系统性不稳定性风险。</p>
+    </div>
+
+    <!-- 风险区域分析 -->
+    <h2>六、 风险成因辨识与区域解构</h2>
+    <div class="risk-box">
+        <p><strong>风险成因解构</strong>：微观机理分析表明，临沂市、枣庄市等中等风险区域的种植不稳定性，主要由双重机制触发：一是区域内部微地形导致的局部小气候剧烈异质性；二是部分核心气象/水利因子频繁触及或低于农业生态适生阈值下限。这类生态脆弱性将深度交织并制约未来产业的投资回报率与品牌战略流向。治理该类风险，必须从传统“粗放型种植”转向“分区精准精细布局”，并辅以必要的微区生态修复和农业基础设施逆向补短板。</p>
+    </div>
+
+    <!-- 产业建议 -->
+    <h2>七、 科学产业布局战略建议</h2>
+    <div class="advice-box">
+        <p><strong>前瞻性指引（全省一盘棋战略）</strong>：基于上述多维评估，提出以下三项空间调控建议：
+        <br>1. <strong>强化极核集聚</strong>：坚定确立德州市等北部高值区的核心战略地位，推动资金、技术、现代品种向优势产区集中，打造大宗优质苹果产业集聚高地。
+        <br>2. <strong>推进分区控险</strong>：对重点发展区（如济南、滨州）实施精细化选址，对高风险及边缘区（如威海、枣庄、日照）实行“总量控制、特色突围、精准控险”策略。
+        <br>3. <strong>构建跨区域要素协同</strong>：打破地市行政壁垒，通过“高值区输出技术/品种，风险区承接错峰特色种质”的协同模式，平抑全省整体的生产波动，全面重塑山东苹果产业的区域竞争格局。</p>
+    </div>
+
+    <!-- 结论 -->
+    <h2>八、 评估结论</h2>
+    <div class="conclusion-box">
+        <p><strong>综合评审结论</strong>：本报告系统耦合了总体适宜性、空间演变趋势、区域梯度以及生态波动风险，认为山东省苹果种植产业具备深厚的资源底蕴与战略纵深。未来的空间优化路径无法毕其功于一役，必须摒弃全域同质化扩张的旧有思维，坚定转向“空间定位精准化、利益格局集聚化、协同机制跨区化”的现代农业空间治理模式，从而在实现稳产控险的同时，全面释放全省农业地理标志产业的高质量发展红利。</p>
+    </div>
+
+</div>
+
+</body>
+
+</html>

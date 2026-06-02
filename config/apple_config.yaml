@@ -3,7 +3,7 @@ paths:
 
   raster:
     suitability_tif: data/raster/apple_suitability.tif
-    china_suitability_tf: output/china_suitability.tif
+    china_suitability_tf: output/train_output/china_suitability.tif
 
   shapefile:
     province: data/shapfile/china_province.shp
@@ -11,7 +11,7 @@ paths:
     county: data/shapfile/china_county.shp
 
   output:
-    region_map: output/region_map.png
+    region_map: output/train_output/region_map.png
 
     suitability_map_path: output/static/suitability_map.png
     ranking_table_path: output/static/ranking_table.png
@@ -21,6 +21,19 @@ paths:
     second_stage_json: output/second_stage_output.json
     final_stage_html: output/final_stage_report.html
 
+    semantic_layer: output/cache/semantic_layer.json
+
+  html_template: report.html
+
 prompts:
-  data_layer: prompts/data_layer.txt
-  analysis_layer: prompts/analyze.txt
+  data_layer: prompts/system/data_layer.txt
+  analysis_layer: prompts/system/analyze.txt
+
+  summary_prompt: prompts/sections/summary_prompt.txt
+  overall_analysis_prompt: prompts/sections/overall_analysis_prompt.txt
+  spatial_analysis_prompt: prompts/sections/spatial_analysis_prompt.txt
+  top_regions_analysis_prompt: prompts/sections/top_regions_analysis_prompt.txt
+  risk_analysis_prompt: prompts/sections/risk_analysis_prompt.txt
+  stability_analysis_prompt: prompts/sections/stability_analysis_prompt.txt
+  industry_advice_prompt: prompts/sections/industry_advice_prompt.txt
+  conclusion_prompt: prompts/sections/conclusion_prompt.txt

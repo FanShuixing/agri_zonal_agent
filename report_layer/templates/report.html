@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <style>
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            margin: auto;
+            max-width: 1200px;
+            padding: 40px;
+            color: #333;
+            line-height: 1.9;
+        }
+
+        .container {
+            background: white;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #1a365d;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 16px;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #2b6cb0;
+            border-left: 6px solid #3182ce;
+            padding-left: 14px;
+        }
+
+        p {
+            font-size: 16px;
+            text-align: justify;
+        }
+
+        img {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #edf2f7;
+            font-weight: bold;
+        }
+
+        .risk-box {
+            background: #fff5f5;
+            padding: 24px;
+            border-left: 6px solid #e53e3e;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .advice-box {
+            background: #f0fff4;
+            padding: 24px;
+            border-left: 6px solid #38a169;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .conclusion-box {
+            background: #f7fafc;
+            padding: 24px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .note {
+            color: #666;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 标题 -->
+    <h1>{{ title }}</h1>
+
+    <!-- 摘要 -->
+    <h2>一、报告摘要</h2>
+    <p>{{ summary }}</p>
+
+    <!-- 总体分析 -->
+    <h2>二、总体适宜性分析</h2>
+
+    <p>{{ overall_analysis }}</p>
+
+
+
+    <!-- 空间格局 -->
+    <h2>三、空间分布格局分析</h2>
+
+    <img src="{{ images.suitability_map }}" alt="苹果种植适宜性空间分布图">
+
+    <p>{{ spatial_analysis }}</p>
+
+    <!-- 区域梯队 -->
+    <h2>四、区域梯队与重点区域分析</h2>
+
+    <img src="{{ images.ranking_chart }}" alt="市级适宜性排名图">
+
+    <p>{{ top_regions_analysis }}</p>
+
+
+
+    <!-- 风险分析 -->
+    <h2>五、区域适宜性波动分析</h2>
+
+    <img src="{{ images.range_chart }}" alt="适宜性波动范围图">
+
+    <div class="risk-box">
+
+        <p>{{ stability_analysis }}</p>
+
+    </div>
+
+        <!-- 风险分析 -->
+    <h2>六、风险区域分析</h2>
+
+
+    <div class="risk-box">
+
+        <p>{{ risk_analysis }}</p>
+
+    </div>
+
+    <!-- 产业建议 -->
+    <h2>七、产业布局建议</h2>
+
+    <div class="advice-box">
+
+        <p>{{ industry_advice }}</p>
+
+    </div>
+
+    <!-- 结论 -->
+    <h2>七、结论</h2>
+
+    <div class="conclusion-box">
+
+        <p>{{ conclusion }}</p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

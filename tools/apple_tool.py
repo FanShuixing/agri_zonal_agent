@@ -1,53 +1,30 @@
 from langchain.tools import tool
-
-from service.apple.apple_point_service import analyze_apple_suitability
-from service.apple.apple_region_service import (
-    analyze_region_suitability,
-    analyze_predict_province_map,
-    analyze_predict_region_map,
-    analyze_province_suitability,
-    compute_region_zonal_stats_by_geometry,
-)
-from service.apple.apple_report_service import build_region_analysis_report
-from typing import Literal
 from utils.config_loader import CONFIG
-
-from service.semantic_metrics import build_semantic_metrics
-from service.spatial_analysis_service import build_spatial_semantic_layer
-from utils.write_json import save_json
+from utils.json_handler import save_json
+from utils.gdf_handler import sanitize_gdf_for_save
+from raw_layer.map.map_service import analyze_region_suitability
+from raw_layer.map.map_service import generate_region_map
+from raw_layer.stats.zonal_stats import compute_region_zonal_stats
+from raw_layer.geo.region_locator import get_cities_within_province
 
 save_path1 = "output/tmp/data_layer_1.json"
 save_path2 = "output/tmp/data_layer_2.json"
 save_path3 = "output/tmp/data_layer_3.json"
+region_gdf = "output/tmp/apple_region_gdf.geojson"
 
 
-@tool
-def apple_point_analysis_tool(region_name: str):
-    """输入县名/基地/园区，返回苹果种植适宜性分析。"""
-    return analyze_apple_suitability(region_name)
+# @tool
+# def apple_map_report_tool(region_name: str):
+#     """输入省，返回种植适宜性地图。
+#     region_name 可以是省、县的名称，比如中国、四川省、洛川县等。
 
+#     输出结果包含：
+#     - 适宜性地图的路径，包含四川省适宜性分布热力图
+#     - 省级别的适宜性统计数据
+#     """
 
-@tool
-def apple_map_report_tool(region_name: str):
-    """输入省，返回苹果种植适宜性地图。
-    region_name 可以是省、县的名称，比如中国、四川省、洛川县等。
-
-    输出结果包含：
-    - 适宜性地图的路径，包含四川省适宜性分布热力图
-    - 省级别的适宜性统计数据
-    """
-    apple_suitability_heatmap_path = analyze_predict_region_map(
-        region_name, save_path=CONFIG["paths"]["output"]["region_map"]
-    )
-    overall_stats = analyze_province_suitability(region_name)
-    semantic_suitability_stats = build_semantic_metrics(overall_stats)
-    res = {
-        "apple_suitability_heatmap_path": apple_suitability_heatmap_path,
-        "overall_stats": overall_stats,
-        "semantic_suitability_stats": semantic_suitability_stats,
-    }
-    save_json(res, save_path=save_path1)
-    return
+#     save_json(res, save_path=save_path1)
+#     return
 
 
 @tool
@@ -69,17 +46,24 @@ def apple_region_ranking_tool(region_name: str):
 
     用于分析不同地区的苹果种植适宜性差异。
     """
-    stats = compute_region_zonal_stats_by_geometry(region_name)
-    #
-    semantic_insights = build_region_analysis_report(
-        region_name, stats["region_gdf"], stats["city_stats"]
+    apple_suitability_heatmap_path = generate_region_map(
+        region_name, output_path=CONFIG["paths"]["output"]["region_map"]
     )
-    # 调用空间分布语义分析层
-    spatial_semantic = build_spatial_semantic_layer(
-        stats["region_gdf"], stats["city_stats"]
-    )
-    # 存储数据到本地
-    semantic_insights["spatial_semantic"] = spatial_semantic
-    save_path = save_json(semantic_insights, save_path=save_path2)
 
-    return save_path
+    province_city_gdf = get_cities_within_province(region_name)
+    city_stats = compute_region_zonal_stats(province_city_gdf)
+    # 保存json
+    res = {"region_name": region_name, "city_stats": city_stats}
+
+    overall_stats = analyze_region_suitability(region_name, city_stats)
+    res = {
+        "apple_suitability_heatmap_path": apple_suitability_heatmap_path,
+        "stats": overall_stats,
+        "city_stats": city_stats,
+        "apple_suitability_heatmap_path": apple_suitability_heatmap_path,
+    }
+    save_json(res, save_path=save_path2)
+    # 保存gdf
+    clean_gdf = sanitize_gdf_for_save(province_city_gdf)
+    clean_gdf.to_file(region_gdf, driver="GeoJSON")
+    return
