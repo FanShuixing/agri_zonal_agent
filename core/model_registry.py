@@ -6,7 +6,7 @@ from pathlib import Path
 import joblib
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-ARTIFACT_DIR = BASE_DIR / "artifacts" / "apple"
+ARTIFACT_DIR = BASE_DIR / "output" / "models" / "apple"
 MODEL_PATH = ARTIFACT_DIR / "model.pkl"
 IMPUTER_PATH = ARTIFACT_DIR / "imputer.pkl"
 METADATA_PATH = ARTIFACT_DIR / "metadata.json"
@@ -18,6 +18,12 @@ def load_metadata():
 
     with open(METADATA_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_model_threshold(default=0.3):
+    """读取训练产出的模型阈值，metadata.json 不存在时返回 default。"""
+    meta = load_metadata()
+    return float(meta.get("threshold", default))
 
 
 def save_artifacts(model, imputer, threshold: float | None = None, eval_metrics: dict | None = None):

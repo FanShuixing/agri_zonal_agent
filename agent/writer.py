@@ -147,8 +147,8 @@ def generate_report(global_context: dict) -> dict:
 if __name__ == "__main__":
     from utils.json_handler import load_json
 
-    context = load_json("./output/tmp/context.json")
+    context = load_json("./output/cache/pipeline/context.json")
     report = generate_report(context)
     print(report)
     # 保存报告到 JSON 文件
-    save_json(report, "./output/tmp/report.json")
+    save_json(report, "./output/cache/pipeline/report.json")

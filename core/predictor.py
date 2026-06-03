@@ -293,7 +293,8 @@ def predict_province_map(
     # =========================
     # 7️⃣ 阈值区域
     # =========================
-    threshold = 0.148
+    from core.model_registry import load_model_threshold
+    threshold = load_model_threshold()
     suitable_mask = grid_smooth >= threshold
     suitable_mask = binary_opening(suitable_mask, structure=np.ones((3, 3)))
     suitable_mask = binary_closing(suitable_mask, structure=np.ones((5, 5)))

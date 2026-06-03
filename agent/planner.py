@@ -7,12 +7,12 @@ from semantic_layer.semantic_layer import build_semantic_layer
 from utils.config_loader import CONFIG
 from utils.json_handler import load_json, save_json
 
-RAW_LAYER_1_PATH = "output/tmp/data_layer_1.json"
-RAW_LAYER_2_PATH = "output/tmp/data_layer_2.json"
-REGION_GDF_PATH = "output/tmp/apple_region_gdf.geojson"
+RAW_LAYER_1_PATH = "output/cache/pipeline/data_layer_1.json"
+RAW_LAYER_2_PATH = "output/cache/pipeline/data_layer_2.json"
+REGION_GDF_PATH = "output/cache/pipeline/apple_region_gdf.geojson"
 SEMANTIC_SAVE_PATH = CONFIG["paths"]["output"]["semantic_layer"]
-CONTEXT_JSON_PATH = "output/tmp/context.json"
-REPORT_JSON_PATH = "output/tmp/report.json"
+CONTEXT_JSON_PATH = "output/cache/pipeline/context.json"
+REPORT_JSON_PATH = "output/cache/pipeline/report.json"
 
 
 def run_raw_data_stage(

@@ -1,14 +1,5 @@
-from dataclasses import dataclass
 import numpy as np
-
-
-@dataclass
-class SuitabilityGrade:
-
-    name: str
-    min_score: float
-    max_score: float
-    description: str
+from core.model_registry import load_model_threshold
 
 
 def compute_high_threshold(scores):
@@ -22,7 +13,7 @@ def compute_high_threshold(scores):
 
 def build_grading_system(
     city_stats,
-    suitable_threshold=0.148,
+    suitable_threshold=None,
 ):
     """
     构建统一适宜性等级体系（Unified Grading System）
@@ -33,22 +24,6 @@ def build_grading_system(
     2. 自动生成适宜性等级体系
     3. 为 ranking / semantic / spatial / context 提供统一标准
 
-    Parameters
-    ----------
-    city_stats : list[dict]
-
-        示例：
-        [
-            {
-                "region": "德州市",
-                "mean_score": 0.46,
-            }
-        ]
-
-    suitable_threshold : float
-
-        模型生态适生阈值
-
     Returns
     ----------
     {
@@ -56,6 +31,8 @@ def build_grading_system(
         "grades": [...]
     }
     """
+    if suitable_threshold is None:
+        suitable_threshold = load_model_threshold()
 
     # =========================================
     # 1️⃣ 提取 score

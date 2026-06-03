@@ -2,7 +2,7 @@ paths:
   output_dir: output
 
   raster:
-    china_suitability_tf: output/train_output/china_suitability.tif
+    china_suitability_tf: output/predictions/china_suitability.tif
 
   shapefile:
     province: data/shapfile/china_province.shp
@@ -10,22 +10,20 @@ paths:
     county: data/shapfile/china_county.shp
 
   output:
-    region_map: output/train_output/region_map.png
+    region_map: output/predictions/region_map.png
 
     suitability_map_path: output/static/suitability_map.png
     ranking_table_path: output/static/ranking_table.png
     score_range_chart_path: output/static/range_chart.png
 
-    first_stage_json: output/first_stage_output.json
-    second_stage_json: output/second_stage_output.json
-    final_stage_html: output/final_stage_report.html
+    first_stage_json: output/cache/pipeline/data_layer_1.json
+    second_stage_json: output/cache/pipeline/data_layer_2.json
+    final_stage_html: output/reports/final_report.html
 
-    semantic_layer: output/cache/semantic_layer.json
+    semantic_layer: output/cache/pipeline/semantic_layer.json
 
-  # 报告模板选择
-  #   "report.html"           — 标准详细报告（默认），白底蓝调，适合打印/正式汇报
-  #   "report_dashboard.html" — 仪表盘风格，暗色背景，适合屏幕展示/快速浏览
-  # 也可在代码中通过 generate_data_report(context, template="dashboard") 动态选择
+  # 模板选择: "report.html" (标准) | "report_dashboard.html" (仪表盘)
+  # 代码: generate_data_report(context, template="dashboard")
   html_template: report.html
 
 prompts:

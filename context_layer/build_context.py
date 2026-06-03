@@ -6,11 +6,12 @@ Context Layer — 将 semantic_layer 和 raw 数值数据组装成 LLM 可消费
 
 from pathlib import Path
 from utils.json_handler import load_json
+from core.model_registry import load_model_threshold
 
 
 def build_report_context(
     semantic_json_path: str | Path = "output/cache/semantic_layer.json",
-    raw_data_json_path: str | Path = "output/tmp/data_layer_2.json",
+    raw_data_json_path: str | Path = "output/cache/pipeline/data_layer_2.json",
 ):
     semantic = load_json(semantic_json_path)
     raw = load_json(raw_data_json_path)
@@ -110,7 +111,7 @@ def build_report_context(
         "spatial_quality": spatial_quality,
         "industrial_context": industrial_context,
         "artifacts": {
-            "heatmap": "output/train_output/region_map.png",
+            "heatmap": "output/predictions/region_map.png",
             "suitability_map": "output/static/suitability_map.png",
             "ranking_chart": "output/static/ranking_table.png",
             "range_chart": "output/static/range_chart.png",
@@ -127,13 +128,17 @@ def _build_numerical_basis(stats: dict) -> dict:
     overall = stats["overall_stats"]
     dist = stats["distribution_stats"]
 
+    t = load_model_threshold()
+    mean_s = overall.get("mean_score", 0)
+    std_s = dist.get("std_score", 0)
+
     return {
         "province_level": {
             "mean_score": overall["mean_score"],
             "max_score": overall["max_score"],
             "min_score": overall["min_score"],
             "score_range": round(overall["max_score"] - overall["min_score"], 4),
-            "std_score": dist.get("std_score", 0),
+            "std_score": std_s,
         },
         "distribution_percentiles": {
             "median_p50": dist.get("median_score", 0),
@@ -142,12 +147,12 @@ def _build_numerical_basis(stats: dict) -> dict:
             "p95": dist.get("p95_score", 0),
         },
         "grade_thresholds": [
-            {"grade": "不适宜区", "score_range": "0 — 0.148", "meaning": "低于生态适生阈值，苹果种植风险很高"},
-            {"grade": "一般适宜区", "score_range": "0.148 — 全省均值", "meaning": "可种植但优势不突出"},
-            {"grade": "较适宜区", "score_range": "全省均值 — 均值+0.5σ", "meaning": "高于全省平均水平，有发展潜力"},
-            {"grade": "核心优势区", "score_range": "均值+0.5σ — 1.0", "meaning": "生态条件最优，适合规模化种植"},
+            {"grade": "不适宜区", "score_range": f"0 — {t:.3f}", "meaning": "低于生态适生阈值，苹果种植风险很高"},
+            {"grade": "一般适宜区", "score_range": f"{t:.3f} — {mean_s:.3f}（全省均值）", "meaning": "可种植但优势不突出"},
+            {"grade": "较适宜区", "score_range": f"{mean_s:.3f} — {mean_s + 0.5 * std_s:.3f}", "meaning": "高于全省平均水平，有发展潜力"},
+            {"grade": "核心优势区", "score_range": f"{mean_s + 0.5 * std_s:.3f} — 1.0", "meaning": "生态条件最优，适合规模化种植"},
         ],
-        "note": "适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。全省均值约 0.21，最高 0.35，说明山东省整体得分不高，需要在省内做相对比较。",
+        "note": "适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。",
     }
 
 

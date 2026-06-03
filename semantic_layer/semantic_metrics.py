@@ -1,4 +1,9 @@
-def build_semantic_metrics(stats: dict, threshold: float = 0.148):
+from core.model_registry import load_model_threshold
+
+
+def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
+    if threshold is None:
+        threshold = load_model_threshold()
     """
     基于适宜性统计数据，生成农业语义分析结果
 

@@ -7,10 +7,10 @@ from raw_layer.map.map_service import generate_region_map
 from raw_layer.stats.zonal_stats import compute_region_zonal_stats
 from raw_layer.geo.region_locator import get_cities_within_province
 
-save_path1 = "output/tmp/data_layer_1.json"
-save_path2 = "output/tmp/data_layer_2.json"
-save_path3 = "output/tmp/data_layer_3.json"
-region_gdf = "output/tmp/apple_region_gdf.geojson"
+save_path1 = "output/cache/pipeline/data_layer_1.json"
+save_path2 = "output/cache/pipeline/data_layer_2.json"
+save_path3 = "output/cache/pipeline/data_layer_3.json"
+region_gdf = "output/cache/pipeline/apple_region_gdf.geojson"
 
 
 # @tool

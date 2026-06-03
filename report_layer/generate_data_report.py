@@ -16,8 +16,8 @@ from utils.json_handler import load_json
 def main():
     parser = argparse.ArgumentParser(description="数据驱动 HTML 报告生成")
     parser.add_argument(
-        "--context", default="output/tmp/context.json",
-        help="context.json 路径 (默认: output/tmp/context.json)",
+        "--context", default="output/cache/pipeline/context.json",
+        help="context.json 路径 (默认: output/cache/pipeline/context.json)",
     )
     parser.add_argument(
         "--out", default=None,

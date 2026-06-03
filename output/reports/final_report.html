@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -50,7 +49,7 @@
 <!-- ═══════════════ 标题 ═══════════════ -->
 <h1>山东省 — 苹果种植适宜性分析报告</h1>
 <p class="meta">
-    生成时间：2026-06-03 09:54 &nbsp;|&nbsp;
+    生成时间：2026-06-03 10:47 &nbsp;|&nbsp;
     分析方法：WorldClim 气候栅格 + GBDT 物种分布模型 &nbsp;|&nbsp;
     数据驱动报告
 </p>
@@ -436,13 +435,13 @@ Bottom5 均分 0.0704，
 <thead><tr><th>等级</th><th>得分范围</th><th>含义</th></tr></thead>
 <tbody>
 
-<tr><td>不适宜区</td><td>0 — 0.148</td><td style="text-align:left;">低于生态适生阈值，苹果种植风险很高</td></tr>
+<tr><td>不适宜区</td><td>0 — 0.417</td><td style="text-align:left;">低于生态适生阈值，苹果种植风险很高</td></tr>
 
-<tr><td>一般适宜区</td><td>0.148 — 全省均值</td><td style="text-align:left;">可种植但优势不突出</td></tr>
+<tr><td>一般适宜区</td><td>0.417 — 0.102（全省均值）</td><td style="text-align:left;">可种植但优势不突出</td></tr>
 
-<tr><td>较适宜区</td><td>全省均值 — 均值+0.5σ</td><td style="text-align:left;">高于全省平均水平，有发展潜力</td></tr>
+<tr><td>较适宜区</td><td>0.102 — 0.128</td><td style="text-align:left;">高于全省平均水平，有发展潜力</td></tr>
 
-<tr><td>核心优势区</td><td>均值+0.5σ — 1.0</td><td style="text-align:left;">生态条件最优，适合规模化种植</td></tr>
+<tr><td>核心优势区</td><td>0.128 — 1.0</td><td style="text-align:left;">生态条件最优，适合规模化种植</td></tr>
 
 </tbody>
 </table>
@@ -451,15 +450,15 @@ Bottom5 均分 0.0704，
 <div class="kpi-grid">
     <div class="kpi-card"><div class="kpi-value">24.5%</div><div class="kpi-label">核心优势区</div></div>
     <div class="kpi-card"><div class="kpi-value">36.6%</div><div class="kpi-label">较适宜区</div></div>
-    <div class="kpi-card"><div class="kpi-value">82.9%</div><div class="kpi-label">一般适宜区（主导）</div></div>
-    <div class="kpi-card"><div class="kpi-value">82.9%</div><div class="kpi-label">不适宜区</div></div>
+    <div class="kpi-card"><div class="kpi-value">99.8%</div><div class="kpi-label">一般适宜区（主导）</div></div>
+    <div class="kpi-card"><div class="kpi-value">99.8%</div><div class="kpi-label">不适宜区</div></div>
 </div>
 
 <div class="callout callout-info">
 <strong>等级判定：</strong>全省主导等级为 <strong>不适宜区</strong>，
 等级结构特征为 <strong>不适宜区占比较高</strong>。
 核心+较适宜合计 61.1%，
-不适宜区仅 82.9%。
+不适宜区仅 99.8%。
 </div>
 
 <!-- ═══════════════ 第五章：空间质量 ═══════════════ -->
@@ -491,7 +490,7 @@ Bottom5 均分 0.0704，
 <strong>风险城市（10个）：</strong>济南市、枣庄市、滨州市、东营市、菏泽市、德州市、淄博市、聊城市、济宁市、泰安市<br>
 <strong>低核心占比城市：</strong>
 
-淄博市(核心10%, 不适宜99%)、
+淄博市(核心10%, 不适宜100%)、
 
 济南市(核心5%, 不适宜100%)、
 
@@ -501,7 +500,7 @@ Bottom5 均分 0.0704，
 
 东营市(核心0%, 不适宜100%)
 <br>
-<strong>不适宜区占比：</strong>82.9%（全省）。
+<strong>不适宜区占比：</strong>99.8%（全省）。
 这些区域需谨慎开展规模化种植，建议以试种和品种改良为主。
 </div>
 
@@ -519,12 +518,12 @@ Bottom5 均分 0.0704，
     <tr><td>物种分布数据源</td><td>GBIF (Global Biodiversity Information Facility)</td></tr>
     <tr><td>适宜性得分含义</td><td>0-1 概率值，越高越适宜。全省均值 0.102</td></tr>
     <tr><td>等级划分方法</td><td>基于全省城市均分的均值+标准差动态分级</td></tr>
-    <tr><td>数据生成时间</td><td>2026-06-03 09:54</td></tr>
+    <tr><td>数据生成时间</td><td>2026-06-03 10:47</td></tr>
 </tbody>
 </table>
 
 <div class="callout callout-info">
-适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。全省均值约 0.21，最高 0.35，说明山东省整体得分不高，需要在省内做相对比较。
+适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。
 </div>
 
 </div>

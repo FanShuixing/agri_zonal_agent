@@ -50,8 +50,9 @@ warnings.filterwarnings("ignore")
 # 路径 & 常量
 # ═══════════════════════════════════════════
 BASE_DIR = Path(__file__).resolve().parents[1]
-OUTPUT_DIR = BASE_DIR / "output" / "train_output"
-CACHE_DIR = BASE_DIR / "output" / "cache" / "sdm_trainer"
+DIAGNOSTICS_DIR = BASE_DIR / "output" / "diagnostics"
+PREDICTIONS_DIR = BASE_DIR / "output" / "predictions"
+CACHE_DIR = BASE_DIR / "output" / "cache" / "training"
 CHINA_SHP = BASE_DIR / "data" / "shapfile" / "china_province.shp"
 
 GBIF_API = "https://api.gbif.org/v1/occurrence/search"
@@ -369,7 +370,7 @@ def predict_china(model, imputer, resolution=300):
     return grid, lats, lons
 
 
-def save_prediction(grid, lats, lons, output_dir=OUTPUT_DIR):
+def save_prediction(grid, lats, lons, output_dir=PREDICTIONS_DIR):
     """保存预测栅格为 GeoTIFF + NPY。"""
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -407,7 +408,7 @@ def save_prediction(grid, lats, lons, output_dir=OUTPUT_DIR):
 # ═══════════════════════════════════════════
 # 7. 诊断 & 工件保存
 # ═══════════════════════════════════════════
-def save_diagnostics(eval_metrics, pres_X, bg_X, output_dir=OUTPUT_DIR):
+def save_diagnostics(eval_metrics, pres_X, bg_X, output_dir=DIAGNOSTICS_DIR):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     diag = {

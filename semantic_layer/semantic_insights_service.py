@@ -1,7 +1,12 @@
+from core.model_registry import load_model_threshold
+
+
 def build_semantic_insights(
     city_stats: list,
-    threshold: float = 0.148,
+    threshold: float = None,
 ):
+    if threshold is None:
+        threshold = load_model_threshold()
     """
     构建市级农业适宜性语义解释层（单区域层）
 
