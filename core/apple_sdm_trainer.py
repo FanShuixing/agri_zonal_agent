@@ -56,7 +56,6 @@ CACHE_DIR = BASE_DIR / "output" / "cache" / "training"
 CHINA_SHP = BASE_DIR / "data" / "shapfile" / "china_province.shp"
 
 GBIF_API = "https://api.gbif.org/v1/occurrence/search"
-SPECIES = "Malus domestica"
 GBIF_LIMIT = 30_000
 BATCH_SIZE = 300
 SPATIAL_THINNING_KM = 10
@@ -64,10 +63,17 @@ BG_SAMPLES = 10_000
 RANDOM_STATE = 42
 FEATURE_NAMES = [name for name, _ in FEATURE_RASTERS]
 
-# 缓存路径
-GBIF_CACHE = CACHE_DIR / "gbif_thinned.csv"
-PRES_X_CACHE = CACHE_DIR / "pres_X.npy"
-BG_X_CACHE = CACHE_DIR / "bg_X.npy"
+# 全局默认（训练脚本直接运行时使用）
+_SPECIES = "Malus domestica"
+_CROP_NAME = "apple"
+
+
+def _cache_for(crop: str) -> tuple[Path, Path, Path]:
+    """返回某作物的三个缓存路径。"""
+    gbif = CACHE_DIR / f"{crop}_gbif_thinned.csv"
+    pres = CACHE_DIR / f"{crop}_pres_X.npy"
+    bg = CACHE_DIR / f"{crop}_bg_X.npy"
+    return gbif, pres, bg
 
 
 # ═══════════════════════════════════════════
@@ -97,7 +103,7 @@ def _build_retry_session():
 def _gbif_direct(session, offset, limit):
     """直连 GBIF API 的备用路径（pygbif SSL 异常时使用）。"""
     params = {
-        "scientificName": SPECIES,
+        "scientificName": _SPECIES,
         "hasCoordinate": "true",
         "limit": limit,
         "offset": offset,
@@ -116,7 +122,7 @@ def fetch_occurrences(limit=GBIF_LIMIT, batch=BATCH_SIZE):
     while len(records) < limit:
         try:
             res = gbif_occurrences.search(
-                scientificName=SPECIES,
+                scientificName=_SPECIES,
                 hasCoordinate=True,
                 limit=batch,
                 offset=offset,
@@ -370,12 +376,12 @@ def predict_china(model, imputer, resolution=300):
     return grid, lats, lons
 
 
-def save_prediction(grid, lats, lons, output_dir=PREDICTIONS_DIR):
+def save_prediction(grid, lats, lons, output_dir=PREDICTIONS_DIR, crop: str = "apple"):
     """保存预测栅格为 GeoTIFF + NPY。"""
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    npy_path = output_dir / "china_suitability.npy"
-    tif_path = output_dir / "china_suitability.tif"
+    npy_path = output_dir / f"{crop}_suitability.npy"
+    tif_path = output_dir / f"{crop}_suitability.tif"
 
     np.save(npy_path, grid)
 
@@ -416,7 +422,7 @@ def save_diagnostics(eval_metrics, pres_X, bg_X, output_dir=DIAGNOSTICS_DIR):
         "presence_shape": list(pres_X.shape),
         "background_shape": list(bg_X.shape),
         "feature_names": FEATURE_NAMES,
-        "species": SPECIES,
+        "species": _SPECIES,
         "gbif_limit": GBIF_LIMIT,
         "spatial_thinning_km": SPATIAL_THINNING_KM,
         "bg_samples": BG_SAMPLES,
@@ -435,45 +441,61 @@ def save_diagnostics(eval_metrics, pres_X, bg_X, output_dir=DIAGNOSTICS_DIR):
 # ═══════════════════════════════════════════
 # 8. 主流程
 # ═══════════════════════════════════════════
-def run():
+def train_crop_model(
+    crop_name: str = "apple",
+    scientific_name: str = "Malus domestica",
+):
+    """训练指定作物的 SDM 模型。
+
+    Parameters
+    ----------
+    crop_name : 作物中文名/标识符，用于缓存和模型目录命名
+    scientific_name : GBIF 学名，用于物种分布数据查询
+    """
+    global _SPECIES, _CROP_NAME
+    _SPECIES = scientific_name
+    _CROP_NAME = crop_name
+
+    gbif_cache, pres_cache, bg_cache = _cache_for(crop_name)
+
     print("=" * 60)
-    print(f"  {SPECIES} SDM 训练 — 全球训练 + 中国预测")
+    print(f"  {_CROP_NAME} ({_SPECIES}) SDM 训练 — 全球训练 + 中国预测")
     print("=" * 60)
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
     # Step 1-2 — GBIF + 空间稀疏化（带缓存）
-    if GBIF_CACHE.exists():
-        print(f"\n[1/7] 加载缓存的 GBIF 数据: {GBIF_CACHE}")
-        df = pd.read_csv(GBIF_CACHE)
+    if gbif_cache.exists():
+        print(f"\n[1/7] 加载缓存的 GBIF 数据: {gbif_cache}")
+        df = pd.read_csv(gbif_cache)
     else:
         print("\n[1/7] 获取全球 GBIF 数据")
         df = fetch_occurrences()
         print("\n[2/7] 空间稀疏化")
         df = spatial_thinning(df)
-        df.to_csv(GBIF_CACHE, index=False)
-        print(f"  已缓存: {GBIF_CACHE}")
+        df.to_csv(gbif_cache, index=False)
+        print(f"  已缓存: {gbif_cache}")
 
     # Step 3 — 构建 presence 特征（带缓存）
-    if PRES_X_CACHE.exists():
-        print(f"\n[3/7] 加载缓存的 presence 特征: {PRES_X_CACHE}")
-        pres_X = np.load(PRES_X_CACHE)
+    if pres_cache.exists():
+        print(f"\n[3/7] 加载缓存的 presence 特征: {pres_cache}")
+        pres_X = np.load(pres_cache)
     else:
         print("\n[3/7] 构建 presence 特征")
         pres_X = build_features(df)
-        np.save(PRES_X_CACHE, pres_X)
-        print(f"  已缓存: {PRES_X_CACHE}")
+        np.save(pres_cache, pres_X)
+        print(f"  已缓存: {pres_cache}")
     print(f"  presence feature matrix: {pres_X.shape}")
 
     # Step 4 — 全球背景点（带缓存）
-    if BG_X_CACHE.exists():
-        print(f"\n[4/7] 加载缓存的背景点特征: {BG_X_CACHE}")
-        bg_X = np.load(BG_X_CACHE)
+    if bg_cache.exists():
+        print(f"\n[4/7] 加载缓存的背景点特征: {bg_cache}")
+        bg_X = np.load(bg_cache)
     else:
         print("\n[4/7] 采样全球背景点")
         bg_X = sample_background_global()
-        np.save(BG_X_CACHE, bg_X)
-        print(f"  已缓存: {BG_X_CACHE}")
+        np.save(bg_cache, bg_X)
+        print(f"  已缓存: {bg_cache}")
 
     # Step 5 — 训练 + 评估
     print("\n[5/7] 训练 GBDT + 评估")
@@ -481,13 +503,13 @@ def run():
 
     # Step 6 — 保存工件
     print("\n[6/7] 保存模型 & 诊断")
-    save_artifacts(model, imputer, threshold=threshold, eval_metrics=eval_metrics)
+    save_artifacts(model, imputer, threshold=threshold, eval_metrics=eval_metrics, crop=crop_name)
     save_diagnostics(eval_metrics, pres_X, bg_X)
 
     # Step 7 — 中国预测
     print("\n[7/7] 中国境内预测")
     grid, lats, lons = predict_china(model, imputer)
-    save_prediction(grid, lats, lons)
+    save_prediction(grid, lats, lons, crop=crop_name)
 
     print("\n" + "=" * 60)
     print(f"  ✅ 训练完成")
@@ -506,4 +528,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    train_crop_model("apple", "Malus domestica")

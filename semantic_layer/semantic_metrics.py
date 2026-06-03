@@ -1,11 +1,16 @@
 from core.model_registry import load_model_threshold
 
 
-def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
+def build_semantic_metrics(
+    stats: dict,
+    threshold: float = None,
+    unsuitable_ratio: float = 0.0,
+    has_peak_potential: bool = False,
+) -> dict:
     if threshold is None:
         threshold = load_model_threshold()
     """
-    基于适宜性统计数据，生成农业语义分析结果
+    基于适宜性统计数据，生成农业语义分析结果。
 
     输入:
     {
@@ -16,6 +21,8 @@ def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
         "medium_ratio": 0.35,
         "low_ratio": 0.53
     }
+    unsuitable_ratio: 全省不适宜区面积占比（0-1），用于判断是否降级为局部适宜/不适宜
+    has_peak_potential: 是否存在峰值潜力城市（max≥阈值 且 max/mean≥2.0）
 
     输出:
     {
@@ -56,15 +63,18 @@ def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
     # =========================
     # 适宜性等级
     # =========================
-    if threshold_ratio >= 2.5:
+    # 先检查面积分布：超过半数区域不适宜 → 整体评级需反映这一现实
+    if unsuitable_ratio >= 0.5:
+        if has_peak_potential:
+            suitability_level = "局部适宜区"
+        else:
+            suitability_level = "不适宜区"
+    elif threshold_ratio >= 2.5:
         suitability_level = "重点适宜区"
-
     elif threshold_ratio >= 1.8:
         suitability_level = "较适宜区"
-
     elif threshold_ratio >= 1.2:
         suitability_level = "一般适宜区"
-
     else:
         suitability_level = "边缘适宜区"
 
@@ -85,10 +95,10 @@ def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
     # =========================
     # 风险等级
     # =========================
-    if min_score < threshold * 0.8:
+    if min_score < threshold * 0.8 or unsuitable_ratio >= 0.7:
         risk_level = "高风险"
 
-    elif min_score < threshold:
+    elif min_score < threshold or unsuitable_ratio >= 0.5:
         risk_level = "中等风险"
 
     else:
@@ -110,6 +120,12 @@ def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
     elif threshold_ratio >= 1.2:
         industrialization_level = "适合小规模试种"
 
+    elif suitability_level == "局部适宜区":
+        industrialization_level = "适合局部精品化发展"
+
+    elif suitability_level == "不适宜区":
+        industrialization_level = "不建议发展"
+
     else:
         industrialization_level = "不建议大规模发展"
 
@@ -130,6 +146,9 @@ def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
     if high_ratio < 0.05:
         risk_hints.append("高适宜区域分布有限")
 
+    if unsuitable_ratio >= 0.5:
+        risk_hints.append("超过半数区域不适宜种植")
+
     if len(risk_hints) == 0:
         risk_hints.append("整体种植风险相对可控")
 
@@ -149,6 +168,19 @@ def build_semantic_metrics(stats: dict, threshold: float = None) -> dict:
 
     elif suitability_level == "一般适宜区":
         development_advice = "建议开展小规模试种，" "重点关注灌溉、防灾及生态适应性。"
+
+    elif suitability_level == "局部适宜区":
+        development_advice = (
+            "全省大部分区域不适宜大规模种植，"
+            "但存在局部高适宜性地块（峰值显著高于均值）。"
+            "建议聚焦这些优质区域发展精品果园，不宜盲目扩大规模。"
+        )
+
+    elif suitability_level == "不适宜区":
+        development_advice = (
+            "区域整体适宜性偏低，大部分土地不适合该作物种植，"
+            "且缺乏局部优质适生区，不建议进行产业化发展。"
+        )
 
     else:
         development_advice = "区域整体适宜性偏低，" "不建议进行大规模苹果产业扩张。"

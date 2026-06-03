@@ -1,5 +1,6 @@
 from utils.json_handler import load_json, save_json
 
+from core.model_registry import load_model_threshold
 from semantic_layer.ranking_semantic_sevice import build_ranking_semantic
 from semantic_layer.semantic_metrics import build_semantic_metrics
 from semantic_layer.spatial_analysis_service import (
@@ -35,9 +36,28 @@ def build_semantic_layer(
     grading_system = build_grading_system(overall_data["city_stats"])
 
     # ==========================
+    # 全省等级结构（先计算，province_semantic 需要 unsuitable_ratio）
+    # ==========================
+    grade_semantic = build_grade_semantic(stats["grade_ratios"])
+    unsuitable_ratio = grade_semantic.get("unsuitable_ratio", 0)
+
+    # 检查是否有峰值潜力城市（max≥阈值 且 max/mean≥2.0）
+    model_t = load_model_threshold()
+    city_stats_list = overall_data.get("city_stats", [])
+    has_peak = any(
+        c.get("max_score", 0) >= model_t
+        and c.get("max_score", 0) / max(c.get("mean_score", 0.001), 0.001) >= 2.0
+        for c in city_stats_list
+    )
+
+    # ==========================
     # 省级整体适宜性
     # ==========================
-    province_semantic = build_semantic_metrics(stats["overall_stats"])
+    province_semantic = build_semantic_metrics(
+        stats["overall_stats"],
+        unsuitable_ratio=unsuitable_ratio,
+        has_peak_potential=has_peak,
+    )
 
     # ==========================
     # 分布特征
@@ -53,11 +73,6 @@ def build_semantic_layer(
     # 连续优势片区
     # ==========================
     patch_semantic = build_patch_semantic(stats["connected_patch_stats"])
-
-    # ==========================
-    # 全省等级结构
-    # ==========================
-    grade_semantic = build_grade_semantic(stats["grade_ratios"])
 
     # ==========================
     # 城市排名

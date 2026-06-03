@@ -7,16 +7,19 @@ from core.feature_extractor import normalize_numeric
 
 MODEL = None
 IMPUTER = None
-DEFAULT_THRESHOLD = float(load_metadata().get("threshold", 0.3))
+DEFAULT_THRESHOLD = float(load_metadata("apple").get("threshold", 0.3))
+_CURRENT_CROP = "apple"
 
 
-def init_predictor_from_disk(default_threshold: float = 0.3):
-    model, imputer, threshold = load_artifacts()
+def init_predictor_from_disk(crop: str = "apple"):
+    """加载指定作物的模型到全局单例。"""
+    model, imputer, threshold = load_artifacts(crop)
 
-    global MODEL, IMPUTER, DEFAULT_THRESHOLD
+    global MODEL, IMPUTER, DEFAULT_THRESHOLD, _CURRENT_CROP
     MODEL = model
     IMPUTER = imputer
     DEFAULT_THRESHOLD = float(threshold)
+    _CURRENT_CROP = crop
     return MODEL, IMPUTER, DEFAULT_THRESHOLD
 
 
@@ -75,13 +78,9 @@ def predict_location(
 
 
 try:
-    init_predictor_from_disk(DEFAULT_THRESHOLD)
+    init_predictor_from_disk("apple")
 except FileNotFoundError:
     pass
-
-from apple.feature_config import FEATURE_RASTERS
-from apple.feature_extractor import normalize_numeric
-from AI.agri_zonal_agent.core.streaming_maxent_optimized import climate_filter_batch
 
 
 def predict_province_map2(

@@ -2,6 +2,7 @@ paths:
   output_dir: output
 
   raster:
+    # 默认预测栅格（苹果）。作物相关路径在 tools.py 中动态计算为 {crop}_suitability.tif
     china_suitability_tf: output/predictions/china_suitability.tif
 
   shapefile:
@@ -23,18 +24,8 @@ paths:
     semantic_layer: output/cache/pipeline/semantic_layer.json
 
   # 模板选择: "report.html" (标准) | "report_dashboard.html" (仪表盘)
-  # 代码: generate_data_report(context, template="dashboard")
   html_template: report.html
 
 prompts:
+  # Agent 系统提示（供 conversation.py 使用）
   data_layer: prompts/system/data_layer.txt
-  analysis_layer: prompts/system/analyze.txt
-
-  summary_prompt: prompts/sections/summary_prompt.txt
-  overall_analysis_prompt: prompts/sections/overall_analysis_prompt.txt
-  spatial_analysis_prompt: prompts/sections/spatial_analysis_prompt.txt
-  top_regions_analysis_prompt: prompts/sections/top_regions_analysis_prompt.txt
-  risk_analysis_prompt: prompts/sections/risk_analysis_prompt.txt
-  stability_analysis_prompt: prompts/sections/stability_analysis_prompt.txt
-  industry_advice_prompt: prompts/sections/industry_advice_prompt.txt
-  conclusion_prompt: prompts/sections/conclusion_prompt.txt

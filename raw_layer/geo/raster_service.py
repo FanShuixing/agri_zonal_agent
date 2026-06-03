@@ -4,7 +4,7 @@ from rasterio.mask import mask
 import geopandas as gpd
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-DEFAULT_TIF = BASE_DIR / "output" / "china_suitability.tif"
+DEFAULT_TIF = BASE_DIR / "output" / "predictions" / "china_suitability.tif"
 
 
 import rasterio
