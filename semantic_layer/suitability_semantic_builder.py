@@ -105,12 +105,13 @@ def build_grade_semantic(grade_stats: dict) -> dict:
     dominant_ratio = grade_stats.get("dominant_ratio", 0)
 
     core_ratio = _get_grade_ratio(grade_ratios, "核心优势区")
-    suitable_ratio = core_ratio + _get_grade_ratio(grade_ratios, "较适宜区")
+    better_ratio = _get_grade_ratio(grade_ratios, "较适宜区")
+    general_ratio = _get_grade_ratio(grade_ratios, "一般适宜区")
     unsuitable_ratio = _get_grade_ratio(grade_ratios, "不适宜区")
 
     if core_ratio >= 0.3:
         grade_structure = "核心优势区占比较高"
-    elif suitable_ratio >= 0.4:
+    elif (core_ratio + better_ratio) >= 0.4:
         grade_structure = "适宜等级结构较好"
     elif unsuitable_ratio >= 0.3:
         grade_structure = "不适宜区占比较高"
@@ -119,9 +120,10 @@ def build_grade_semantic(grade_stats: dict) -> dict:
 
     return {
         "dominant_grade": dominant_grade,
-        "dominant_ratio": dominant_ratio,
+        "dominant_ratio": round(dominant_ratio, 4),
         "core_ratio": round(core_ratio, 4),
-        "suitable_ratio": round(suitable_ratio, 4),
+        "better_ratio": round(better_ratio, 4),
+        "general_ratio": round(general_ratio, 4),
         "unsuitable_ratio": round(unsuitable_ratio, 4),
         "grade_structure": grade_structure,
     }

@@ -37,7 +37,8 @@
     "dominant_grade": "不适宜区",
     "dominant_ratio": 0.5072,
     "core_ratio": 0.2448,
-    "suitable_ratio": 0.3664,
+    "better_ratio": 0.1216,
+    "general_ratio": 0.1264,
     "unsuitable_ratio": 0.5072,
     "grade_structure": "不适宜区占比较高"
   },

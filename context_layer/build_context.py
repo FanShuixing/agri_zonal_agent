@@ -27,7 +27,7 @@ def build_report_context(
     stats = raw["stats"]
 
     # ── 1. 数值基础：LLM 需要知道数字才有东西可写 ──────────────────
-    numerical_basis = _build_numerical_basis(stats)
+    numerical_basis = _build_numerical_basis(stats, raw.get("city_stats", []))
 
     # ── 2. 各城市数据卡片 ──────────────────────────────────────────
     city_scorecards = _build_city_scorecards(raw, semantic)
@@ -77,7 +77,8 @@ def build_report_context(
         "dominant_ratio": grade_semantic.get("dominant_ratio", 0.5),
         "grade_structure": grade_semantic["grade_structure"],
         "core_ratio": grade_semantic["core_ratio"],
-        "suitable_ratio": grade_semantic["suitable_ratio"],
+        "better_ratio": grade_semantic["better_ratio"],
+        "general_ratio": grade_semantic["general_ratio"],
         "unsuitable_ratio": grade_semantic["unsuitable_ratio"],
     }
 
@@ -123,7 +124,7 @@ def build_report_context(
 # 辅助函数
 # ═══════════════════════════════════════════════════════════════════
 
-def _build_numerical_basis(stats: dict) -> dict:
+def _build_numerical_basis(stats: dict, city_stats: list | None = None) -> dict:
     """构建数值基础数据块——LLM 据此做出量化分析。"""
     overall = stats["overall_stats"]
     dist = stats["distribution_stats"]
@@ -132,6 +133,13 @@ def _build_numerical_basis(stats: dict) -> dict:
     mean_s = overall.get("mean_score", 0)
     std_s = dist.get("std_score", 0)
 
+    # 城市间极差（与 KPI 面板中其他数据口径一致）
+    if city_stats:
+        city_means = [c["mean_score"] for c in city_stats if c.get("mean_score") is not None]
+        city_range = round(max(city_means) - min(city_means), 4) if city_means else 0
+    else:
+        city_range = round(overall.get("max_score", 0) - overall.get("min_score", 0), 4)
+
     # 省内数据驱动的等级边界（与 suitability_grading.py 一致）
     local_floor = round(mean_s * 0.8, 4)
     local_high = round(mean_s + 0.5 * std_s, 4)
@@ -139,9 +147,9 @@ def _build_numerical_basis(stats: dict) -> dict:
     return {
         "province_level": {
             "mean_score": overall["mean_score"],
-            "max_score": overall["max_score"],
-            "min_score": overall["min_score"],
-            "score_range": round(overall["max_score"] - overall["min_score"], 4),
+            "max_city_score": round(max(city_means), 4) if city_stats else overall["max_score"],
+            "min_city_score": round(min(city_means), 4) if city_stats else overall["min_score"],
+            "score_range": city_range,
             "std_score": std_s,
             "model_threshold": round(model_t, 4),
         },
@@ -283,7 +291,8 @@ def _build_industrial_context(
             "dominant_grade": grade_structure["dominant_grade"],
             "dominant_ratio": grade_structure["dominant_ratio"],
             "core_ratio": grade_structure["core_ratio"],
-            "suitable_ratio": grade_structure["suitable_ratio"],
+            "better_ratio": grade_structure["better_ratio"],
+            "general_ratio": grade_structure["general_ratio"],
             "unsuitable_ratio": grade_structure["unsuitable_ratio"],
         },
         "spatial_quality_overview": {

@@ -175,11 +175,11 @@
                 <div class="label">核心优势区</div>
             </div>
             <div class="metric">
-                <div class="value highlight">{{ "%.1f"|format(grade_structure.suitable_ratio * 100) }}%</div>
+                <div class="value highlight">{{ "%.1f"|format(grade_structure.better_ratio * 100) }}%</div>
                 <div class="label">较适宜区</div>
             </div>
             <div class="metric">
-                <div class="value">{{ "%.1f"|format(grade_structure.dominant_ratio * 100) }}%</div>
+                <div class="value">{{ "%.1f"|format(grade_structure.general_ratio * 100) }}%</div>
                 <div class="label">一般适宜区</div>
             </div>
             <div class="metric">
@@ -190,7 +190,7 @@
         <div class="insight">
             全省主导等级：<strong>{{ grade_structure.dominant_grade }}</strong>，
             结构特征：<strong>{{ grade_structure.grade_structure }}</strong>。
-            核心+较适宜合计 <strong>{{ "%.1f"|format((grade_structure.core_ratio + grade_structure.suitable_ratio) * 100) }}%</strong>。
+            核心+较适宜合计 <strong>{{ "%.1f"|format((grade_structure.core_ratio + grade_structure.better_ratio) * 100) }}%</strong>。
         </div>
 
         <h3>等级划分标准</h3>
