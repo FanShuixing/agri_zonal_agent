@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山东省 — 苹果种植适宜性分析报告</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        background: #f0f2f5; color: #2d3748; line-height: 1.8; padding: 30px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; background: #fff; padding: 50px 60px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+
+    h1 { font-size: 28px; color: #1a365d; border-bottom: 3px solid #3182ce; padding-bottom: 14px; margin-bottom: 10px; }
+    .meta { color: #718096; font-size: 14px; margin-bottom: 40px; }
+
+    h2 { font-size: 20px; color: #2b6cb0; border-left: 5px solid #3182ce; padding-left: 12px; margin: 44px 0 18px; }
+    h3 { font-size: 16px; color: #4a5568; margin: 20px 0 10px; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 20px 0; }
+    .kpi-card { background: #f7fafc; border-radius: 10px; padding: 18px 20px; text-align: center; border: 1px solid #e2e8f0; }
+    .kpi-value { font-size: 26px; font-weight: bold; color: #2b6cb0; }
+    .kpi-label { font-size: 13px; color: #718096; margin-top: 4px; }
+
+    img { width: 100%; border-radius: 10px; border: 1px solid #e2e8f0; margin: 16px 0; }
+
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th { background: #edf2f7; padding: 10px 12px; text-align: center; font-weight: 600; border-bottom: 2px solid #cbd5e0; }
+    td { padding: 9px 12px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+    tr:nth-child(even) td { background: #f7fafc; }
+    .rank-1 td { background: #fffff0; font-weight: bold; }
+    .rank-last td { background: #fff5f5; }
+
+    .bar-wrap { display: inline-block; width: 80px; height: 10px; background: #e2e8f0; border-radius: 5px; vertical-align: middle; margin-left: 6px; }
+    .bar-fill { height: 10px; border-radius: 5px; background: #3182ce; }
+
+    .callout { padding: 20px 24px; border-radius: 10px; margin: 20px 0; }
+    .callout-info { background: #ebf8ff; border-left: 5px solid #3182ce; }
+    .callout-warn { background: #fff5f5; border-left: 5px solid #e53e3e; }
+    .callout-good { background: #f0fff4; border-left: 5px solid #38a169; }
+
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin: 0 4px; }
+    .tag-high { background: #c6f6d5; color: #22543d; }
+    .tag-mid { background: #fefcbf; color: #744210; }
+    .tag-low { background: #fed7d7; color: #742a2a; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>山东省 — 苹果种植适宜性分析报告</h1>
+<p class="meta">生成时间：2026-06-02 16:01 &nbsp;|&nbsp;
+分析方法：WorldClim 气候栅格 + GBDT 物种分布模型 &nbsp;|&nbsp;
+数据驱动报告（未使用 LLM 生成）</p>
+
+
+<h2>一、总体概况</h2>
+
+<div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-value">0.208</div><div class="kpi-label">全省均分</div></div>
+    <div class="kpi-card"><div class="kpi-value">0.245</div><div class="kpi-label">最高分 (德州市)</div></div>
+    <div class="kpi-card"><div class="kpi-value">0.345</div><div class="kpi-label">得分极差</div></div>
+    <div class="kpi-card"><div class="kpi-value">0.0399</div><div class="kpi-label">Top5 vs Bottom5 差距</div></div>
+    <div class="kpi-card"><div class="kpi-value">0.264</div><div class="kpi-label">P90 分位值</div></div>
+    <div class="kpi-card"><div class="kpi-value">一般适宜区</div><div class="kpi-label">综合适宜性等级</div></div>
+</div>
+
+<div class="callout callout-info">
+<strong>快速解读：</strong>山东省苹果种植综合评定为 <strong>一般适宜区</strong>，
+风险等级 <strong>高风险</strong>，
+稳定性 <strong>稳定性中等</strong>。
+全省均分 0.208（0-1 尺度），最高分 德州市（0.245），
+最低分 菏泽市（0.160）。
+头尾城市间得分极差仅 0.0399，
+说明省内适宜性差异有限，排名靠前是相对优势而非绝对优势。
+</div>
+
+<h2>二、适宜性空间分布</h2>
+
+<img src="../output/static/suitability_map.png" alt="适宜性空间分布图">
+
+<div class="callout callout-info">
+<strong>空间格局：</strong>北高南低、高值区局部集聚明显，梯度方向为 <strong>北高南低</strong>。
+核心区位于 <strong>德州市</strong>。<br>
+<strong>高值城市（4个）：</strong>济南市、滨州市、德州市、潍坊市<br>
+<strong>低值城市（4个）：</strong>威海市、菏泽市、青岛市、济宁市<br>
+<strong>高值邻接对：</strong>无
+（邻接的高值城市可考虑跨市产业协同）
+</div>
+
+<h2>三、各城市适宜性排名</h2>
+
+<img src="../output/static/ranking_table.png" alt="市级适宜性排名">
+
+<table>
+<thead><tr>
+    <th>排名</th><th>城市</th><th>均分</th><th>最高分</th><th>核心优势区占比</th><th>较适宜区占比</th><th>一般适宜区占比</th><th>类型</th>
+</tr></thead>
+<tbody><tr class="rank-1">
+            <td>1</td><td style="text-align:left;">德州市</td>
+            <td>0.2446</td><td>0.2903</td>
+            <td>52.9% <span class="bar-wrap"><span class="bar-fill" style="width:52.9px;"></span></span></td>
+            <td>10.0%</td>
+            <td>27.9%</td>
+            <td><span class="tag tag-high">核心主导</span></td>
+        </tr><tr>
+            <td>2</td><td style="text-align:left;">滨州市</td>
+            <td>0.2312</td><td>0.2676</td>
+            <td>45.7% <span class="bar-wrap"><span class="bar-fill" style="width:45.7px;"></span></span></td>
+            <td>16.0%</td>
+            <td>38.3%</td>
+            <td><span class="tag tag-high">核心主导</span></td>
+        </tr><tr>
+            <td>3</td><td style="text-align:left;">潍坊市</td>
+            <td>0.2277</td><td>0.3212</td>
+            <td>46.2% <span class="bar-wrap"><span class="bar-fill" style="width:46.2px;"></span></span></td>
+            <td>13.6%</td>
+            <td>39.4%</td>
+            <td><span class="tag tag-high">核心主导</span></td>
+        </tr><tr>
+            <td>4</td><td style="text-align:left;">济南市</td>
+            <td>0.2250</td><td>0.3454</td>
+            <td>37.1% <span class="bar-wrap"><span class="bar-fill" style="width:37.1px;"></span></span></td>
+            <td>18.6%</td>
+            <td>44.3%</td>
+            <td><span class="tag tag-mid">较高核心</span></td>
+        </tr><tr>
+            <td>5</td><td style="text-align:left;">淄博市</td>
+            <td>0.2155</td><td>0.2761</td>
+            <td>41.7% <span class="bar-wrap"><span class="bar-fill" style="width:41.7px;"></span></span></td>
+            <td>19.4%</td>
+            <td>38.9%</td>
+            <td><span class="tag tag-high">核心主导</span></td>
+        </tr><tr>
+            <td>6</td><td style="text-align:left;">临沂市</td>
+            <td>0.2110</td><td>0.3312</td>
+            <td>27.2% <span class="bar-wrap"><span class="bar-fill" style="width:27.2px;"></span></span></td>
+            <td>9.5%</td>
+            <td>63.3%</td>
+            <td><span class="tag tag-mid">较高核心</span></td>
+        </tr><tr>
+            <td>7</td><td style="text-align:left;">聊城市</td>
+            <td>0.2079</td><td>0.2644</td>
+            <td>23.4% <span class="bar-wrap"><span class="bar-fill" style="width:23.4px;"></span></span></td>
+            <td>7.8%</td>
+            <td>63.6%</td>
+            <td></td>
+        </tr><tr>
+            <td>8</td><td style="text-align:left;">烟台市</td>
+            <td>0.2057</td><td>0.3063</td>
+            <td>20.4% <span class="bar-wrap"><span class="bar-fill" style="width:20.4px;"></span></span></td>
+            <td>17.3%</td>
+            <td>61.2%</td>
+            <td></td>
+        </tr><tr>
+            <td>9</td><td style="text-align:left;">日照市</td>
+            <td>0.2049</td><td>0.3238</td>
+            <td>29.1% <span class="bar-wrap"><span class="bar-fill" style="width:29.1px;"></span></span></td>
+            <td>3.6%</td>
+            <td>67.3%</td>
+            <td><span class="tag tag-mid">较高核心</span></td>
+        </tr><tr>
+            <td>10</td><td style="text-align:left;">东营市</td>
+            <td>0.2041</td><td>0.2711</td>
+            <td>26.0% <span class="bar-wrap"><span class="bar-fill" style="width:26.0px;"></span></span></td>
+            <td>20.0%</td>
+            <td>54.0%</td>
+            <td><span class="tag tag-mid">较高核心</span></td>
+        </tr><tr>
+            <td>11</td><td style="text-align:left;">枣庄市</td>
+            <td>0.2038</td><td>0.3248</td>
+            <td>14.6% <span class="bar-wrap"><span class="bar-fill" style="width:14.6px;"></span></span></td>
+            <td>12.5%</td>
+            <td>72.9%</td>
+            <td></td>
+        </tr><tr>
+            <td>12</td><td style="text-align:left;">泰安市</td>
+            <td>0.2015</td><td>0.2744</td>
+            <td>22.5% <span class="bar-wrap"><span class="bar-fill" style="width:22.5px;"></span></span></td>
+            <td>16.2%</td>
+            <td>61.3%</td>
+            <td></td>
+        </tr><tr>
+            <td>13</td><td style="text-align:left;">威海市</td>
+            <td>0.2003</td><td>0.2224</td>
+            <td>15.4% <span class="bar-wrap"><span class="bar-fill" style="width:15.4px;"></span></span></td>
+            <td>15.4%</td>
+            <td>69.2%</td>
+            <td></td>
+        </tr><tr>
+            <td>14</td><td style="text-align:left;">济宁市</td>
+            <td>0.1924</td><td>0.3381</td>
+            <td>11.1% <span class="bar-wrap"><span class="bar-fill" style="width:11.1px;"></span></span></td>
+            <td>8.6%</td>
+            <td>75.2%</td>
+            <td></td>
+        </tr><tr>
+            <td>15</td><td style="text-align:left;">青岛市</td>
+            <td>0.1906</td><td>0.2283</td>
+            <td>21.9% <span class="bar-wrap"><span class="bar-fill" style="width:21.9px;"></span></span></td>
+            <td>12.2%</td>
+            <td>64.6%</td>
+            <td></td>
+        </tr><tr class="rank-last">
+            <td>16</td><td style="text-align:left;">菏泽市</td>
+            <td>0.1596</td><td>0.2352</td>
+            <td>6.2% <span class="bar-wrap"><span class="bar-fill" style="width:6.2px;"></span></span></td>
+            <td>1.0%</td>
+            <td>59.4%</td>
+            <td><span class="tag tag-low">低核心</span></td>
+        </tr></tbody>
+</table>
+
+<div class="callout callout-info">
+<strong>排名结构：</strong>相对均衡型，头尾得分差距 0.085（头尾差异较小）。
+领先集团：德州市、滨州市、潍坊市、济南市适宜性明显高于区域平均水平。<br>
+<strong>对比：</strong>Top5 均分 0.2288，
+Bottom5 均分 0.1889，
+差距仅 0.0399。
+</div>
+
+<h2>四、适宜性等级结构</h2>
+
+<h3>等级划分标准</h3>
+<table>
+<thead><tr><th>等级</th><th>得分范围</th><th>含义</th></tr></thead>
+<tbody><tr><td>不适宜区</td><td>0 — 0.148</td><td style='text-align:left;'>低于生态适生阈值，苹果种植风险很高</td></tr><tr><td>一般适宜区</td><td>0.148 — 全省均值</td><td style='text-align:left;'>可种植但优势不突出</td></tr><tr><td>较适宜区</td><td>全省均值 — 均值+0.5σ</td><td style='text-align:left;'>高于全省平均水平，有发展潜力</td></tr><tr><td>核心优势区</td><td>均值+0.5σ — 1.0</td><td style='text-align:left;'>生态条件最优，适合规模化种植</td></tr></tbody>
+</table>
+
+<h3>全省等级占比</h3>
+<div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-value">30.6%</div><div class="kpi-label">核心优势区</div></div>
+    <div class="kpi-card"><div class="kpi-value">42.7%</div><div class="kpi-label">较适宜区</div></div>
+    <div class="kpi-card"><div class="kpi-value">54.4%</div><div class="kpi-label">一般适宜区（主导）</div></div>
+    <div class="kpi-card"><div class="kpi-value">2.9%</div><div class="kpi-label">不适宜区</div></div>
+</div>
+
+<div class="callout callout-info">
+<strong>等级判定：</strong>全省主导等级为 <strong>一般适宜区</strong>，
+等级结构特征为 <strong>核心优势区占比较高</strong>。
+核心+较适宜合计 73.3%，
+不适宜区仅 2.9%，说明全省大部分区域具备基本的种植条件。
+</div>
+
+<h2>五、空间连续性与热点分析</h2>
+
+<img src="../output/static/range_chart.png" alt="适宜性波动范围图">
+
+<div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-value">28</div><div class="kpi-label">热点斑块数</div></div>
+    <div class="kpi-card"><div class="kpi-value">28</div><div class="kpi-label">核心斑块数</div></div>
+    <div class="kpi-card"><div class="kpi-value">热点面积占比较高</div><div class="kpi-label">热点规模</div></div>
+    <div class="kpi-card"><div class="kpi-value">热点呈多点分布</div><div class="kpi-label">热点模式</div></div>
+    <div class="kpi-card"><div class="kpi-value">核心区存在局部连续</div><div class="kpi-label">连通性</div></div>
+    <div class="kpi-card"><div class="kpi-value">存在一定破碎化</div><div class="kpi-label">破碎化程度</div></div>
+</div>
+
+<div class="callout callout-info">
+<strong>空间质量评估：</strong>热点呈热点呈多点分布，
+共 28 个热点斑块。核心区连通性 核心区存在局部连续，
+破碎化程度 存在一定破碎化。
+连通性不足意味着优势区呈孤岛分布，未形成连续产业带。
+</div>
+
+<h2>六、风险区域识别</h2>
+
+<div class="callout callout-warn">
+<strong>风险城市（1个）：</strong>菏泽市<br>
+<strong>低核心占比城市：</strong>济宁市(核心11%, 不适宜5%)、菏泽市(核心6%, 不适宜33%)<br>
+<strong>不适宜区占比：</strong>2.9%（全省），
+这些区域需谨慎开展规模化种植，建议以试种和品种改良为主。
+</div>
+
+<div class="callout callout-good">
+<strong>风险控制建议（数据参考）：</strong>
+<ul>
+    <li>聚焦核心优势区（核心占比 &gt; 30%）进行重点投入，避免资源分散</li>
+    <li>低核心城市（核心占比 &lt; 15%）暂不建议大规模扩种</li>
+    <li>关注高值邻接对，优先在连片区域推动产业集群</li>
+</ul>
+</div>
+
+<h2>七、数据与方法说明</h2>
+
+<table>
+<thead><tr><th>项目</th><th>说明</th></tr></thead>
+<tbody>
+    <tr><td>分析区域</td><td>山东省</td></tr>
+    <tr><td>分析方法</td><td>GradientBoosting 物种分布模型 (SDM)</td></tr>
+    <tr><td>气候数据源</td><td>WorldClim 2.1 (bio1, bio12, bio5, bio6, bio4, bio15)</td></tr>
+    <tr><td>物种分布数据源</td><td>GBIF (Global Biodiversity Information Facility)</td></tr>
+    <tr><td>适宜性得分含义</td><td>0-1 概率值，越高越适宜。全省均值 0.208</td></tr>
+    <tr><td>等级划分方法</td><td>基于全省城市均分的均值+标准差动态分级</td></tr>
+    <tr><td>数据生成时间</td><td>2026-06-02 16:01</td></tr>
+</tbody>
+</table>
+
+<div class="callout callout-info">
+适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。全省均值约 0.21，最高 0.35，说明山东省整体得分不高，需要在省内做相对比较。
+</div>
+
+
+</div>
+</body>
+</html>

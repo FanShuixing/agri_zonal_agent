@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ province }} — 苹果种植适宜性仪表盘</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+        color: #e2e8f0; line-height: 1.7; padding: 24px; min-height: 100vh;
+    }
+    .dashboard { max-width: 1200px; margin: 0 auto; }
+
+    /* 页头 */
+    .header {
+        background: rgba(255,255,255,0.06); backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+        padding: 28px 36px; margin-bottom: 24px;
+    }
+    .header h1 { font-size: 26px; color: #68d391; margin-bottom: 6px; }
+    .header .subtitle { color: #a0aec0; font-size: 13px; }
+
+    /* 双列布局 */
+    .row { display: grid; gap: 20px; margin-bottom: 20px; }
+    .row-2 { grid-template-columns: 1fr 1fr; }
+    .row-3 { grid-template-columns: repeat(3, 1fr); }
+    .row-4 { grid-template-columns: repeat(4, 1fr); }
+
+    /* 卡片 */
+    .card {
+        background: rgba(255,255,255,0.05); backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.1); border-radius: 14px;
+        padding: 22px 26px;
+    }
+    .card h2 {
+        font-size: 16px; color: #68d391; margin-bottom: 16px;
+        padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        display: flex; align-items: center; gap: 8px;
+    }
+    .card h3 { font-size: 14px; color: #e2e8f0; margin: 14px 0 8px; }
+    .card-full { grid-column: 1 / -1; }
+
+    /* KPI 数字 */
+    .metric-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .metric {
+        flex: 1; min-width: 110px; text-align: center;
+        background: rgba(255,255,255,0.04); border-radius: 10px; padding: 14px 12px;
+    }
+    .metric .value { font-size: 28px; font-weight: 700; color: #68d391; line-height: 1.3; }
+    .metric .value.highlight { color: #fbd38d; }
+    .metric .value.warn { color: #fc8181; }
+    .metric .label { font-size: 12px; color: #a0aec0; margin-top: 2px; }
+
+    /* 表格 */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+    th { background: rgba(104,211,145,0.12); padding: 8px 10px; text-align: center;
+         font-weight: 600; color: #68d391; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    td { padding: 7px 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    tr:hover td { background: rgba(255,255,255,0.04); }
+
+    /* 进度条 */
+    .bar { display: inline-block; width: 70px; height: 8px; background: rgba(255,255,255,0.1);
+           border-radius: 4px; vertical-align: middle; margin-left: 6px; overflow: hidden; }
+    .bar-inner { height: 8px; border-radius: 4px; background: linear-gradient(90deg, #68d391, #f6e05e); }
+
+    /* 标签 */
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+    .badge-green { background: rgba(104,211,145,0.2); color: #68d391; }
+    .badge-yellow { background: rgba(251,211,141,0.2); color: #fbd38d; }
+    .badge-red { background: rgba(252,129,129,0.2); color: #fc8181; }
+    .badge-blue { background: rgba(99,179,237,0.2); color: #63b3ed; }
+
+    /* 提示框 */
+    .insight {
+        background: rgba(104,211,145,0.08); border-left: 4px solid #68d391;
+        border-radius: 0 8px 8px 0; padding: 12px 16px; margin-top: 12px;
+        font-size: 13px; color: #cbd5e0;
+    }
+    .insight strong { color: #68d391; }
+    .insight-warn {
+        background: rgba(252,129,129,0.08); border-left: 4px solid #fc8181;
+    }
+    .insight-warn strong { color: #fc8181; }
+
+    img { width: 100%; border-radius: 10px; margin-top: 12px; border: 1px solid rgba(255,255,255,0.1); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    @media (max-width: 900px) {
+        .row-2, .row-3, .row-4 { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+<!-- ═══════════════ 页头 ═══════════════ -->
+<div class="header">
+    <h1>{{ province }} — 苹果种植适宜性仪表盘</h1>
+    <p class="subtitle">
+        生成时间：{{ generated_at }} &nbsp;|&nbsp;
+        GBDT 物种分布模型 &nbsp;|&nbsp;
+        气候数据：WorldClim 2.1 &nbsp;|&nbsp;
+        综合评定：<span style="color:#68d391;font-weight:600;">{{ province_summary.suitability_level }}</span>
+    </p>
+</div>
+
+<!-- ═══════════════ 第一行：KPI 总览 ═══════════════ -->
+<div class="row row-4">
+    <div class="card">
+        <div class="metric">
+            <div class="value">{{ "%.3f"|format(numerical_basis.province_level.mean_score) }}</div>
+            <div class="label">全省均分 (0-1)</div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="metric">
+            <div class="value">{{ "%.3f"|format(comparative_analysis.best_city_score) }}</div>
+            <div class="label">最高分 — {{ comparative_analysis.best_city }}</div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="metric">
+            <div class="value highlight">{{ "%.3f"|format(numerical_basis.province_level.score_range) }}</div>
+            <div class="label">得分极差</div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="metric">
+            <div class="value">{{ "%.4f"|format(comparative_analysis.top_vs_bottom_gap) }}</div>
+            <div class="label">Top5-Bottom5 差距</div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ 第二行：空间 + 等级 ═══════════════ -->
+<div class="row row-2">
+    <!-- 空间分布 -->
+    <div class="card">
+        <h2>空间格局</h2>
+        <img src="{{ images.suitability_map }}" alt="适宜性空间分布">
+        <div class="insight">
+            <strong>{{ spatial_structure.global_pattern }}</strong>，
+            梯度方向 <strong>{{ spatial_structure.gradient_direction }}</strong>。
+            核心区位于 <strong>{{ spatial_structure.core_area }}</strong>。
+        </div>
+        <div style="display:flex; gap:16px; margin-top:12px;">
+            <div style="flex:1;">
+                <div style="font-size:12px;color:#a0aec0;margin-bottom:4px;">高值城市 ({{ spatial_structure.high_value_regions|length }})</div>
+                <div style="font-size:13px;">{{ spatial_structure.high_value_regions|join("、") or "—" }}</div>
+            </div>
+            <div style="flex:1;">
+                <div style="font-size:12px;color:#a0aec0;margin-bottom:4px;">低值城市 ({{ spatial_structure.low_value_regions|length }})</div>
+                <div style="font-size:13px;">{{ spatial_structure.low_value_regions|join("、") or "—" }}</div>
+            </div>
+        </div>
+        {% set pairs = spatial_structure.adjacent_high_value_pairs %}
+        {% if pairs %}
+        <div style="margin-top:8px;font-size:13px;">
+            高值邻接对：
+            {% for a, b in pairs %}{{ a }}-{{ b }}{% if not loop.last %}、{% endif %}{% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- 等级结构 -->
+    <div class="card">
+        <h2>适宜性等级结构</h2>
+        <div class="row row-2" style="margin-bottom:12px;">
+            <div class="metric">
+                <div class="value">{{ "%.1f"|format(grade_structure.core_ratio * 100) }}%</div>
+                <div class="label">核心优势区</div>
+            </div>
+            <div class="metric">
+                <div class="value highlight">{{ "%.1f"|format(grade_structure.suitable_ratio * 100) }}%</div>
+                <div class="label">较适宜区</div>
+            </div>
+            <div class="metric">
+                <div class="value">{{ "%.1f"|format(grade_structure.dominant_ratio * 100) }}%</div>
+                <div class="label">一般适宜区</div>
+            </div>
+            <div class="metric">
+                <div class="value warn">{{ "%.1f"|format(grade_structure.unsuitable_ratio * 100) }}%</div>
+                <div class="label">不适宜区</div>
+            </div>
+        </div>
+        <div class="insight">
+            全省主导等级：<strong>{{ grade_structure.dominant_grade }}</strong>，
+            结构特征：<strong>{{ grade_structure.grade_structure }}</strong>。
+            核心+较适宜合计 <strong>{{ "%.1f"|format((grade_structure.core_ratio + grade_structure.suitable_ratio) * 100) }}%</strong>。
+        </div>
+
+        <h3>等级划分标准</h3>
+        <table>
+        <thead><tr><th>等级</th><th>得分范围</th><th>含义</th></tr></thead>
+        <tbody>
+        {% for t in numerical_basis.grade_thresholds %}
+        <tr><td>{{ t.grade }}</td><td>{{ t.score_range }}</td><td style="text-align:left;">{{ t.meaning }}</td></tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ═══════════════ 第三行：城市排名 ═══════════════ -->
+<div class="row">
+    <div class="card card-full">
+        <h2>城市适宜性排名</h2>
+        <img src="{{ images.ranking_chart }}" alt="市级排名">
+        <table>
+        <thead><tr>
+            <th>#</th><th>城市</th><th>均分</th><th>最高分</th><th>核心区%</th><th>较适宜%</th><th>一般%</th><th>类型</th>
+        </tr></thead>
+        <tbody>
+        {% for c in city_scorecards %}
+        <tr>
+            <td>{{ c.rank }}</td>
+            <td style="text-align:left;">{{ c.region }}</td>
+            <td>{{ "%.4f"|format(c.mean_score) }}</td>
+            <td>{{ "%.4f"|format(c.max_score) }}</td>
+            <td>{{ "%.1f"|format(c.core_ratio_pct) }}%
+                {% set bar_w = [c.core_ratio_pct, 50]|min %}
+                <span class="bar"><span class="bar-inner" style="width:{{ bar_w }}px;"></span></span>
+            </td>
+            <td>{{ "%.1f"|format(c.suitable_ratio_pct) }}%</td>
+            <td>{{ "%.1f"|format(c.general_ratio_pct) }}%</td>
+            <td>
+                {% if c.core_ratio_pct >= 40 %}
+                <span class="badge badge-green">核心主导</span>
+                {% elif c.core_ratio_pct >= 25 %}
+                <span class="badge badge-yellow">较高核心</span>
+                {% elif c.core_ratio_pct < 10 %}
+                <span class="badge badge-red">低核心</span>
+                {% else %}
+                <span class="badge badge-blue">中等</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <div class="insight">
+            <strong>{{ ranking_structure.ranking_type }}</strong>，
+            头尾差距 {{ ranking_structure.regional_gap.score_range }} ({{ ranking_structure.regional_gap.type }})。
+            {% if ranking_structure.leading_group.exists %}
+            领先集团：{{ ranking_structure.leading_group.description }}。
+            {% endif %}
+            Top5 均分 {{ "%.4f"|format(comparative_analysis.top5_average_score) }}，
+            Bottom5 均分 {{ "%.4f"|format(comparative_analysis.bottom5_average_score) }}。
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ 第四行：空间质量 + 风险 ═══════════════ -->
+<div class="row row-2">
+    <!-- 空间质量 -->
+    <div class="card">
+        <h2>空间连续性 &amp; 热点</h2>
+        <img src="{{ images.range_chart }}" alt="波动范围">
+        <div class="metric-row" style="margin-top:12px;">
+            <div class="metric">
+                <div class="value">{{ spatial_quality.hotspot_count }}</div>
+                <div class="label">热点斑块</div>
+            </div>
+            <div class="metric">
+                <div class="value">{{ spatial_quality.patch_count }}</div>
+                <div class="label">核心斑块</div>
+            </div>
+            <div class="metric">
+                <div class="value highlight">{{ spatial_quality.hotspot_pattern }}</div>
+                <div class="label">热点模式</div>
+            </div>
+            <div class="metric">
+                <div class="value">{{ spatial_quality.connectivity_level }}</div>
+                <div class="label">连通性</div>
+            </div>
+            <div class="metric">
+                <div class="value warn">{{ spatial_quality.fragmentation_level }}</div>
+                <div class="label">破碎化</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 风险 -->
+    <div class="card">
+        <h2>风险识别</h2>
+        {% set risk_regions = city_structure.risk_regions %}
+        {% set low_core_cities = city_scorecards|selectattr("core_ratio_pct", "lt", 15)|selectattr("unsuitable_ratio_pct", "gt", 0)|list %}
+        <div class="insight insight-warn">
+            <strong>风险城市 ({{ risk_regions|length }})：</strong>
+            {% if risk_regions %}{{ risk_regions|join("、") }}{% else %}无明确风险城市{% endif %}
+        </div>
+        <div style="margin-top:14px; font-size:13px;">
+            <strong>低核心占比城市：</strong>
+            {% for c in low_core_cities[:5] %}
+            <span class="badge badge-red">{{ c.region }} (核心{{ "%.0f"|format(c.core_ratio_pct) }}%)</span>
+            {% endfor %}
+        </div>
+        <div class="metric-row" style="margin-top:14px;">
+            <div class="metric">
+                <div class="value warn">{{ "%.1f"|format(grade_structure.unsuitable_ratio * 100) }}%</div>
+                <div class="label">不适宜区占比</div>
+            </div>
+            <div class="metric">
+                <div class="value">{{ "%.3f"|format(comparative_analysis.worst_city_score) }}</div>
+                <div class="label">最低城市分 ({{ comparative_analysis.worst_city }})</div>
+            </div>
+        </div>
+        <div class="insight insight-warn" style="margin-top:12px;">
+            不适宜区占比 {{ "%.1f"|format(grade_structure.unsuitable_ratio * 100) }}%。
+            建议以试种和品种改良为主，谨慎开展规模化种植。
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ 第五行：分位值 + 方法 ═══════════════ -->
+<div class="row row-2">
+    <div class="card">
+        <h2>分布特征</h2>
+        <div class="metric-row">
+            <div class="metric">
+                <div class="value">{{ "%.3f"|format(numerical_basis.distribution_percentiles.p50) }}</div>
+                <div class="label">P50 (中位数)</div>
+            </div>
+            <div class="metric">
+                <div class="value">{{ "%.3f"|format(numerical_basis.distribution_percentiles.p75) }}</div>
+                <div class="label">P75</div>
+            </div>
+            <div class="metric">
+                <div class="value highlight">{{ "%.3f"|format(numerical_basis.distribution_percentiles.p90) }}</div>
+                <div class="label">P90</div>
+            </div>
+            <div class="metric">
+                <div class="value">{{ "%.3f"|format(numerical_basis.distribution_percentiles.p95) }}</div>
+                <div class="label">P95</div>
+            </div>
+        </div>
+        <div style="margin-top:12px; font-size:13px; color:#a0aec0;">
+            <div>样本数：{{ numerical_basis.province_level.sample_count }}</div>
+            <div style="margin-top:4px;">{{ numerical_basis.note }}</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>方法与数据</h2>
+        <table>
+        <tbody>
+            <tr><td style="text-align:left;color:#a0aec0;">分析区域</td><td style="text-align:left;">{{ province }}</td></tr>
+            <tr><td style="text-align:left;color:#a0aec0;">模型</td><td style="text-align:left;">GBDT 物种分布模型 (SDM)</td></tr>
+            <tr><td style="text-align:left;color:#a0aec0;">气候数据</td><td style="text-align:left;">WorldClim 2.1 (6 个生物气候变量)</td></tr>
+            <tr><td style="text-align:left;color:#a0aec0;">物种数据</td><td style="text-align:left;">GBIF</td></tr>
+            <tr><td style="text-align:left;color:#a0aec0;">等级划分</td><td style="text-align:left;">均值+标准差动态分级</td></tr>
+            <tr><td style="text-align:left;color:#a0aec0;">生成时间</td><td style="text-align:left;">{{ generated_at }}</td></tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

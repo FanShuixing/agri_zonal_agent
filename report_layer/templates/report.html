@@ -1,182 +1,275 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ province }} — 苹果种植适宜性分析报告</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        background: #f0f2f5; color: #2d3748; line-height: 1.8; padding: 30px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; background: #fff; padding: 50px 60px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
 
-    <style>
+    h1 { font-size: 28px; color: #1a365d; border-bottom: 3px solid #3182ce; padding-bottom: 14px; margin-bottom: 10px; }
+    .meta { color: #718096; font-size: 14px; margin-bottom: 40px; }
 
-        body {
-            font-family: "Microsoft YaHei", sans-serif;
-            background: #f5f7fa;
-            margin: auto;
-            max-width: 1200px;
-            padding: 40px;
-            color: #333;
-            line-height: 1.9;
-        }
+    h2 { font-size: 20px; color: #2b6cb0; border-left: 5px solid #3182ce; padding-left: 12px; margin: 44px 0 18px; }
+    h3 { font-size: 16px; color: #4a5568; margin: 20px 0 10px; }
 
-        .container {
-            background: white;
-            padding: 48px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 20px 0; }
+    .kpi-card { background: #f7fafc; border-radius: 10px; padding: 18px 20px; text-align: center; border: 1px solid #e2e8f0; }
+    .kpi-value { font-size: 26px; font-weight: bold; color: #2b6cb0; }
+    .kpi-label { font-size: 13px; color: #718096; margin-top: 4px; }
 
-        h1 {
-            color: #1a365d;
-            border-bottom: 4px solid #3182ce;
-            padding-bottom: 16px;
-            margin-bottom: 40px;
-        }
+    img { width: 100%; border-radius: 10px; border: 1px solid #e2e8f0; margin: 16px 0; }
 
-        h2 {
-            margin-top: 48px;
-            margin-bottom: 20px;
-            color: #2b6cb0;
-            border-left: 6px solid #3182ce;
-            padding-left: 14px;
-        }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th { background: #edf2f7; padding: 10px 12px; text-align: center; font-weight: 600; border-bottom: 2px solid #cbd5e0; }
+    td { padding: 9px 12px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+    tr:nth-child(even) td { background: #f7fafc; }
 
-        p {
-            font-size: 16px;
-            text-align: justify;
-        }
+    .bar-wrap { display: inline-block; width: 80px; height: 10px; background: #e2e8f0; border-radius: 5px; vertical-align: middle; margin-left: 6px; }
+    .bar-fill { height: 10px; border-radius: 5px; background: #3182ce; }
 
-        img {
-            width: 100%;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
+    .callout { padding: 20px 24px; border-radius: 10px; margin: 20px 0; }
+    .callout-info { background: #ebf8ff; border-left: 5px solid #3182ce; }
+    .callout-warn { background: #fff5f5; border-left: 5px solid #e53e3e; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 24px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-
-        th {
-            background: #edf2f7;
-            font-weight: bold;
-        }
-
-        .risk-box {
-            background: #fff5f5;
-            padding: 24px;
-            border-left: 6px solid #e53e3e;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .advice-box {
-            background: #f0fff4;
-            padding: 24px;
-            border-left: 6px solid #38a169;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .conclusion-box {
-            background: #f7fafc;
-            padding: 24px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .note {
-            color: #666;
-            font-size: 14px;
-            margin-top: 12px;
-        }
-
-    </style>
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin: 0 4px; }
+    .tag-high { background: #c6f6d5; color: #22543d; }
+    .tag-mid { background: #fefcbf; color: #744210; }
+    .tag-low { background: #fed7d7; color: #742a2a; }
+</style>
 </head>
-
 <body>
-
 <div class="container">
 
-    <!-- 标题 -->
-    <h1>{{ title }}</h1>
+<!-- ═══════════════ 标题 ═══════════════ -->
+<h1>{{ province }} — 苹果种植适宜性分析报告</h1>
+<p class="meta">
+    生成时间：{{ generated_at }} &nbsp;|&nbsp;
+    分析方法：WorldClim 气候栅格 + GBDT 物种分布模型 &nbsp;|&nbsp;
+    数据驱动报告
+</p>
 
-    <!-- 摘要 -->
-    <h2>一、报告摘要</h2>
-    <p>{{ summary }}</p>
+<!-- ═══════════════ 第一章：总体概况 ═══════════════ -->
+<h2>一、总体概况</h2>
 
-    <!-- 总体分析 -->
-    <h2>二、总体适宜性分析</h2>
-
-    <p>{{ overall_analysis }}</p>
-
-
-
-    <!-- 空间格局 -->
-    <h2>三、空间分布格局分析</h2>
-
-    <img src="{{ images.suitability_map }}" alt="苹果种植适宜性空间分布图">
-
-    <p>{{ spatial_analysis }}</p>
-
-    <!-- 区域梯队 -->
-    <h2>四、区域梯队与重点区域分析</h2>
-
-    <img src="{{ images.ranking_chart }}" alt="市级适宜性排名图">
-
-    <p>{{ top_regions_analysis }}</p>
-
-
-
-    <!-- 风险分析 -->
-    <h2>五、区域适宜性波动分析</h2>
-
-    <img src="{{ images.range_chart }}" alt="适宜性波动范围图">
-
-    <div class="risk-box">
-
-        <p>{{ stability_analysis }}</p>
-
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-value">{{ "%.3f"|format(numerical_basis.province_level.mean_score) }}</div>
+        <div class="kpi-label">全省均分</div>
     </div>
-
-        <!-- 风险分析 -->
-    <h2>六、风险区域分析</h2>
-
-
-    <div class="risk-box">
-
-        <p>{{ risk_analysis }}</p>
-
+    <div class="kpi-card">
+        <div class="kpi-value">{{ "%.3f"|format(comparative_analysis.best_city_score) }}</div>
+        <div class="kpi-label">最高分 ({{ comparative_analysis.best_city }})</div>
     </div>
-
-    <!-- 产业建议 -->
-    <h2>七、产业布局建议</h2>
-
-    <div class="advice-box">
-
-        <p>{{ industry_advice }}</p>
-
+    <div class="kpi-card">
+        <div class="kpi-value">{{ "%.3f"|format(numerical_basis.province_level.score_range) }}</div>
+        <div class="kpi-label">得分极差</div>
     </div>
-
-    <!-- 结论 -->
-    <h2>七、结论</h2>
-
-    <div class="conclusion-box">
-
-        <p>{{ conclusion }}</p>
-
+    <div class="kpi-card">
+        <div class="kpi-value">{{ "%.4f"|format(comparative_analysis.top_vs_bottom_gap) }}</div>
+        <div class="kpi-label">Top5 vs Bottom5 差距</div>
     </div>
-
+    <div class="kpi-card">
+        <div class="kpi-value">{{ "%.3f"|format(numerical_basis.distribution_percentiles.p90) }}</div>
+        <div class="kpi-label">P90 分位值</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-value">{{ province_summary.suitability_level }}</div>
+        <div class="kpi-label">综合适宜性等级</div>
+    </div>
 </div>
 
-</body>
+<div class="callout callout-info">
+<strong>快速解读：</strong>{{ province }}苹果种植综合评定为 <strong>{{ province_summary.suitability_level }}</strong>，
+风险等级 <strong>{{ province_summary.risk_level }}</strong>，
+稳定性 <strong>{{ province_summary.stability_level }}</strong>。
+全省均分 {{ "%.3f"|format(numerical_basis.province_level.mean_score) }}（0-1 尺度），
+最高分 {{ comparative_analysis.best_city }}（{{ "%.3f"|format(comparative_analysis.best_city_score) }}），
+最低分 {{ comparative_analysis.worst_city }}（{{ "%.3f"|format(comparative_analysis.worst_city_score) }}）。
+头尾城市间得分极差仅 {{ "%.4f"|format(comparative_analysis.top_vs_bottom_gap) }}，
+说明省内适宜性差异有限，排名靠前是相对优势而非绝对优势。
+</div>
 
+{% if llm_summary %}
+<div class="callout callout-info">
+{{ llm_summary }}
+</div>
+{% endif %}
+
+<!-- ═══════════════ 第二章：空间分布 ═══════════════ -->
+<h2>二、适宜性空间分布</h2>
+
+<img src="{{ images.suitability_map }}" alt="适宜性空间分布图">
+
+<div class="callout callout-info">
+<strong>空间格局：</strong>{{ spatial_structure.global_pattern }}，
+梯度方向为 <strong>{{ spatial_structure.gradient_direction }}</strong>。
+核心区位于 <strong>{{ spatial_structure.core_area }}</strong>。<br>
+<strong>高值城市（{{ spatial_structure.high_value_regions|length }}个）：</strong>
+{{ spatial_structure.high_value_regions|join("、") }}<br>
+<strong>低值城市（{{ spatial_structure.low_value_regions|length }}个）：</strong>
+{{ spatial_structure.low_value_regions|join("、") }}<br>
+{% set pairs = spatial_structure.adjacent_high_value_pairs %}
+{% if pairs %}
+<strong>高值邻接对：</strong>
+{% for a, b in pairs %}{{ a }}-{{ b }}{% if not loop.last %}、{% endif %}{% endfor %}
+（邻接的高值城市可考虑跨市产业协同）
+{% endif %}
+</div>
+
+{% if llm_spatial %}
+<div class="callout callout-info">
+{{ llm_spatial }}
+</div>
+{% endif %}
+
+<!-- ═══════════════ 第三章：城市排名 ═══════════════ -->
+<h2>三、各城市适宜性排名</h2>
+
+<img src="{{ images.ranking_chart }}" alt="市级适宜性排名">
+
+<table>
+<thead><tr>
+    <th>排名</th><th>城市</th><th>均分</th><th>最高分</th><th>核心优势区占比</th><th>较适宜区占比</th><th>一般适宜区占比</th><th>类型</th>
+</tr></thead>
+<tbody>
+{% for c in city_scorecards %}
+<tr>
+    <td>{{ c.rank }}</td>
+    <td style="text-align:left;">{{ c.region }}</td>
+    <td>{{ "%.4f"|format(c.mean_score) }}</td>
+    <td>{{ "%.4f"|format(c.max_score) }}</td>
+    <td>{{ "%.1f"|format(c.core_ratio_pct) }}%
+        {% set bar_w = [c.core_ratio_pct, 60]|min %}
+        <span class="bar-wrap"><span class="bar-fill" style="width:{{ bar_w }}px;"></span></span>
+    </td>
+    <td>{{ "%.1f"|format(c.suitable_ratio_pct) }}%</td>
+    <td>{{ "%.1f"|format(c.general_ratio_pct) }}%</td>
+    <td>
+        {% if c.core_ratio_pct >= 40 %}
+        <span class="tag tag-high">核心主导</span>
+        {% elif c.core_ratio_pct >= 25 %}
+        <span class="tag tag-mid">较高核心</span>
+        {% elif c.core_ratio_pct < 10 %}
+        <span class="tag tag-low">低核心</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="callout callout-info">
+<strong>排名结构：</strong>{{ ranking_structure.ranking_type }}，
+头尾得分差距 {{ ranking_structure.regional_gap.score_range }}（{{ ranking_structure.regional_gap.type }}）。
+{% if ranking_structure.leading_group.exists %}
+领先集团：{{ ranking_structure.leading_group.description }}。<br>
+{% endif %}
+<strong>对比：</strong>Top5 均分 {{ "%.4f"|format(comparative_analysis.top5_average_score) }}，
+Bottom5 均分 {{ "%.4f"|format(comparative_analysis.bottom5_average_score) }}，
+差距 {{ "%.4f"|format(comparative_analysis.top_vs_bottom_gap) }}。
+</div>
+
+{% if llm_ranking %}
+<div class="callout callout-info">
+{{ llm_ranking }}
+</div>
+{% endif %}
+
+<!-- ═══════════════ 第四章：等级结构 ═══════════════ -->
+<h2>四、适宜性等级结构</h2>
+
+<h3>等级划分标准</h3>
+<table>
+<thead><tr><th>等级</th><th>得分范围</th><th>含义</th></tr></thead>
+<tbody>
+{% for t in numerical_basis.grade_thresholds %}
+<tr><td>{{ t.grade }}</td><td>{{ t.score_range }}</td><td style="text-align:left;">{{ t.meaning }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+
+<h3>全省等级占比</h3>
+<div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-value">{{ "%.1f"|format(grade_structure.core_ratio * 100) }}%</div><div class="kpi-label">核心优势区</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ "%.1f"|format(grade_structure.suitable_ratio * 100) }}%</div><div class="kpi-label">较适宜区</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ "%.1f"|format(grade_structure.dominant_ratio * 100) }}%</div><div class="kpi-label">一般适宜区（主导）</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ "%.1f"|format(grade_structure.unsuitable_ratio * 100) }}%</div><div class="kpi-label">不适宜区</div></div>
+</div>
+
+<div class="callout callout-info">
+<strong>等级判定：</strong>全省主导等级为 <strong>{{ grade_structure.dominant_grade }}</strong>，
+等级结构特征为 <strong>{{ grade_structure.grade_structure }}</strong>。
+核心+较适宜合计 {{ "%.1f"|format((grade_structure.core_ratio + grade_structure.suitable_ratio) * 100) }}%，
+不适宜区仅 {{ "%.1f"|format(grade_structure.unsuitable_ratio * 100) }}%。
+</div>
+
+<!-- ═══════════════ 第五章：空间质量 ═══════════════ -->
+<h2>五、空间连续性与热点分析</h2>
+
+<img src="{{ images.range_chart }}" alt="适宜性波动范围图">
+
+<div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-value">{{ spatial_quality.hotspot_count }}</div><div class="kpi-label">热点斑块数</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ spatial_quality.patch_count }}</div><div class="kpi-label">核心斑块数</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ spatial_quality.hotspot_pattern }}</div><div class="kpi-label">热点模式</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ spatial_quality.connectivity_level }}</div><div class="kpi-label">连通性</div></div>
+    <div class="kpi-card"><div class="kpi-value">{{ spatial_quality.fragmentation_level }}</div><div class="kpi-label">破碎化程度</div></div>
+</div>
+
+<div class="callout callout-info">
+<strong>空间质量评估：</strong>热点呈{{ spatial_quality.hotspot_pattern }}，
+共 {{ spatial_quality.hotspot_count }} 个热点斑块。核心区连通性 {{ spatial_quality.connectivity_level }}，
+破碎化程度 {{ spatial_quality.fragmentation_level }}。
+</div>
+
+<!-- ═══════════════ 第六章：风险区域 ═══════════════ -->
+<h2>六、风险区域识别</h2>
+
+{% set risk_regions = city_structure.risk_regions %}
+{% set low_core_cities = city_scorecards|selectattr("core_ratio_pct", "lt", 15)|selectattr("unsuitable_ratio_pct", "gt", 0)|list %}
+
+<div class="callout callout-warn">
+<strong>风险城市（{{ risk_regions|length }}个）：</strong>{% if risk_regions %}{{ risk_regions|join("、") }}{% else %}无明确风险城市{% endif %}<br>
+<strong>低核心占比城市：</strong>
+{% for c in low_core_cities[:5] %}
+{{ c.region }}(核心{{ "%.0f"|format(c.core_ratio_pct) }}%, 不适宜{{ "%.0f"|format(c.unsuitable_ratio_pct) }}%){% if not loop.last %}、{% endif %}
+{% endfor %}<br>
+<strong>不适宜区占比：</strong>{{ "%.1f"|format(grade_structure.unsuitable_ratio * 100) }}%（全省）。
+这些区域需谨慎开展规模化种植，建议以试种和品种改良为主。
+</div>
+
+{% if llm_risk %}
+<div class="callout callout-info">
+{{ llm_risk }}
+</div>
+{% endif %}
+
+<!-- ═══════════════ 第七章：数据说明 ═══════════════ -->
+<h2>七、数据与方法说明</h2>
+
+<table>
+<thead><tr><th>项目</th><th>说明</th></tr></thead>
+<tbody>
+    <tr><td>分析区域</td><td>{{ province }}</td></tr>
+    <tr><td>分析方法</td><td>GradientBoosting 物种分布模型 (SDM)</td></tr>
+    <tr><td>气候数据源</td><td>WorldClim 2.1 (bio1, bio12, bio5, bio6, bio4, bio15)</td></tr>
+    <tr><td>物种分布数据源</td><td>GBIF (Global Biodiversity Information Facility)</td></tr>
+    <tr><td>适宜性得分含义</td><td>0-1 概率值，越高越适宜。全省均值 {{ "%.3f"|format(numerical_basis.province_level.mean_score) }}</td></tr>
+    <tr><td>等级划分方法</td><td>基于全省城市均分的均值+标准差动态分级</td></tr>
+    <tr><td>数据生成时间</td><td>{{ generated_at }}</td></tr>
+</tbody>
+</table>
+
+<div class="callout callout-info">
+{{ numerical_basis.note }}
+</div>
+
+</div>
+</body>
 </html>

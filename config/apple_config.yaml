@@ -23,6 +23,10 @@ paths:
 
     semantic_layer: output/cache/semantic_layer.json
 
+  # 报告模板选择
+  #   "report.html"           — 标准详细报告（默认），白底蓝调，适合打印/正式汇报
+  #   "report_dashboard.html" — 仪表盘风格，暗色背景，适合屏幕展示/快速浏览
+  # 也可在代码中通过 generate_data_report(context, template="dashboard") 动态选择
   html_template: report.html
 
 prompts:

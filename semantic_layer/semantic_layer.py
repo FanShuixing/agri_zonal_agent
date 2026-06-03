@@ -1,12 +1,11 @@
 from utils.json_handler import load_json, save_json
-from report_layer.apple_report_service import (
-    build_region_analysis_report,
-)
+
 from semantic_layer.ranking_semantic_sevice import build_ranking_semantic
 from semantic_layer.semantic_metrics import build_semantic_metrics
 from semantic_layer.spatial_analysis_service import (
     build_spatial_semantic_layer,
 )
+from report_layer.apple_report_service import build_region_analysis_report
 from raw_layer.granding.suitability_grading import build_grading_system
 import geopandas as gpd
 from utils.config_loader import CONFIG

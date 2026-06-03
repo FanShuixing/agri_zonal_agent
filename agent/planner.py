@@ -1,11 +1,11 @@
 from pathlib import Path
 
 from agent.writer import generate_report
-from report_layer.apple_report_service import generate_html_report
+from report_layer.apple_report_service import generate_data_report
 from context_layer.build_context import build_report_context
 from semantic_layer.semantic_layer import build_semantic_layer
 from utils.config_loader import CONFIG
-from utils.json_handler import load_json, merge_json, save_json
+from utils.json_handler import load_json, save_json
 
 RAW_LAYER_1_PATH = "output/tmp/data_layer_1.json"
 RAW_LAYER_2_PATH = "output/tmp/data_layer_2.json"
@@ -63,15 +63,18 @@ def run_report_stage(
 
 
 def run_render_stage(
-    report_json_path: str | Path = REPORT_JSON_PATH,
     context_json_path: str | Path = CONTEXT_JSON_PATH,
+    template: str | None = None,
 ):
-    """合并上下文与报告数据，并渲染最终 HTML。"""
-    report_data = merge_json(report_json_path, context_json_path)
-    generate_html_report(report_data)
+    """直接从 context.json 渲染 HTML，不经过 LLM。
+
+    template 可选: "standard" (默认), "dashboard", 或模板文件名。
+    """
+    context = load_json(context_json_path)
+    generate_data_report(context, template=template)
     final_html_path = CONFIG["paths"]["output"]["final_stage_html"]
     print(f"最终报告已生成: {final_html_path}")
-    return report_data, final_html_path
+    return final_html_path
 
 
 def run_full_report_pipeline(
@@ -83,30 +86,32 @@ def run_full_report_pipeline(
     semantic_json_path: str | Path = SEMANTIC_SAVE_PATH,
     context_json_path: str | Path = CONTEXT_JSON_PATH,
     report_json_path: str | Path = REPORT_JSON_PATH,
+    template: str | None = None,
 ):
-    """串联执行完整的报告生成流程。"""
+    """串联执行完整的报告生成流程：context → HTML 直接渲染。
+
+    template 可选: "standard" (默认), "dashboard", 或模板文件名。
+    """
+    # 阶段 1-2: raw_data → semantic（有缓存则跳过）
     # run_raw_data_stage(agent, user_query)
     # semantic_data = run_semantic_stage(
     #     raw_result_json=region_json_path,
     #     region_gdf_path=region_gdf_path,
     # )
+
+    # 阶段 3: semantic → context（核心：生成富含数值的上下文）
     context_json, _ = run_context_stage(
         semantic_json_path=semantic_json_path,
         save_path=context_json_path,
     )
-    # report_json, _ = run_report_stage(
-    #     context_json_path=context_json_path,
-    #     save_path=report_json_path,
-    # )
-    # report_data, final_html_path = run_render_stage(
-    #     report_json_path=report_json_path,
-    #     context_json_path=context_json_path,
-    # )
 
-    # return {
-    #     "semantic_data": semantic_data,
-    #     "context_json": context_json,
-    #     "report_json": report_json,
-    #     "report_data": report_data,
-    #     "final_html_path": final_html_path,
-    # }
+    # 阶段 4: context → HTML（不经过 LLM，纯数据驱动）
+    final_html_path = run_render_stage(
+        context_json_path=context_json_path,
+        template=template,
+    )
+
+    return {
+        "context_json": context_json,
+        "final_html_path": final_html_path,
+    }

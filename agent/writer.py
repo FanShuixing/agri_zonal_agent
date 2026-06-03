@@ -23,6 +23,10 @@ SECTION_PROMPTS = {
 }
 
 import json
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from langchain_openai import ChatOpenAI
 from utils.json_handler import save_json
 

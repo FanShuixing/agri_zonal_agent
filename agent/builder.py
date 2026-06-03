@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from utils.load_prompt import read_prompt
@@ -10,7 +13,7 @@ from utils.config_loader import CONFIG
 
 # create a deep agent
 def create_agri_agent():
-    model = ChatOpenAI(name="gpt-3.5-turbo")
+    model = ChatOpenAI(name="gpt-4o-mini")
     research_prompt = read_prompt(CONFIG["prompts"]["data_layer"])
     agent = create_agent(
         model=model,
@@ -24,7 +27,7 @@ def create_agri_agent():
 
 
 def create_report_agent():
-    model = ChatOpenAI(name="gpt-3.5-turbo")
+    model = ChatOpenAI(name="gpt-4o-mini")
     planner_prompt = read_prompt(CONFIG["prompts"]["analysis_layer"])
     agent = create_agent(
         model=model,
