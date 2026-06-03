@@ -30,6 +30,18 @@ def build_ranking_semantic(
     dict
     """
 
+    # 全省不适宜 → 跳过正常分级逻辑
+    if not grading_system.get("province_viable", True):
+        return {
+            "top_regions": [],
+            "bottom_regions": [],
+            "leading_group": {"exists": False, "regions": [], "description": "全省气候条件不适合苹果种植"},
+            "ranking_structure": {"type": "全省不适宜", "description": "无城市达到最低生态适生门槛，不建议发展苹果产业"},
+            "regional_gap": {"type": "不适用", "score_range": 0},
+            "ranking_type": "全省不适宜",
+            "summary": "该区域气候条件不适合苹果种植。",
+        }
+
     # =========================================
     # 1️⃣ 转 DataFrame
     # =========================================

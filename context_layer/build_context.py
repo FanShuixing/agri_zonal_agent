@@ -128,9 +128,13 @@ def _build_numerical_basis(stats: dict) -> dict:
     overall = stats["overall_stats"]
     dist = stats["distribution_stats"]
 
-    t = load_model_threshold()
+    model_t = load_model_threshold()
     mean_s = overall.get("mean_score", 0)
     std_s = dist.get("std_score", 0)
+
+    # 省内数据驱动的等级边界（与 suitability_grading.py 一致）
+    local_floor = round(mean_s * 0.8, 4)
+    local_high = round(mean_s + 0.5 * std_s, 4)
 
     return {
         "province_level": {
@@ -139,6 +143,7 @@ def _build_numerical_basis(stats: dict) -> dict:
             "min_score": overall["min_score"],
             "score_range": round(overall["max_score"] - overall["min_score"], 4),
             "std_score": std_s,
+            "model_threshold": round(model_t, 4),
         },
         "distribution_percentiles": {
             "median_p50": dist.get("median_score", 0),
@@ -147,13 +152,18 @@ def _build_numerical_basis(stats: dict) -> dict:
             "p95": dist.get("p95_score", 0),
         },
         "grade_thresholds": [
-            {"grade": "不适宜区", "score_range": f"0 — {t:.3f}", "meaning": "低于生态适生阈值，苹果种植风险很高"},
-            {"grade": "一般适宜区", "score_range": f"{t:.3f} — {mean_s:.3f}（全省均值）", "meaning": "可种植但优势不突出"},
-            {"grade": "较适宜区", "score_range": f"{mean_s:.3f} — {mean_s + 0.5 * std_s:.3f}", "meaning": "高于全省平均水平，有发展潜力"},
-            {"grade": "核心优势区", "score_range": f"{mean_s + 0.5 * std_s:.3f} — 1.0", "meaning": "生态条件最优，适合规模化种植"},
+            {"grade": "不适宜区", "score_range": f"0 — {local_floor}", "meaning": f"低于全省均值80%，省内相对弱势"},
+            {"grade": "一般适宜区", "score_range": f"{local_floor} — {mean_s:.4f}", "meaning": "处于全省平均水平附近"},
+            {"grade": "较适宜区", "score_range": f"{mean_s:.4f} — {local_high}", "meaning": "高于全省平均，有发展潜力"},
+            {"grade": "核心优势区", "score_range": f"{local_high} — 1.0", "meaning": "本省生态条件最优区域"},
         ],
-        "note": "适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。",
+        "note": (
+            f"参考：全球苹果生态适生阈值 = {model_t:.3f}（GBDT 物种分布模型）。"
+            "省内等级划分基于数据分布，用于相对比较。"
+            "适宜性得分来自 WorldClim 6 个气候变量，值域 0-1。"
+        ),
     }
+
 
 
 def _build_city_scorecards(raw: dict, semantic: dict) -> list[dict]:

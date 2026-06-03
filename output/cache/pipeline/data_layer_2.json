@@ -32,13 +32,13 @@
       "grade_ratios": [
         {
           "grade_name": "不适宜区",
-          "pixel_count": 624,
-          "area_ratio": 0.9984
+          "pixel_count": 317,
+          "area_ratio": 0.5072
         },
         {
           "grade_name": "一般适宜区",
-          "pixel_count": 0,
-          "area_ratio": 0.0
+          "pixel_count": 79,
+          "area_ratio": 0.1264
         },
         {
           "grade_name": "较适宜区",
@@ -52,7 +52,7 @@
         }
       ],
       "dominant_grade": "不适宜区",
-      "dominant_ratio": 0.9984
+      "dominant_ratio": 0.5072
     },
     "city_grade_ratios": [
       {
@@ -60,13 +60,13 @@
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 140,
-            "area_ratio": 1.0
+            "pixel_count": 106,
+            "area_ratio": 0.7571
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 15,
+            "area_ratio": 0.1071
           },
           {
             "grade_name": "较适宜区",
@@ -80,20 +80,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.7571
       },
       {
         "region": "临沂市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 158,
-            "area_ratio": 1.0
+            "pixel_count": 54,
+            "area_ratio": 0.3418
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 36,
+            "area_ratio": 0.2278
           },
           {
             "grade_name": "较适宜区",
@@ -107,15 +107,15 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.3418
       },
       {
         "region": "威海市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 39,
-            "area_ratio": 1.0
+            "pixel_count": 0,
+            "area_ratio": 0.0
           },
           {
             "grade_name": "一般适宜区",
@@ -133,7 +133,7 @@
             "area_ratio": 1.0
           }
         ],
-        "dominant_grade": "不适宜区",
+        "dominant_grade": "核心优势区",
         "dominant_ratio": 1.0
       },
       {
@@ -141,13 +141,13 @@
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 55,
-            "area_ratio": 1.0
+            "pixel_count": 3,
+            "area_ratio": 0.0545
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 5,
+            "area_ratio": 0.0909
           },
           {
             "grade_name": "较适宜区",
@@ -160,21 +160,21 @@
             "area_ratio": 0.4909
           }
         ],
-        "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_grade": "核心优势区",
+        "dominant_ratio": 0.4909
       },
       {
         "region": "枣庄市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 48,
-            "area_ratio": 1.0
+            "pixel_count": 36,
+            "area_ratio": 0.75
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 1,
+            "area_ratio": 0.0208
           },
           {
             "grade_name": "较适宜区",
@@ -188,20 +188,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.75
       },
       {
         "region": "滨州市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 94,
-            "area_ratio": 1.0
+            "pixel_count": 91,
+            "area_ratio": 0.9681
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 1,
+            "area_ratio": 0.0106
           },
           {
             "grade_name": "较适宜区",
@@ -215,20 +215,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.9681
       },
       {
         "region": "东营市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 50,
-            "area_ratio": 1.0
+            "pixel_count": 41,
+            "area_ratio": 0.82
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 9,
+            "area_ratio": 0.18
           },
           {
             "grade_name": "较适宜区",
@@ -242,20 +242,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.82
       },
       {
         "region": "菏泽市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 96,
-            "area_ratio": 1.0
+            "pixel_count": 94,
+            "area_ratio": 0.9792
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 2,
+            "area_ratio": 0.0208
           },
           {
             "grade_name": "较适宜区",
@@ -269,20 +269,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.9792
       },
       {
         "region": "青岛市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 81,
-            "area_ratio": 0.9878
+            "pixel_count": 0,
+            "area_ratio": 0.0
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 8,
+            "area_ratio": 0.0976
           },
           {
             "grade_name": "较适宜区",
@@ -295,21 +295,21 @@
             "area_ratio": 0.7195
           }
         ],
-        "dominant_grade": "不适宜区",
-        "dominant_ratio": 0.9878
+        "dominant_grade": "核心优势区",
+        "dominant_ratio": 0.7195
       },
       {
         "region": "德州市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 140,
-            "area_ratio": 1.0
+            "pixel_count": 128,
+            "area_ratio": 0.9143
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 4,
+            "area_ratio": 0.0286
           },
           {
             "grade_name": "较适宜区",
@@ -323,20 +323,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.9143
       },
       {
         "region": "淄博市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 72,
-            "area_ratio": 1.0
+            "pixel_count": 44,
+            "area_ratio": 0.6111
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 5,
+            "area_ratio": 0.0694
           },
           {
             "grade_name": "较适宜区",
@@ -350,20 +350,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.6111
       },
       {
         "region": "聊城市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 77,
-            "area_ratio": 1.0
+            "pixel_count": 62,
+            "area_ratio": 0.8052
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 15,
+            "area_ratio": 0.1948
           },
           {
             "grade_name": "较适宜区",
@@ -377,20 +377,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.8052
       },
       {
         "region": "济宁市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 117,
-            "area_ratio": 1.0
+            "pixel_count": 92,
+            "area_ratio": 0.7863
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 15,
+            "area_ratio": 0.1282
           },
           {
             "grade_name": "较适宜区",
@@ -404,20 +404,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.7863
       },
       {
         "region": "泰安市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 80,
-            "area_ratio": 1.0
+            "pixel_count": 36,
+            "area_ratio": 0.45
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 25,
+            "area_ratio": 0.3125
           },
           {
             "grade_name": "较适宜区",
@@ -431,20 +431,20 @@
           }
         ],
         "dominant_grade": "不适宜区",
-        "dominant_ratio": 1.0
+        "dominant_ratio": 0.45
       },
       {
         "region": "烟台市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 97,
-            "area_ratio": 0.9898
+            "pixel_count": 0,
+            "area_ratio": 0.0
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 6,
+            "area_ratio": 0.0612
           },
           {
             "grade_name": "较适宜区",
@@ -457,21 +457,21 @@
             "area_ratio": 0.8061
           }
         ],
-        "dominant_grade": "不适宜区",
-        "dominant_ratio": 0.9898
+        "dominant_grade": "核心优势区",
+        "dominant_ratio": 0.8061
       },
       {
         "region": "潍坊市",
         "grade_ratios": [
           {
             "grade_name": "不适宜区",
-            "pixel_count": 131,
-            "area_ratio": 0.9924
+            "pixel_count": 35,
+            "area_ratio": 0.2652
           },
           {
             "grade_name": "一般适宜区",
-            "pixel_count": 0,
-            "area_ratio": 0.0
+            "pixel_count": 23,
+            "area_ratio": 0.1742
           },
           {
             "grade_name": "较适宜区",
@@ -484,8 +484,8 @@
             "area_ratio": 0.2879
           }
         ],
-        "dominant_grade": "不适宜区",
-        "dominant_ratio": 0.9924
+        "dominant_grade": "核心优势区",
+        "dominant_ratio": 0.2879
       }
     ],
     "ranking_stats": {

@@ -13,7 +13,8 @@
       "max_score": 0.9178,
       "min_score": 0.0269,
       "score_range": 0.8909,
-      "std_score": 0.0533
+      "std_score": 0.0533,
+      "model_threshold": 0.4172
     },
     "distribution_percentiles": {
       "median_p50": 0.0799,
@@ -24,26 +25,26 @@
     "grade_thresholds": [
       {
         "grade": "不适宜区",
-        "score_range": "0 — 0.417",
-        "meaning": "低于生态适生阈值，苹果种植风险很高"
+        "score_range": "0 — 0.0812",
+        "meaning": "低于全省均值80%，省内相对弱势"
       },
       {
         "grade": "一般适宜区",
-        "score_range": "0.417 — 0.102（全省均值）",
-        "meaning": "可种植但优势不突出"
+        "score_range": "0.0812 — 0.1015",
+        "meaning": "处于全省平均水平附近"
       },
       {
         "grade": "较适宜区",
-        "score_range": "0.102 — 0.128",
-        "meaning": "高于全省平均水平，有发展潜力"
+        "score_range": "0.1015 — 0.1282",
+        "meaning": "高于全省平均，有发展潜力"
       },
       {
         "grade": "核心优势区",
-        "score_range": "0.128 — 1.0",
-        "meaning": "生态条件最优，适合规模化种植"
+        "score_range": "0.1282 — 1.0",
+        "meaning": "本省生态条件最优区域"
       }
     ],
-    "note": "适宜性得分来自 GradientBoosting 物种分布模型（WorldClim 6个气候变量），值域 0-1，越高越适宜苹果种植。"
+    "note": "参考：全球苹果生态适生阈值 = 0.417（GBDT 物种分布模型）。省内等级划分基于数据分布，用于相对比较。适宜性得分来自 WorldClim 6 个气候变量，值域 0-1。"
   },
   "city_scorecards": [
     {
@@ -55,8 +56,8 @@
       "core_ratio_pct": 100.0,
       "suitable_ratio_pct": 0.0,
       "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
-      "dominant_grade": "不适宜区",
+      "unsuitable_ratio_pct": 0.0,
+      "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
@@ -67,9 +68,9 @@
       "min_score": 0.0893,
       "core_ratio_pct": 80.6,
       "suitable_ratio_pct": 13.3,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 99.0,
-      "dominant_grade": "不适宜区",
+      "general_ratio_pct": 6.1,
+      "unsuitable_ratio_pct": 0.0,
+      "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
@@ -80,9 +81,9 @@
       "min_score": 0.0902,
       "core_ratio_pct": 72.0,
       "suitable_ratio_pct": 18.3,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 98.8,
-      "dominant_grade": "不适宜区",
+      "general_ratio_pct": 9.8,
+      "unsuitable_ratio_pct": 0.0,
+      "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
@@ -93,9 +94,9 @@
       "min_score": 0.1038,
       "core_ratio_pct": 49.1,
       "suitable_ratio_pct": 36.4,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
-      "dominant_grade": "不适宜区",
+      "general_ratio_pct": 9.1,
+      "unsuitable_ratio_pct": 5.5,
+      "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
@@ -106,9 +107,9 @@
       "min_score": 0.0625,
       "core_ratio_pct": 28.8,
       "suitable_ratio_pct": 27.3,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 99.2,
-      "dominant_grade": "不适宜区",
+      "general_ratio_pct": 17.4,
+      "unsuitable_ratio_pct": 26.5,
+      "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
@@ -119,8 +120,8 @@
       "min_score": 0.0633,
       "core_ratio_pct": 15.2,
       "suitable_ratio_pct": 27.9,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 22.8,
+      "unsuitable_ratio_pct": 34.2,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -132,8 +133,8 @@
       "min_score": 0.0544,
       "core_ratio_pct": 9.7,
       "suitable_ratio_pct": 22.2,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 6.9,
+      "unsuitable_ratio_pct": 61.1,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -145,8 +146,8 @@
       "min_score": 0.0544,
       "core_ratio_pct": 5.0,
       "suitable_ratio_pct": 8.6,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 10.7,
+      "unsuitable_ratio_pct": 75.7,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -158,8 +159,8 @@
       "min_score": 0.0269,
       "core_ratio_pct": 6.2,
       "suitable_ratio_pct": 17.5,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 31.2,
+      "unsuitable_ratio_pct": 45.0,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -171,8 +172,8 @@
       "min_score": 0.0562,
       "core_ratio_pct": 3.4,
       "suitable_ratio_pct": 5.1,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 12.8,
+      "unsuitable_ratio_pct": 78.6,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -184,8 +185,8 @@
       "min_score": 0.0589,
       "core_ratio_pct": 0.0,
       "suitable_ratio_pct": 0.0,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 18.0,
+      "unsuitable_ratio_pct": 82.0,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -197,8 +198,8 @@
       "min_score": 0.0338,
       "core_ratio_pct": 0.0,
       "suitable_ratio_pct": 0.0,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 19.5,
+      "unsuitable_ratio_pct": 80.5,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -210,8 +211,8 @@
       "min_score": 0.0633,
       "core_ratio_pct": 10.4,
       "suitable_ratio_pct": 12.5,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 2.1,
+      "unsuitable_ratio_pct": 75.0,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -223,8 +224,8 @@
       "min_score": 0.0558,
       "core_ratio_pct": 2.9,
       "suitable_ratio_pct": 2.9,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 2.9,
+      "unsuitable_ratio_pct": 91.4,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -236,8 +237,8 @@
       "min_score": 0.0562,
       "core_ratio_pct": 0.0,
       "suitable_ratio_pct": 0.0,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 2.1,
+      "unsuitable_ratio_pct": 97.9,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     },
@@ -249,8 +250,8 @@
       "min_score": 0.0562,
       "core_ratio_pct": 0.0,
       "suitable_ratio_pct": 2.1,
-      "general_ratio_pct": 0.0,
-      "unsuitable_ratio_pct": 100.0,
+      "general_ratio_pct": 1.1,
+      "unsuitable_ratio_pct": 96.8,
       "dominant_grade": "不适宜区",
       "total_cities": 16
     }
@@ -383,7 +384,13 @@
     }
   },
   "city_structure": {
-    "core_dominant_regions": [],
+    "core_dominant_regions": [
+      "威海市",
+      "日照市",
+      "青岛市",
+      "烟台市",
+      "潍坊市"
+    ],
     "high_core_regions": [
       {
         "region": "威海市",
@@ -419,18 +426,18 @@
       "泰安市"
     ],
     "structure_summary": {
-      "core_dominant_count": 0,
+      "core_dominant_count": 5,
       "risk_region_count": 10,
-      "general_dominant_count": 16
+      "general_dominant_count": 11
     }
   },
   "grade_structure": {
     "dominant_grade": "不适宜区",
-    "dominant_ratio": 0.9984,
+    "dominant_ratio": 0.5072,
     "grade_structure": "不适宜区占比较高",
     "core_ratio": 0.2448,
     "suitable_ratio": 0.3664,
-    "unsuitable_ratio": 0.9984
+    "unsuitable_ratio": 0.5072
   },
   "spatial_quality": {
     "hotspot_pattern": "热点集中于主要核心区",
@@ -479,16 +486,16 @@
       "ranking_type": "低值广泛型",
       "head_tail_score_gap": 0.1344,
       "head_tail_gap_type": "头尾差异较小",
-      "core_dominant_city_count": 0,
+      "core_dominant_city_count": 5,
       "risk_city_count": 10,
-      "general_dominant_city_count": 16
+      "general_dominant_city_count": 11
     },
     "grade_overview": {
       "dominant_grade": "不适宜区",
-      "dominant_ratio": 0.9984,
+      "dominant_ratio": 0.5072,
       "core_ratio": 0.2448,
       "suitable_ratio": 0.3664,
-      "unsuitable_ratio": 0.9984
+      "unsuitable_ratio": 0.5072
     },
     "spatial_quality_overview": {
       "hotspot_pattern": "热点集中于主要核心区",
