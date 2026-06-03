@@ -20,7 +20,7 @@ def load_metadata():
         return json.load(f)
 
 
-def save_artifacts(model, imputer, threshold: float | None = None):
+def save_artifacts(model, imputer, threshold: float | None = None, eval_metrics: dict | None = None):
     ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, MODEL_PATH)
     joblib.dump(imputer, IMPUTER_PATH)
@@ -28,9 +28,11 @@ def save_artifacts(model, imputer, threshold: float | None = None):
     metadata = {}
     if threshold is not None:
         metadata["threshold"] = float(threshold)
+    if eval_metrics is not None:
+        metadata["eval_metrics"] = eval_metrics
 
     with open(METADATA_PATH, "w", encoding="utf-8") as f:
-        json.dump(metadata, f, indent=2)
+        json.dump(metadata, f, indent=2, ensure_ascii=False)
 
     return {
         "model_path": MODEL_PATH,

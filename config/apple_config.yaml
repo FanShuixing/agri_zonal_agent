@@ -2,7 +2,6 @@ paths:
   output_dir: output
 
   raster:
-    suitability_tif: data/raster/apple_suitability.tif
     china_suitability_tf: output/train_output/china_suitability.tif
 
   shapefile:

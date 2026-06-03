@@ -1,25 +1,25 @@
 {
   "province": "山东省",
   "province_summary": {
-    "suitability_level": "一般适宜区",
-    "industrialization_level": "适合小规模试种",
+    "suitability_level": "边缘适宜区",
+    "industrialization_level": "不建议大规模发展",
     "risk_level": "高风险",
-    "stability_level": "稳定性中等",
-    "development_advice": "建议开展小规模试种，重点关注灌溉、防灾及生态适应性。"
+    "stability_level": "空间差异较大",
+    "development_advice": "区域整体适宜性偏低，不建议进行大规模苹果产业扩张。"
   },
   "numerical_basis": {
     "province_level": {
-      "mean_score": 0.2078,
-      "max_score": 0.3454,
-      "min_score": 0.0,
-      "score_range": 0.3454,
-      "std_score": 0.0394
+      "mean_score": 0.1015,
+      "max_score": 0.9178,
+      "min_score": 0.0269,
+      "score_range": 0.8909,
+      "std_score": 0.0533
     },
     "distribution_percentiles": {
-      "median_p50": 0.2002,
-      "p75": 0.2247,
-      "p90": 0.2639,
-      "p95": 0.2754
+      "median_p50": 0.0799,
+      "p75": 0.1208,
+      "p90": 0.169,
+      "p95": 0.1938
     },
     "grade_thresholds": [
       {
@@ -48,453 +48,463 @@
   "city_scorecards": [
     {
       "rank": 1,
-      "region": "德州市",
-      "mean_score": 0.2446,
-      "max_score": 0.2903,
-      "min_score": 0.1699,
-      "core_ratio_pct": 52.9,
-      "suitable_ratio_pct": 10.0,
-      "general_ratio_pct": 27.9,
-      "unsuitable_ratio_pct": 9.3,
+      "region": "威海市",
+      "mean_score": 0.2026,
+      "max_score": 0.2261,
+      "min_score": 0.1689,
+      "core_ratio_pct": 100.0,
+      "suitable_ratio_pct": 0.0,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 2.6,
       "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
       "rank": 2,
-      "region": "滨州市",
-      "mean_score": 0.2312,
-      "max_score": 0.2676,
-      "min_score": 0.1868,
-      "core_ratio_pct": 45.7,
-      "suitable_ratio_pct": 16.0,
-      "general_ratio_pct": 38.3,
-      "unsuitable_ratio_pct": 0.0,
+      "region": "烟台市",
+      "mean_score": 0.1803,
+      "max_score": 0.9178,
+      "min_score": 0.0893,
+      "core_ratio_pct": 80.6,
+      "suitable_ratio_pct": 13.3,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 27.6,
       "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
       "rank": 3,
-      "region": "潍坊市",
-      "mean_score": 0.2277,
-      "max_score": 0.3212,
-      "min_score": 0.1605,
-      "core_ratio_pct": 46.2,
-      "suitable_ratio_pct": 13.6,
-      "general_ratio_pct": 39.4,
-      "unsuitable_ratio_pct": 0.8,
+      "region": "青岛市",
+      "mean_score": 0.151,
+      "max_score": 0.1925,
+      "min_score": 0.0902,
+      "core_ratio_pct": 72.0,
+      "suitable_ratio_pct": 18.3,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 40.2,
       "dominant_grade": "核心优势区",
       "total_cities": 16
     },
     {
       "rank": 4,
-      "region": "济南市",
-      "mean_score": 0.225,
-      "max_score": 0.3454,
-      "min_score": 0.1626,
-      "core_ratio_pct": 37.1,
-      "suitable_ratio_pct": 18.6,
-      "general_ratio_pct": 44.3,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "region": "日照市",
+      "mean_score": 0.1287,
+      "max_score": 0.1607,
+      "min_score": 0.1038,
+      "core_ratio_pct": 49.1,
+      "suitable_ratio_pct": 36.4,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 74.6,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 5,
-      "region": "淄博市",
-      "mean_score": 0.2155,
-      "max_score": 0.2761,
-      "min_score": 0.17,
-      "core_ratio_pct": 41.7,
-      "suitable_ratio_pct": 19.4,
-      "general_ratio_pct": 38.9,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "核心优势区",
+      "region": "潍坊市",
+      "mean_score": 0.101,
+      "max_score": 0.1989,
+      "min_score": 0.0625,
+      "core_ratio_pct": 28.8,
+      "suitable_ratio_pct": 27.3,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 81.1,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 6,
       "region": "临沂市",
-      "mean_score": 0.211,
-      "max_score": 0.3312,
-      "min_score": 0.157,
-      "core_ratio_pct": 27.2,
-      "suitable_ratio_pct": 9.5,
-      "general_ratio_pct": 63.3,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "mean_score": 0.1002,
+      "max_score": 0.1522,
+      "min_score": 0.0633,
+      "core_ratio_pct": 15.2,
+      "suitable_ratio_pct": 27.9,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 97.5,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 7,
-      "region": "聊城市",
-      "mean_score": 0.2079,
-      "max_score": 0.2644,
-      "min_score": 0.1719,
-      "core_ratio_pct": 23.4,
-      "suitable_ratio_pct": 7.8,
-      "general_ratio_pct": 63.6,
-      "unsuitable_ratio_pct": 5.2,
-      "dominant_grade": "一般适宜区",
+      "region": "淄博市",
+      "mean_score": 0.0887,
+      "max_score": 0.1341,
+      "min_score": 0.0544,
+      "core_ratio_pct": 9.7,
+      "suitable_ratio_pct": 22.2,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 98.6,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 8,
-      "region": "烟台市",
-      "mean_score": 0.2057,
-      "max_score": 0.3063,
-      "min_score": 0.1581,
-      "core_ratio_pct": 20.4,
-      "suitable_ratio_pct": 17.3,
-      "general_ratio_pct": 61.2,
-      "unsuitable_ratio_pct": 1.0,
-      "dominant_grade": "一般适宜区",
+      "region": "济南市",
+      "mean_score": 0.0867,
+      "max_score": 0.1396,
+      "min_score": 0.0544,
+      "core_ratio_pct": 5.0,
+      "suitable_ratio_pct": 8.6,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 9,
-      "region": "日照市",
-      "mean_score": 0.2049,
-      "max_score": 0.3238,
-      "min_score": 0.1583,
-      "core_ratio_pct": 29.1,
-      "suitable_ratio_pct": 3.6,
-      "general_ratio_pct": 67.3,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "region": "泰安市",
+      "mean_score": 0.0795,
+      "max_score": 0.1288,
+      "min_score": 0.0269,
+      "core_ratio_pct": 6.2,
+      "suitable_ratio_pct": 17.5,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 10,
-      "region": "东营市",
-      "mean_score": 0.2041,
-      "max_score": 0.2711,
-      "min_score": 0.1671,
-      "core_ratio_pct": 26.0,
-      "suitable_ratio_pct": 20.0,
-      "general_ratio_pct": 54.0,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "region": "济宁市",
+      "mean_score": 0.0765,
+      "max_score": 0.1269,
+      "min_score": 0.0562,
+      "core_ratio_pct": 3.4,
+      "suitable_ratio_pct": 5.1,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 11,
-      "region": "枣庄市",
-      "mean_score": 0.2038,
-      "max_score": 0.3248,
-      "min_score": 0.1553,
-      "core_ratio_pct": 14.6,
-      "suitable_ratio_pct": 12.5,
-      "general_ratio_pct": 72.9,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "region": "东营市",
+      "mean_score": 0.0732,
+      "max_score": 0.0915,
+      "min_score": 0.0589,
+      "core_ratio_pct": 0.0,
+      "suitable_ratio_pct": 0.0,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 12,
-      "region": "泰安市",
-      "mean_score": 0.2015,
-      "max_score": 0.2744,
-      "min_score": 0.1577,
-      "core_ratio_pct": 22.5,
-      "suitable_ratio_pct": 16.2,
-      "general_ratio_pct": 61.3,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "region": "聊城市",
+      "mean_score": 0.0727,
+      "max_score": 0.0938,
+      "min_score": 0.0338,
+      "core_ratio_pct": 0.0,
+      "suitable_ratio_pct": 0.0,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 13,
-      "region": "威海市",
-      "mean_score": 0.2003,
-      "max_score": 0.2224,
-      "min_score": 0.175,
-      "core_ratio_pct": 15.4,
-      "suitable_ratio_pct": 15.4,
-      "general_ratio_pct": 69.2,
-      "unsuitable_ratio_pct": 0.0,
-      "dominant_grade": "一般适宜区",
+      "region": "枣庄市",
+      "mean_score": 0.0726,
+      "max_score": 0.1265,
+      "min_score": 0.0633,
+      "core_ratio_pct": 10.4,
+      "suitable_ratio_pct": 12.5,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 14,
-      "region": "济宁市",
-      "mean_score": 0.1924,
-      "max_score": 0.3381,
-      "min_score": 0.1518,
-      "core_ratio_pct": 11.1,
-      "suitable_ratio_pct": 8.6,
-      "general_ratio_pct": 75.2,
-      "unsuitable_ratio_pct": 5.1,
-      "dominant_grade": "一般适宜区",
+      "region": "德州市",
+      "mean_score": 0.07,
+      "max_score": 0.0855,
+      "min_score": 0.0558,
+      "core_ratio_pct": 2.9,
+      "suitable_ratio_pct": 2.9,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 15,
-      "region": "青岛市",
-      "mean_score": 0.1906,
-      "max_score": 0.2283,
-      "min_score": 0.1598,
-      "core_ratio_pct": 21.9,
-      "suitable_ratio_pct": 12.2,
-      "general_ratio_pct": 64.6,
-      "unsuitable_ratio_pct": 1.2,
-      "dominant_grade": "一般适宜区",
+      "region": "菏泽市",
+      "mean_score": 0.0685,
+      "max_score": 0.0727,
+      "min_score": 0.0562,
+      "core_ratio_pct": 0.0,
+      "suitable_ratio_pct": 0.0,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     },
     {
       "rank": 16,
-      "region": "菏泽市",
-      "mean_score": 0.1596,
-      "max_score": 0.2352,
-      "min_score": 0.1261,
-      "core_ratio_pct": 6.2,
-      "suitable_ratio_pct": 1.0,
-      "general_ratio_pct": 59.4,
-      "unsuitable_ratio_pct": 33.3,
-      "dominant_grade": "一般适宜区",
+      "region": "滨州市",
+      "mean_score": 0.0682,
+      "max_score": 0.1102,
+      "min_score": 0.0562,
+      "core_ratio_pct": 0.0,
+      "suitable_ratio_pct": 2.1,
+      "general_ratio_pct": 0.0,
+      "unsuitable_ratio_pct": 100.0,
+      "dominant_grade": "不适宜区",
       "total_cities": 16
     }
   ],
   "comparative_analysis": {
     "top5_cities": [
       {
-        "region": "德州市",
-        "mean_score": 0.2446,
-        "core_ratio_pct": 52.9
+        "region": "威海市",
+        "mean_score": 0.2026,
+        "core_ratio_pct": 100.0
       },
       {
-        "region": "滨州市",
-        "mean_score": 0.2312,
-        "core_ratio_pct": 45.7
+        "region": "烟台市",
+        "mean_score": 0.1803,
+        "core_ratio_pct": 80.6
+      },
+      {
+        "region": "青岛市",
+        "mean_score": 0.151,
+        "core_ratio_pct": 72.0
+      },
+      {
+        "region": "日照市",
+        "mean_score": 0.1287,
+        "core_ratio_pct": 49.1
       },
       {
         "region": "潍坊市",
-        "mean_score": 0.2277,
-        "core_ratio_pct": 46.2
-      },
-      {
-        "region": "济南市",
-        "mean_score": 0.225,
-        "core_ratio_pct": 37.1
-      },
-      {
-        "region": "淄博市",
-        "mean_score": 0.2155,
-        "core_ratio_pct": 41.7
+        "mean_score": 0.101,
+        "core_ratio_pct": 28.8
       }
     ],
     "bottom5_cities": [
       {
-        "region": "泰安市",
-        "mean_score": 0.2015,
-        "core_ratio_pct": 22.5
+        "region": "聊城市",
+        "mean_score": 0.0727,
+        "core_ratio_pct": 0.0
       },
       {
-        "region": "威海市",
-        "mean_score": 0.2003,
-        "core_ratio_pct": 15.4
+        "region": "枣庄市",
+        "mean_score": 0.0726,
+        "core_ratio_pct": 10.4
       },
       {
-        "region": "济宁市",
-        "mean_score": 0.1924,
-        "core_ratio_pct": 11.1
-      },
-      {
-        "region": "青岛市",
-        "mean_score": 0.1906,
-        "core_ratio_pct": 21.9
+        "region": "德州市",
+        "mean_score": 0.07,
+        "core_ratio_pct": 2.9
       },
       {
         "region": "菏泽市",
-        "mean_score": 0.1596,
-        "core_ratio_pct": 6.2
+        "mean_score": 0.0685,
+        "core_ratio_pct": 0.0
+      },
+      {
+        "region": "滨州市",
+        "mean_score": 0.0682,
+        "core_ratio_pct": 0.0
       }
     ],
-    "top5_average_score": 0.2288,
-    "bottom5_average_score": 0.1889,
-    "top_vs_bottom_gap": 0.0399,
-    "best_city": "德州市",
-    "best_city_score": 0.2446,
-    "worst_city": "菏泽市",
-    "worst_city_score": 0.1596,
-    "leading_group_description": "德州市、滨州市、潍坊市、济南市适宜性明显高于区域平均水平"
+    "top5_average_score": 0.1527,
+    "bottom5_average_score": 0.0704,
+    "top_vs_bottom_gap": 0.0823,
+    "best_city": "威海市",
+    "best_city_score": 0.2026,
+    "worst_city": "滨州市",
+    "worst_city_score": 0.0682,
+    "leading_group_description": "威海市、烟台市、青岛市、日照市适宜性明显高于区域平均水平"
   },
   "spatial_structure": {
-    "global_pattern": "北高南低、高值区局部集聚明显",
-    "gradient_direction": "北高南低",
-    "core_area": "德州市",
+    "global_pattern": "东高西低、高值区局部集聚明显",
+    "gradient_direction": "南北差异不显著",
+    "core_area": "威海市",
     "high_value_regions": [
-      "济南市",
-      "滨州市",
-      "德州市",
-      "潍坊市"
+      "威海市",
+      "日照市",
+      "青岛市",
+      "烟台市"
     ],
     "low_value_regions": [
-      "威海市",
+      "枣庄市",
+      "滨州市",
       "菏泽市",
-      "青岛市",
-      "济宁市"
+      "德州市",
+      "聊城市"
     ],
     "adjacency_pairs": [
       [
-        "济南市",
-        "滨州市"
+        "威海市",
+        "烟台市"
       ],
       [
-        "济南市",
-        "德州市"
+        "日照市",
+        "青岛市"
       ],
       [
-        "滨州市",
-        "德州市"
+        "青岛市",
+        "烟台市"
       ]
     ]
   },
   "ranking_structure": {
     "top_regions": [
-      "德州市",
-      "滨州市",
-      "潍坊市",
-      "济南市",
-      "淄博市"
+      "威海市",
+      "烟台市",
+      "青岛市",
+      "日照市",
+      "潍坊市"
     ],
     "bottom_regions": [
-      "泰安市",
-      "威海市",
-      "济宁市",
-      "青岛市",
-      "菏泽市"
+      "聊城市",
+      "枣庄市",
+      "德州市",
+      "菏泽市",
+      "滨州市"
     ],
     "leading_group": {
       "exists": true,
       "regions": [
-        "德州市",
-        "滨州市",
-        "潍坊市",
-        "济南市"
+        "威海市",
+        "烟台市",
+        "青岛市",
+        "日照市"
       ],
-      "description": "德州市、滨州市、潍坊市、济南市适宜性明显高于区域平均水平"
+      "description": "威海市、烟台市、青岛市、日照市适宜性明显高于区域平均水平"
     },
-    "ranking_type": "相对均衡型",
+    "ranking_type": "低值广泛型",
     "regional_gap": {
       "type": "头尾差异较小",
-      "score_range": 0.085
+      "score_range": 0.1344
     }
   },
   "city_structure": {
     "core_dominant_regions": [
-      "滨州市",
-      "德州市",
-      "淄博市",
-      "潍坊市"
+      "威海市",
+      "青岛市",
+      "烟台市"
     ],
     "high_core_regions": [
       {
-        "region": "德州市",
-        "core_ratio": 0.5286
+        "region": "威海市",
+        "core_ratio": 1.0
+      },
+      {
+        "region": "烟台市",
+        "core_ratio": 0.8061
+      },
+      {
+        "region": "青岛市",
+        "core_ratio": 0.7195
+      },
+      {
+        "region": "日照市",
+        "core_ratio": 0.4909
       },
       {
         "region": "潍坊市",
-        "core_ratio": 0.4621
-      },
-      {
-        "region": "滨州市",
-        "core_ratio": 0.4574
-      },
-      {
-        "region": "淄博市",
-        "core_ratio": 0.4167
-      },
-      {
-        "region": "济南市",
-        "core_ratio": 0.3714
+        "core_ratio": 0.2879
       }
     ],
     "risk_regions": [
-      "菏泽市"
+      "济南市",
+      "枣庄市",
+      "滨州市",
+      "东营市",
+      "菏泽市",
+      "德州市",
+      "淄博市",
+      "聊城市",
+      "济宁市",
+      "泰安市"
     ],
     "structure_summary": {
-      "core_dominant_count": 4,
-      "risk_region_count": 1,
-      "general_dominant_count": 12
+      "core_dominant_count": 3,
+      "risk_region_count": 10,
+      "general_dominant_count": 13
     }
   },
   "grade_structure": {
-    "dominant_grade": "一般适宜区",
-    "dominant_ratio": 0.544,
-    "grade_structure": "核心优势区占比较高",
-    "core_ratio": 0.3056,
-    "suitable_ratio": 0.4272,
-    "unsuitable_ratio": 0.0288
+    "dominant_grade": "不适宜区",
+    "dominant_ratio": 0.8288,
+    "grade_structure": "不适宜区占比较高",
+    "core_ratio": 0.2448,
+    "suitable_ratio": 0.3664,
+    "unsuitable_ratio": 0.8288
   },
   "spatial_quality": {
-    "hotspot_pattern": "热点呈多点分布",
-    "hotspot_scale": "热点面积占比较高",
-    "hotspot_count": 28,
-    "fragmentation_level": "存在一定破碎化",
-    "connectivity_level": "核心区存在局部连续",
-    "patch_count": 28
+    "hotspot_pattern": "热点集中于主要核心区",
+    "hotspot_scale": "存在一定热点区域",
+    "hotspot_count": 9,
+    "fragmentation_level": "破碎化较低",
+    "connectivity_level": "核心区连续性较强",
+    "patch_count": 9
   },
   "industrial_context": {
     "spatial_overview": {
-      "global_pattern": "北高南低、高值区局部集聚明显",
-      "gradient_direction": "北高南低",
-      "core_area": "德州市",
+      "global_pattern": "东高西低、高值区局部集聚明显",
+      "gradient_direction": "南北差异不显著",
+      "core_area": "威海市",
       "high_value_regions": [
-        "济南市",
-        "滨州市",
-        "德州市",
-        "潍坊市"
+        "威海市",
+        "日照市",
+        "青岛市",
+        "烟台市"
       ],
       "high_value_count": 4,
       "low_value_regions": [
-        "威海市",
+        "枣庄市",
+        "滨州市",
         "菏泽市",
-        "青岛市",
-        "济宁市"
+        "德州市",
+        "聊城市"
       ],
-      "low_value_count": 4,
+      "low_value_count": 5,
       "adjacent_high_value_pairs": [
         [
-          "济南市",
-          "滨州市"
+          "威海市",
+          "烟台市"
         ],
         [
-          "济南市",
-          "德州市"
+          "日照市",
+          "青岛市"
         ],
         [
-          "滨州市",
-          "德州市"
+          "青岛市",
+          "烟台市"
         ]
       ]
     },
     "industrial_structure_overview": {
-      "ranking_type": "相对均衡型",
-      "head_tail_score_gap": 0.085,
+      "ranking_type": "低值广泛型",
+      "head_tail_score_gap": 0.1344,
       "head_tail_gap_type": "头尾差异较小",
-      "core_dominant_city_count": 4,
-      "risk_city_count": 1,
-      "general_dominant_city_count": 12
+      "core_dominant_city_count": 3,
+      "risk_city_count": 10,
+      "general_dominant_city_count": 13
     },
     "grade_overview": {
-      "dominant_grade": "一般适宜区",
-      "dominant_ratio": 0.544,
-      "core_ratio": 0.3056,
-      "suitable_ratio": 0.4272,
-      "unsuitable_ratio": 0.0288
+      "dominant_grade": "不适宜区",
+      "dominant_ratio": 0.8288,
+      "core_ratio": 0.2448,
+      "suitable_ratio": 0.3664,
+      "unsuitable_ratio": 0.8288
     },
     "spatial_quality_overview": {
-      "hotspot_pattern": "热点呈多点分布",
-      "hotspot_scale": "热点面积占比较高",
-      "hotspot_count": 28,
-      "connectivity_level": "核心区存在局部连续",
-      "fragmentation_level": "存在一定破碎化",
-      "patch_count": 28
+      "hotspot_pattern": "热点集中于主要核心区",
+      "hotspot_scale": "存在一定热点区域",
+      "hotspot_count": 9,
+      "connectivity_level": "核心区连续性较强",
+      "fragmentation_level": "破碎化较低",
+      "patch_count": 9
     },
     "data_driven_signals": {
-      "province_mean_score": 0.2078,
-      "province_score_range": 0.3454,
+      "province_mean_score": 0.1015,
+      "province_score_range": 0.8909,
       "note": "以下信号全部从数据派生，未硬编码任何城市名或结论。province_mean_score 低于 0.3 说明该作物在本省普遍适宜性不高；score_range 很小说明省内差异有限，排名靠前不代表绝对优势。"
     }
   },

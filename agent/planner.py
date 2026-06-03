@@ -93,11 +93,11 @@ def run_full_report_pipeline(
     template 可选: "standard" (默认), "dashboard", 或模板文件名。
     """
     # 阶段 1-2: raw_data → semantic（有缓存则跳过）
-    # run_raw_data_stage(agent, user_query)
-    # semantic_data = run_semantic_stage(
-    #     raw_result_json=region_json_path,
-    #     region_gdf_path=region_gdf_path,
-    # )
+    run_raw_data_stage(agent, user_query)
+    semantic_data = run_semantic_stage(
+        raw_result_json=region_json_path,
+        region_gdf_path=region_gdf_path,
+    )
 
     # 阶段 3: semantic → context（核心：生成富含数值的上下文）
     context_json, _ = run_context_stage(

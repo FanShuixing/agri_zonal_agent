@@ -238,7 +238,12 @@ def plot_suitability_map(
 import matplotlib.pyplot as plt
 import pandas as pd
 
-plt.rcParams["font.sans-serif"] = ["Arial Unicode MS"]
+plt.rcParams["font.sans-serif"] = [
+    "Microsoft YaHei",
+    "SimHei",
+    "PingFang SC",
+    "Arial Unicode MS",
+]
 plt.rcParams["axes.unicode_minus"] = False
 
 
