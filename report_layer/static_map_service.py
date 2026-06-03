@@ -257,7 +257,12 @@ def plot_ranking_table(
 
     df = pd.DataFrame(city_stats)
 
-    df = df.sort_values(by="mean_score", ascending=False).reset_index(drop=True)
+    # 综合得分排序
+    df["composite_score"] = df.apply(
+        lambda r: round(0.5 * r["mean_score"] + 0.5 * r.get("max_score", 0), 4),
+        axis=1,
+    )
+    df = df.sort_values(by="composite_score", ascending=False).reset_index(drop=True)
 
     df["排名"] = df.index + 1
 
@@ -275,6 +280,7 @@ def plot_ranking_table(
         [
             "排名",
             "region",
+            "composite_score",
             "mean_score",
             "适宜性等级",
         ]
@@ -283,17 +289,19 @@ def plot_ranking_table(
     show_df.columns = [
         "排名",
         "城市",
+        "综合得分",
         "平均适宜性",
         "适宜性等级",
     ]
 
     # 保留4位小数
+    show_df["综合得分"] = show_df["综合得分"].map(lambda x: f"{x:.4f}")
     show_df["平均适宜性"] = show_df["平均适宜性"].map(lambda x: f"{x:.4f}")
 
     # 高度动态调整
     fig_height = max(4, len(show_df) * 0.5)
 
-    fig, ax = plt.subplots(figsize=(8, fig_height))
+    fig, ax = plt.subplots(figsize=(9, fig_height))
 
     ax.axis("off")
 

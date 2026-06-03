@@ -119,7 +119,7 @@
     <div class="card">
         <div class="metric">
             <div class="value">{{ "%.3f"|format(comparative_analysis.best_city_score) }}</div>
-            <div class="label">最高分 — {{ comparative_analysis.best_city }}</div>
+            <div class="label">综合最优 — {{ comparative_analysis.best_city }}</div>
         </div>
     </div>
     <div class="card">
@@ -135,6 +135,22 @@
         </div>
     </div>
 </div>
+{% if peak_analysis.exists %}
+<div class="row row-4">
+    <div class="card">
+        <div class="metric">
+            <div class="value highlight">{{ "%.3f"|format(comparative_analysis.best_city_by_max_score) }}</div>
+            <div class="label">峰值最高 — {{ comparative_analysis.best_city_by_max }}</div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="metric">
+            <div class="value">{{ "%.3f"|format(comparative_analysis.best_city_by_mean_score) }}</div>
+            <div class="label">均分最高 — {{ comparative_analysis.best_city_by_mean }}</div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <!-- ═══════════════ 第二行：空间 + 等级 ═══════════════ -->
 <div class="row row-2">
@@ -212,13 +228,14 @@
         <img src="{{ images.ranking_chart }}" alt="市级排名">
         <table>
         <thead><tr>
-            <th>#</th><th>城市</th><th>均分</th><th>最高分</th><th>核心区%</th><th>较适宜%</th><th>一般%</th><th>类型</th>
+            <th>#</th><th>城市</th><th>综合</th><th>均分</th><th>最高</th><th>核心区%</th><th>较适宜%</th><th>一般%</th><th>类型</th>
         </tr></thead>
         <tbody>
         {% for c in city_scorecards %}
         <tr>
             <td>{{ c.rank }}</td>
             <td style="text-align:left;">{{ c.region }}</td>
+            <td><strong>{{ "%.4f"|format(c.composite_score) }}</strong></td>
             <td>{{ "%.4f"|format(c.mean_score) }}</td>
             <td>{{ "%.4f"|format(c.max_score) }}</td>
             <td>{{ "%.1f"|format(c.core_ratio_pct) }}%
@@ -228,14 +245,14 @@
             <td>{{ "%.1f"|format(c.suitable_ratio_pct) }}%</td>
             <td>{{ "%.1f"|format(c.general_ratio_pct) }}%</td>
             <td>
-                {% if c.core_ratio_pct >= 40 %}
-                <span class="badge badge-green">核心主导</span>
-                {% elif c.core_ratio_pct >= 25 %}
-                <span class="badge badge-yellow">较高核心</span>
-                {% elif c.core_ratio_pct < 10 %}
-                <span class="badge badge-red">低核心</span>
+                {% if c.city_type == "高峰值潜力型" %}
+                <span class="badge badge-green">高峰值潜力</span>
+                {% elif c.city_type == "均匀适生型" %}
+                <span class="badge badge-blue">均匀适生</span>
+                {% elif c.city_type == "整体弱势型" %}
+                <span class="badge badge-red">整体弱势</span>
                 {% else %}
-                <span class="badge badge-blue">中等</span>
+                <span class="badge badge-yellow">一般分化</span>
                 {% endif %}
             </td>
         </tr>
@@ -243,6 +260,7 @@
         </tbody>
         </table>
         <div class="insight">
+            <strong>排名方式：</strong>综合得分 = 0.5×均分 + 0.5×峰值。<br>
             <strong>{{ ranking_structure.ranking_type }}</strong>，
             头尾差距 {{ ranking_structure.regional_gap.score_range }} ({{ ranking_structure.regional_gap.type }})。
             {% if ranking_structure.leading_group.exists %}
@@ -253,6 +271,38 @@
         </div>
     </div>
 </div>
+
+<!-- ═══════════════ 第三行-B：峰值潜力 ═══════════════ -->
+{% if peak_analysis.exists %}
+<div class="row">
+    <div class="card card-full">
+        <h2>峰值潜力分析</h2>
+        <div class="insight">
+            <strong>关键发现：</strong>{{ peak_analysis.insight }}
+        </div>
+        <div class="metric-row" style="margin-top:12px;">
+        {% for pc in peak_analysis.peak_cities[:3] %}
+            <div class="metric">
+                <div class="value highlight">{{ "%.3f"|format(pc.max_score) }}</div>
+                <div class="label">{{ pc.region }}</div>
+                <div style="font-size:11px;color:#a0aec0;">均分 {{ "%.3f"|format(pc.mean_score) }} | 峰值比 {{ "%.1f"|format(pc.max_mean_ratio) }}x</div>
+            </div>
+        {% endfor %}
+        </div>
+        {% if peak_analysis.ranking_mismatch %}
+        <div class="insight" style="margin-top:8px;">
+            <strong>排名分歧：</strong>
+            {% for m in peak_analysis.ranking_mismatch %}
+            {{ m.region }}：按均分排第{{ m.mean_rank }}名，按综合得分排第<strong>{{ m.composite_rank }}</strong>名（峰值{{ "%.3f"|format(m.max_score) }}）<br>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="insight" style="margin-top:8px;">
+            {{ peak_analysis.note }}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <!-- ═══════════════ 第四行：空间质量 + 风险 ═══════════════ -->
 <div class="row row-2">
@@ -322,7 +372,7 @@
         <h2>分布特征</h2>
         <div class="metric-row">
             <div class="metric">
-                <div class="value">{{ "%.3f"|format(numerical_basis.distribution_percentiles.p50) }}</div>
+                <div class="value">{{ "%.3f"|format(numerical_basis.distribution_percentiles.median_p50) }}</div>
                 <div class="label">P50 (中位数)</div>
             </div>
             <div class="metric">

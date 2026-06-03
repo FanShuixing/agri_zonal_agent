@@ -64,7 +64,7 @@
     </div>
     <div class="kpi-card">
         <div class="kpi-value">{{ "%.3f"|format(comparative_analysis.best_city_score) }}</div>
-        <div class="kpi-label">最高分 ({{ comparative_analysis.best_city }})</div>
+        <div class="kpi-label">综合最优 ({{ comparative_analysis.best_city }})</div>
     </div>
     <div class="kpi-card">
         <div class="kpi-value">{{ "%.3f"|format(numerical_basis.province_level.score_range) }}</div>
@@ -82,6 +82,12 @@
         <div class="kpi-value">{{ province_summary.suitability_level }}</div>
         <div class="kpi-label">综合适宜性等级</div>
     </div>
+    {% if peak_analysis.exists %}
+    <div class="kpi-card">
+        <div class="kpi-value" style="color:#dd6b20;">{{ "%.3f"|format(comparative_analysis.best_city_by_max_score) }}</div>
+        <div class="kpi-label">峰值最高 ({{ comparative_analysis.best_city_by_max }})</div>
+    </div>
+    {% endif %}
 </div>
 
 <div class="callout callout-info">
@@ -89,10 +95,11 @@
 风险等级 <strong>{{ province_summary.risk_level }}</strong>，
 稳定性 <strong>{{ province_summary.stability_level }}</strong>。
 全省均分 {{ "%.3f"|format(numerical_basis.province_level.mean_score) }}（0-1 尺度），
-最高分 {{ comparative_analysis.best_city }}（{{ "%.3f"|format(comparative_analysis.best_city_score) }}），
+综合得分最优 <strong>{{ comparative_analysis.best_city }}</strong>（{{ "%.3f"|format(comparative_analysis.best_city_score) }}），
+均分最高 <strong>{{ comparative_analysis.best_city_by_mean }}</strong>（{{ "%.3f"|format(comparative_analysis.best_city_by_mean_score) }}），
+峰值最高 <strong>{{ comparative_analysis.best_city_by_max }}</strong>（{{ "%.3f"|format(comparative_analysis.best_city_by_max_score) }}）。
 最低分 {{ comparative_analysis.worst_city }}（{{ "%.3f"|format(comparative_analysis.worst_city_score) }}）。
-头尾城市间得分极差仅 {{ "%.4f"|format(comparative_analysis.top_vs_bottom_gap) }}，
-说明省内适宜性差异有限，排名靠前是相对优势而非绝对优势。
+综合得分 = 0.5×均分 + 0.5×峰值得分，兼顾全域适宜性与局部优质地块潜力。
 </div>
 
 {% if llm_summary %}
@@ -135,13 +142,14 @@
 
 <table>
 <thead><tr>
-    <th>排名</th><th>城市</th><th>均分</th><th>最高分</th><th>核心优势区</th><th>较适宜区</th><th>一般适宜区</th><th>不适宜区</th><th>类型</th>
+    <th>排名</th><th>城市</th><th>综合得分</th><th>均分</th><th>最高分</th><th>核心优势区</th><th>较适宜区</th><th>一般适宜区</th><th>不适宜区</th><th>类型</th>
 </tr></thead>
 <tbody>
 {% for c in city_scorecards %}
 <tr>
     <td>{{ c.rank }}</td>
     <td style="text-align:left;">{{ c.region }}</td>
+    <td><strong>{{ "%.4f"|format(c.composite_score) }}</strong></td>
     <td>{{ "%.4f"|format(c.mean_score) }}</td>
     <td>{{ "%.4f"|format(c.max_score) }}</td>
     <td>{{ "%.1f"|format(c.core_ratio_pct) }}%
@@ -152,12 +160,14 @@
     <td>{{ "%.1f"|format(c.general_ratio_pct) }}%</td>
     <td>{{ "%.1f"|format(c.unsuitable_ratio_pct) }}%</td>
     <td>
-        {% if c.core_ratio_pct >= 40 %}
-        <span class="tag tag-high">核心主导</span>
-        {% elif c.core_ratio_pct >= 25 %}
-        <span class="tag tag-mid">较高核心</span>
-        {% elif c.core_ratio_pct < 10 %}
-        <span class="tag tag-low">低核心</span>
+        {% if c.city_type == "高峰值潜力型" %}
+        <span class="tag tag-high">高峰值潜力</span>
+        {% elif c.city_type == "均匀适生型" %}
+        <span class="tag tag-mid">均匀适生</span>
+        {% elif c.city_type == "整体弱势型" %}
+        <span class="tag tag-low">整体弱势</span>
+        {% else %}
+        <span class="tag tag-mid">一般分化</span>
         {% endif %}
     </td>
 </tr>
@@ -166,6 +176,7 @@
 </table>
 
 <div class="callout callout-info">
+<strong>排名说明：</strong>综合得分 = 0.5 × 均分 + 0.5 × 峰值得分，兼顾全域适宜性和局部优质地块潜力。<br>
 <strong>排名结构：</strong>{{ ranking_structure.ranking_type }}，
 头尾得分差距 {{ ranking_structure.regional_gap.score_range }}（{{ ranking_structure.regional_gap.type }}）。
 {% if ranking_structure.leading_group.exists %}
@@ -179,6 +190,51 @@ Bottom5 均分 {{ "%.4f"|format(comparative_analysis.bottom5_average_score) }}�
 {% if llm_ranking %}
 <div class="callout callout-info">
 {{ llm_ranking }}
+</div>
+{% endif %}
+
+<!-- ═══════════════ 第三章-B：峰值潜力分析 ═══════════════ -->
+{% if peak_analysis.exists %}
+<h2>三-B、峰值潜力分析</h2>
+
+<div class="callout callout-info">
+<strong>关键发现：</strong>{{ peak_analysis.insight }}
+</div>
+
+<table>
+<thead><tr>
+    <th>城市</th><th>峰值得分</th><th>均分</th><th>综合得分</th><th>峰值/均值比</th><th>城市类型</th>
+</tr></thead>
+<tbody>
+{% for pc in peak_analysis.peak_cities %}
+<tr>
+    <td style="text-align:left;"><strong>{{ pc.region }}</strong></td>
+    <td><strong>{{ "%.4f"|format(pc.max_score) }}</strong></td>
+    <td>{{ "%.4f"|format(pc.mean_score) }}</td>
+    <td>{{ "%.4f"|format(pc.composite_score) }}</td>
+    <td>{{ "%.1f"|format(pc.max_mean_ratio) }}x</td>
+    <td><span class="tag tag-high">高峰值潜力型</span></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% if peak_analysis.ranking_mismatch %}
+<div class="callout callout-info">
+<strong>排名差异说明：</strong>以下城市按均分排名和按综合得分排名差异显著——<br>
+{% for m in peak_analysis.ranking_mismatch %}
+<strong>{{ m.region }}</strong>：按均分排第 {{ m.mean_rank }} 名（均分 {{ "%.4f"|format(m.mean_score) }}），
+按综合得分排第 <strong>{{ m.composite_rank }}</strong> 名（峰值得分 {{ "%.3f"|format(m.max_score) }}），
+峰值更反映实际种植潜力。<br>
+{% endfor %}
+</div>
+{% endif %}
+
+<div class="callout callout-info">
+<strong>分析说明：</strong>{{ peak_analysis.note }}
+{% if peak_analysis.model_threshold %}
+<br>参考：全球生态适生阈值 = {{ "%.3f"|format(peak_analysis.model_threshold) }}。
+{% endif %}
 </div>
 {% endif %}
 

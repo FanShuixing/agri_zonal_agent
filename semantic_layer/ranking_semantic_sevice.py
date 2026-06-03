@@ -1,6 +1,13 @@
 import numpy as np
 import pandas as pd
 
+COMPOSITE_ALPHA = 0.5  # mean_score 在综合得分中的权重；(1-alpha) 给 max_score
+
+
+def compute_composite_score(mean_score: float, max_score: float, alpha: float = COMPOSITE_ALPHA) -> float:
+    """综合排名得分：均分 + 峰值潜力加权。"""
+    return round(alpha * mean_score + (1 - alpha) * max_score, 4)
+
 
 def build_ranking_semantic(
     city_stats,
@@ -48,8 +55,14 @@ def build_ranking_semantic(
 
     df = pd.DataFrame(city_stats)
 
+    # 综合排名得分：均分 + 峰值加权
+    df["composite_score"] = df.apply(
+        lambda row: compute_composite_score(row["mean_score"], row.get("max_score", 0)),
+        axis=1,
+    )
+
     df = df.sort_values(
-        by="mean_score",
+        by="composite_score",
         ascending=False,
     ).reset_index(drop=True)
 
@@ -70,32 +83,32 @@ def build_ranking_semantic(
     # =========================================
 
     scores = df["mean_score"].values
+    comp_scores = df["composite_score"].values
 
     max_score = float(np.max(scores))
-
     min_score = float(np.min(scores))
-
     mean_score = float(np.mean(scores))
-
     std_score = float(np.std(scores))
+
+    max_composite = float(np.max(comp_scores))
+    min_composite = float(np.min(comp_scores))
 
     score_gap = max_score - min_score
 
     cv = std_score / mean_score if mean_score > 0 else 0
 
     # =========================================
-    # 4️⃣ Top / Bottom Regions
+    # 4️⃣ Top / Bottom Regions（按综合得分）
     # =========================================
 
     top_regions = df.head(5)["region"].tolist()
-
     bottom_regions = df.tail(5)["region"].tolist()
 
     # =========================================
-    # 5️⃣ Head Group（头部梯队）
+    # 5️⃣ Head Group（头部梯队，按综合得分）
     # =========================================
 
-    leading_df = df[df["mean_score"] >= high_threshold]
+    leading_df = df[df["composite_score"] >= high_threshold]
 
     leading_regions = leading_df["region"].tolist()
 
@@ -121,9 +134,8 @@ def build_ranking_semantic(
     # 6️⃣ 排名结构分析
     # =========================================
 
-    high_count = len(df[df["mean_score"] >= high_threshold])
-
-    low_count = len(df[df["mean_score"] <= low_threshold])
+    high_count = len(df[df["composite_score"] >= high_threshold])
+    low_count = len(df[df["composite_score"] <= low_threshold])
 
     if high_count <= max(1, len(df) * 0.2):
 
@@ -175,13 +187,35 @@ def build_ranking_semantic(
     # 9️⃣ Top Tier / Mid Tier / Low Tier
     # =========================================
 
-    top_tier = df[df["mean_score"] >= high_threshold]["region"].tolist()
-
+    top_tier = df[df["composite_score"] >= high_threshold]["region"].tolist()
     mid_tier = df[
-        (df["mean_score"] >= medium_threshold) & (df["mean_score"] < high_threshold)
+        (df["composite_score"] >= medium_threshold) & (df["composite_score"] < high_threshold)
     ]["region"].tolist()
+    low_tier = df[df["composite_score"] < medium_threshold]["region"].tolist()
 
-    low_tier = df[df["mean_score"] < medium_threshold]["region"].tolist()
+    # =========================================
+    # 9️⃣-B 峰值潜力分析
+    # =========================================
+
+    df["mean_max_divergence"] = df.apply(
+        lambda r: r["max_score"] / max(r["mean_score"], 0.001), axis=1
+    )
+    peak_candidates = df[
+        (df["max_score"] >= 0.25) & (df["mean_max_divergence"] >= 2.0)
+    ].nlargest(5, "mean_max_divergence")
+
+    peak_analysis = {
+        "peak_cities": [
+            {
+                "region": row["region"],
+                "max_score": round(float(row["max_score"]), 4),
+                "mean_score": round(float(row["mean_score"]), 4),
+                "composite_score": round(float(row["composite_score"]), 4),
+                "max_mean_ratio": round(float(row["mean_max_divergence"]), 1),
+            }
+            for _, row in peak_candidates.iterrows()
+        ],
+    }
 
     # =========================================
     # 🔟 Ranking Summary
@@ -215,10 +249,9 @@ def build_ranking_semantic(
         "leading_group": leading_group,
         "ranking_structure": ranking_structure,
         "regional_gap": regional_gap,
-        # "tier_structure": {
-        #     "top_tier": top_tier,
-        #     "mid_tier": mid_tier,
-        #     "low_tier": low_tier,
-        # },
-        # "ranking_summary": ranking_summary,
+        "peak_analysis": peak_analysis,
+        "composite_stats": {
+            "max_composite": round(max_composite, 4),
+            "min_composite": round(min_composite, 4),
+        },
     }

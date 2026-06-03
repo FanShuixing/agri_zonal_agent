@@ -8,6 +8,33 @@ from pathlib import Path
 from utils.json_handler import load_json
 from core.model_registry import load_model_threshold
 
+COMPOSITE_ALPHA = 0.5  # mean_score 在综合得分中的权重；(1-alpha) 给 max_score
+
+
+def _compute_composite(mean_score: float, max_score: float) -> float:
+    return round(COMPOSITE_ALPHA * mean_score + (1 - COMPOSITE_ALPHA) * max_score, 4)
+
+
+def _classify_city_type(max_score: float, mean_score: float, model_threshold: float = 0.417) -> str:
+    """
+    城市类型分类（优先级依次）：
+    1. 整体弱势型: max < 0.12
+    2. 高峰值潜力型: max >= 0.30 且 max/mean >= 2.5
+    3. 均匀适生型: max/mean < 1.4
+    4. 一般分化型: 其余
+    """
+    _max = max_score or 0
+    _mean = max(mean_score or 0, 0.001)
+    weak_floor = max(0.12, model_threshold * 0.3)
+
+    if _max < weak_floor:
+        return "整体弱势型"
+    if _max >= 0.30 and (_max / _mean) >= 2.5:
+        return "高峰值潜力型"
+    if (_max / _mean) < 1.4:
+        return "均匀适生型"
+    return "一般分化型"
+
 
 def build_report_context(
     semantic_json_path: str | Path = "output/cache/semantic_layer.json",
@@ -98,7 +125,10 @@ def build_report_context(
         grade_structure, spatial_quality, numerical_basis,
     )
 
-    # ── 11. 最终组装 ───────────────────────────────────────────────
+    # ── 11. 峰值潜力分析 ──────────────────────────────────────────
+    peak_analysis = _build_peak_analysis(city_scorecards, ranking_semantic, numerical_basis)
+
+    # ── 12. 最终组装 ───────────────────────────────────────────────
     return {
         "province": semantic["region_name"],
         "province_summary": province_summary,
@@ -111,6 +141,7 @@ def build_report_context(
         "grade_structure": grade_structure,
         "spatial_quality": spatial_quality,
         "industrial_context": industrial_context,
+        "peak_analysis": peak_analysis,
         "artifacts": {
             "heatmap": "output/predictions/region_map.png",
             "suitability_map": "output/static/suitability_map.png",
@@ -184,12 +215,16 @@ def _build_city_scorecards(raw: dict, semantic: dict) -> list[dict]:
     for cg in city_grades:
         grade_map[cg["region"]] = cg
 
-    # 建排名索引（从 semantic 中获取城市顺序）
+    # 建排名索引（按综合得分排序）
     all_regions = [s["region"] for s in city_stats]
-    sorted_by_mean = sorted(city_stats, key=lambda x: x.get("mean_score", 0), reverse=True)
+    sorted_by_composite = sorted(
+        city_stats,
+        key=lambda x: _compute_composite(x.get("mean_score", 0), x.get("max_score", 0)),
+        reverse=True,
+    )
 
     cards = []
-    for rank_idx, city in enumerate(sorted_by_mean, 1):
+    for rank_idx, city in enumerate(sorted_by_composite, 1):
         region = city["region"]
         ginfo = grade_map.get(region, {})
         grade_ratios = ginfo.get("grade_ratios", [])
@@ -199,18 +234,25 @@ def _build_city_scorecards(raw: dict, semantic: dict) -> list[dict]:
         for g in grade_ratios:
             grade_pct[g["grade_name"]] = round(g["area_ratio"] * 100, 1)
 
+        _mean = city.get("mean_score", 0)
+        _max = city.get("max_score", 0)
+        composite = _compute_composite(_mean, _max)
+
         card = {
             "rank": rank_idx,
             "region": region,
-            "mean_score": city.get("mean_score", 0),
-            "max_score": city.get("max_score", 0),
+            "composite_score": composite,
+            "mean_score": _mean,
+            "max_score": _max,
             "min_score": city.get("min_score", 0),
+            "city_type": _classify_city_type(_max, _mean),
+            "max_mean_ratio": round(_max / max(_mean, 0.001), 2),
             "core_ratio_pct": grade_pct.get("核心优势区", 0),
             "suitable_ratio_pct": grade_pct.get("较适宜区", 0),
             "general_ratio_pct": grade_pct.get("一般适宜区", 0),
             "unsuitable_ratio_pct": grade_pct.get("不适宜区", 0),
             "dominant_grade": ginfo.get("dominant_grade", ""),
-            "total_cities": len(sorted_by_mean),
+            "total_cities": len(sorted_by_composite),
         }
         cards.append(card)
 
@@ -228,6 +270,10 @@ def _build_comparative(city_scorecards: list[dict], ranking_semantic: dict) -> d
     top5_mean = round(sum(c["mean_score"] for c in top5) / len(top5), 4)
     bottom5_mean = round(sum(c["mean_score"] for c in bottom5) / len(bottom5), 4)
 
+    # 按均分、按峰值分别找最优城市
+    by_mean = max(city_scorecards, key=lambda c: c["mean_score"])
+    by_max = max(city_scorecards, key=lambda c: c["max_score"])
+
     return {
         "top5_cities": [
             {"region": c["region"], "mean_score": c["mean_score"], "core_ratio_pct": c["core_ratio_pct"]}
@@ -241,10 +287,62 @@ def _build_comparative(city_scorecards: list[dict], ranking_semantic: dict) -> d
         "bottom5_average_score": bottom5_mean,
         "top_vs_bottom_gap": round(top5_mean - bottom5_mean, 4),
         "best_city": top5[0]["region"] if top5 else "",
-        "best_city_score": top5[0]["mean_score"] if top5 else 0,
+        "best_city_score": top5[0]["composite_score"] if top5 else 0,
+        "best_city_by_mean": by_mean["region"],
+        "best_city_by_mean_score": by_mean["mean_score"],
+        "best_city_by_max": by_max["region"],
+        "best_city_by_max_score": by_max["max_score"],
         "worst_city": bottom5[-1]["region"] if bottom5 else "",
-        "worst_city_score": bottom5[-1]["mean_score"] if bottom5 else 0,
+        "worst_city_score": bottom5[-1]["composite_score"] if bottom5 else 0,
         "leading_group_description": ranking_semantic.get("leading_group", {}).get("description", ""),
+        "peak_cities": [c for c in city_scorecards if c["city_type"] == "高峰值潜力型"],
+    }
+
+
+def _build_peak_analysis(city_scorecards: list[dict], ranking_semantic: dict, numerical_basis: dict) -> dict:
+    """峰值潜力分析：识别均分不高但拥有顶级地块的城市。"""
+    peak_cities = [c for c in city_scorecards if c["city_type"] == "高峰值潜力型"]
+    model_threshold = numerical_basis.get("province_level", {}).get("model_threshold", 0.417)
+
+    # 数据驱动 insight
+    insight_parts = []
+    for pc in peak_cities[:3]:
+        insight_parts.append(
+            f"{pc['region']}虽均分（{pc['mean_score']:.3f}）非最高，"
+            f"但境内部分区域达到 {pc['max_score']:.3f} 的高适宜性水平"
+            f"（峰值/均值比 = {pc['max_mean_ratio']:.1f}），"
+            f"存在优质种植潜力区。"
+        )
+
+    # 排名分歧：按 composite 排 vs 按 mean 排，差异 ≥ 2 的城市
+    by_mean_rank = sorted(city_scorecards, key=lambda c: c["mean_score"], reverse=True)
+    ranking_mismatch = []
+    for c in city_scorecards:
+        mean_rank = by_mean_rank.index(c) + 1
+        comp_rank = c["rank"]
+        diff = mean_rank - comp_rank
+        if abs(diff) >= 2:
+            ranking_mismatch.append({
+                "region": c["region"],
+                "mean_rank": mean_rank,
+                "composite_rank": comp_rank,
+                "rank_change": diff,
+                "max_score": c["max_score"],
+                "mean_score": c["mean_score"],
+            })
+
+    return {
+        "exists": len(peak_cities) > 0,
+        "peak_cities": peak_cities,
+        "peak_city_count": len(peak_cities),
+        "ranking_mismatch": ranking_mismatch[:5],
+        "insight": "；".join(insight_parts) if insight_parts else "无显著峰值潜力城市。",
+        "model_threshold": round(model_threshold, 4),
+        "note": (
+            "峰值潜力分析识别那些虽平均适宜性不高，"
+            "但拥有局部顶级适宜区的城市（max/mean ≥ 2.5 且 max ≥ 0.30）。"
+            "对农业生产而言，局部优质地块的价值远超均值指标所反映的水平。"
+        ),
     }
 
 
